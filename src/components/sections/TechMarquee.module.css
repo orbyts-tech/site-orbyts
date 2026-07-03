@@ -1,0 +1,98 @@
+.wrap {
+  border-top: 1px solid var(--glass-border-subtle);
+  border-bottom: 1px solid var(--glass-border-subtle);
+  padding: 1.25rem 0;
+  background: var(--glass-bg-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+}
+
+.wrap::before,
+.wrap::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.wrap::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(6, 6, 6, 0.9), transparent);
+}
+
+.wrap::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(6, 6, 6, 0.9), transparent);
+}
+
+.track {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  animation: marquee-scroll 35s linear infinite;
+  width: max-content;
+  padding-left: 2.5rem;
+}
+
+.item {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink-3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .wrap {
+    padding: 2rem 0;
+  }
+
+  .wrap::before,
+  .wrap::after {
+    width: 150px;
+  }
+
+  .track {
+    gap: 5rem;
+    padding-left: 5rem;
+  }
+
+  .item {
+    font-size: 1rem;
+    gap: 16px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding: 0 var(--page-padding-x);
+    gap: 1rem 1.5rem;
+  }
+}

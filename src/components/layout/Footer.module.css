@@ -1,0 +1,145 @@
+.footer {
+  border-top: 1px solid var(--glass-border-subtle);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 3.5rem var(--page-padding-x) 2rem;
+  margin-top: 4rem;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.brand {
+  max-width: 100%;
+}
+
+.logoMark {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, var(--green), #2a8b5d);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brandName {
+  font-family: var(--font-sora), sans-serif;
+  font-size: 1.125rem;
+}
+
+.tagline {
+  margin-top: 12px;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  line-height: 1.65;
+}
+
+.linksCol h4 {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.8125rem;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.linksCol ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.linksCol a {
+  color: var(--ink-2);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.linksCol a:hover {
+  color: var(--green);
+}
+
+.bottom {
+  max-width: var(--container-max);
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--ink-4);
+}
+
+@media (min-width: 640px) {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 2.5rem;
+  }
+
+  .brand {
+    grid-column: 1 / -1;
+    max-width: 20rem;
+  }
+
+  .bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .footer {
+    padding: 5rem var(--page-padding-x) 2.5rem;
+    margin-top: 6.25rem;
+  }
+
+  .inner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 3rem;
+  }
+
+  .brand {
+    grid-column: auto;
+    max-width: 20rem;
+  }
+
+  .brandName {
+    font-size: 1.25rem;
+  }
+
+  .tagline {
+    margin-top: 16px;
+    font-size: 0.9375rem;
+  }
+
+  .linksCol h4 {
+    font-size: 0.875rem;
+    margin-bottom: 20px;
+  }
+
+  .linksCol ul {
+    gap: 12px;
+  }
+
+  .linksCol a {
+    font-size: 0.9375rem;
+  }
+
+  .bottom {
+    margin-top: 4rem;
+    padding-top: 2rem;
+  }
+}

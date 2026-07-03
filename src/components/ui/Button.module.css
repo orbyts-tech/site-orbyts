@@ -1,0 +1,113 @@
+.primary {
+  height: 48px;
+  padding: 0 1.5rem;
+  background: linear-gradient(135deg, #42d392 0%, #29b274 100%);
+  color: #002211;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow:
+    0 8px 24px rgba(66, 211, 146, 0.25),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+}
+
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 32px rgba(66, 211, 146, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  filter: brightness(1.05);
+}
+
+.primary:active {
+  transform: scale(0.98);
+}
+
+.ghost {
+  height: 48px;
+  padding: 0 1.5rem;
+  background: var(--glass-bg-subtle);
+  border: 1px solid var(--glass-border);
+  color: #e4e4e7;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--glass-inset);
+  white-space: nowrap;
+}
+
+.ghost:hover {
+  background: var(--glass-bg);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: var(--glass-shadow), var(--glass-inset-strong);
+}
+
+.fullWidth {
+  width: 100%;
+  justify-content: center;
+}
+
+.icon {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+}
+
+.icon:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.compact {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+}
+
+@media (min-width: 768px) {
+  .primary,
+  .ghost {
+    height: 56px;
+    padding: 0 2.25rem;
+    font-size: 1rem;
+  }
+
+  .fullWidth {
+    width: auto;
+  }
+
+  .icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .compact {
+    padding: 0 20px;
+    font-size: 0.875rem;
+  }
+}

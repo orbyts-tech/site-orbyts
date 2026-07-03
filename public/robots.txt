@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://orbyts.com.br/sitemap.xml

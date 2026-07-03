@@ -1,0 +1,235 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 var(--page-padding-x);
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--glass-bg-subtle);
+  backdrop-filter: blur(var(--glass-blur-strong));
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+  border-bottom: 1px solid var(--glass-border-subtle);
+  box-shadow: var(--glass-inset);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.logoMark {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--green), #2a8b5d);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px var(--green-dim);
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-family: var(--font-sora), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.links {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.links a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.links a:hover {
+  color: var(--ink);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.cta {
+  background: var(--ink) !important;
+  color: var(--bg) !important;
+  font-weight: 600;
+  border: none !important;
+  border-radius: 8px !important;
+  white-space: nowrap;
+}
+
+.cta:hover {
+  background: var(--green) !important;
+  color: var(--bg) !important;
+  transform: translateY(-1px);
+}
+
+.ctaFull {
+  display: none;
+}
+
+.ctaShort {
+  display: inline;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--glass-border-subtle);
+  border-radius: 10px;
+  background: var(--glass-bg-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.menuButton:hover {
+  border-color: var(--border-2);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+}
+
+.mobileBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+}
+
+.mobilePanel {
+  position: absolute;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  padding: 1.25rem var(--page-padding-x) 1.5rem;
+  background: var(--glass-bg-strong);
+  border-bottom: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur-strong));
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+  box-shadow: var(--glass-shadow), var(--glass-inset);
+  pointer-events: auto;
+  animation: menu-slide-in 0.25s ease-out;
+}
+
+.mobileLinks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobileLinks a {
+  display: block;
+  padding: 14px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+
+.mobileLinks li:last-child a {
+  border-bottom: none;
+}
+
+.mobileLinks a:hover {
+  color: var(--ink);
+}
+
+.mobileCta {
+  width: 100%;
+  margin-top: 16px;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: var(--green);
+  color: var(--bg);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.mobileCta:hover {
+  filter: brightness(1.05);
+}
+
+@media (min-width: 480px) {
+  .logoMark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logoText {
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .links {
+    display: flex;
+  }
+
+  .menuButton {
+    display: none;
+  }
+
+  .ctaFull {
+    display: inline;
+  }
+
+  .ctaShort {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .links {
+    gap: 2.5rem;
+  }
+}

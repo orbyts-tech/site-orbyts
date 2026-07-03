@@ -1,32 +1,56 @@
-# React + TypeScript + Vite
+# ORBYTS — Site Institucional
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Landing page da software house ORBYTS, construída com **Next.js 15** (App Router), componentização modular e otimizações de SEO/performance.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Next.js 15 (App Router)
+- React 19
+- TypeScript (strict)
+- CSS Modules + design tokens globais
+- `next/font` (Sora, Inter, JetBrains Mono)
+- `next/image` para imagens otimizadas
 
-## React Compiler
+## Estrutura
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```
+src/
+├── app/              # Rotas, layout, metadata, sitemap, robots
+├── components/
+│   ├── layout/       # Navbar, Footer
+│   ├── sections/     # Hero, Projetos, Processo, Modelos, CTA
+│   ├── ui/           # Button, FadeUp, Icons
+│   └── seo/          # JSON-LD structured data
+├── config/           # Configuração central do site
+└── lib/constants/    # Dados estáticos (projetos, processo, etc.)
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Desenvolvimento
+
+```bash
+npm install
+npm run dev
+```
+
+Acesse [http://localhost:3000](http://localhost:3000).
+
+## Build
+
+```bash
+npm run build
+npm start
+```
+
+## SEO
+
+- Metadata API (title, description, Open Graph, Twitter Cards)
+- `sitemap.ts` e `robots.ts` dinâmicos
+- JSON-LD (`Organization`, `ProfessionalService`, `WebSite`)
+- HTML semântico com landmarks (`nav`, `main`, `section`, `footer`)
+- Canonical URL configurável via `NEXT_PUBLIC_SITE_URL`
+
+## Variáveis de ambiente
+
+```env
+NEXT_PUBLIC_SITE_URL=https://orbyts.com.br
+```
