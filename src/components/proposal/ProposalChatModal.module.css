@@ -46,15 +46,10 @@
   min-width: 0;
 }
 
-.avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--green), #2a8b5d);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 16px var(--green-dim);
+.headerLogo {
+  display: block;
+  width: auto;
+  height: 42px;
   flex-shrink: 0;
 }
 
@@ -137,15 +132,20 @@
 }
 
 .botAvatarSmall {
-  width: 24px;
-  height: 24px;
-  border-radius: 7px;
-  background: linear-gradient(135deg, var(--green), #2a8b5d);
+  width: auto;
+  min-width: 60px;
+  height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   margin-bottom: 2px;
+}
+
+.botLogo {
+  display: block;
+  width: auto;
+  height: 22px;
 }
 
 .bubble {

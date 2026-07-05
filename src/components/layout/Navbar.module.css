@@ -20,7 +20,6 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
   text-decoration: none;
   transition: opacity 0.2s;
   flex-shrink: 0;
@@ -28,27 +27,13 @@
 }
 
 .logo:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-.logoMark {
-  width: 28px;
-  height: 28px;
-  background: linear-gradient(135deg, var(--green), #2a8b5d);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 16px var(--green-dim);
-  flex-shrink: 0;
-}
-
-.logoText {
-  font-family: var(--font-sora), sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -0.02em;
+.logoImage {
+  display: block;
+  width: auto;
+  height: clamp(48px, 12vw, 64px);
 }
 
 .links {
@@ -195,18 +180,11 @@
   filter: brightness(1.05);
 }
 
-@media (min-width: 480px) {
-  .logoMark {
-    width: 32px;
-    height: 32px;
-  }
-
-  .logoText {
-    font-size: 1.125rem;
-  }
-}
-
 @media (min-width: 768px) {
+  .logoImage {
+    height: 68px;
+  }
+
   .links {
     display: flex;
   }

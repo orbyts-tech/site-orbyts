@@ -8,13 +8,31 @@ export interface Project {
   stack: string[];
   imageSeed: string;
   imageAlt: string;
-  /** URL externa do projeto (quando disponível) */
-  href?: string;
+  /**
+   * URL do sistema ao vivo (iframe). Sobrescreve o preview de teste.
+   * Ex.: "https://app.seudominio.com.br"
+   */
+  appUrl?: string;
 }
 
 export function getProjectImageUrl(project: Project): string {
   return `https://picsum.photos/seed/${project.imageSeed}/1600/1000`;
 }
+
+export function getProjectById(id: string): Project | undefined {
+  return PROJECTS.find((project) => project.id === id);
+}
+
+export {
+  getProjectAppUrl,
+  getProjectAppUrlSource,
+  hasProjectLiveApp,
+  isExternalProjectUrl,
+  isKnownEmbeddableUrl,
+  resolveProjectAppUrl,
+} from "./projectAppUrl";
+
+export type { ProjectAppUrlSource, ResolvedProjectAppUrl } from "./projectEmbedUrls";
 
 export const PROJECTS: Project[] = [
   {
@@ -28,6 +46,7 @@ export const PROJECTS: Project[] = [
     stack: ["React Native", "PostGIS"],
     imageSeed: "tech1",
     imageAlt: "Orb Run — app mobile de corrida geolocalizada",
+    // appUrl: "https://app.orbrun.com.br",
   },
   {
     id: "recebi-fintech",
@@ -40,6 +59,7 @@ export const PROJECTS: Project[] = [
     stack: ["Next.js", "Supabase"],
     imageSeed: "tech2",
     imageAlt: "Recebi Fintech — plataforma de billing recorrente",
+    // appUrl: "https://app.recebi.com.br",
   },
   {
     id: "clinicflow",
@@ -52,5 +72,6 @@ export const PROJECTS: Project[] = [
     stack: ["React", "Node.js"],
     imageSeed: "tech3",
     imageAlt: "ClinicFlow — ERP hospitalar com prontuário eletrônico",
+    // appUrl: "https://app.clinicflow.com.br",
   },
 ];

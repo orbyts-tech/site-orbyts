@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { NAV_LINKS } from "@/lib/constants/content";
-import { OrbytsLogoMark } from "@/components/ui/Icons";
+import { OrbytsLogo } from "@/components/ui/OrbytsLogo";
 import { OpenProposalButton } from "@/components/proposal/OpenProposalButton";
 import { useProposalForm } from "@/components/proposal/ProposalFormContext";
 import styles from "./Navbar.module.css";
@@ -66,10 +66,7 @@ export function Navbar() {
     <>
       <nav className={styles.nav} aria-label="Navegação principal">
         <Link className={styles.logo} href="/" onClick={closeMenu}>
-          <div className={styles.logoMark}>
-            <OrbytsLogoMark />
-          </div>
-          <span className={styles.logoText}>ORBYTS</span>
+          <OrbytsLogo className={styles.logoImage} width={375} height={68} priority />
         </Link>
 
         <ul className={styles.links}>

@@ -18,20 +18,11 @@
   max-width: 100%;
 }
 
-.logoMark {
-  width: 24px;
-  height: 24px;
-  margin-bottom: 14px;
-  background: linear-gradient(135deg, var(--green), #2a8b5d);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.brandName {
-  font-family: var(--font-sora), sans-serif;
-  font-size: 1.125rem;
+.logoImage {
+  display: block;
+  width: auto;
+  height: clamp(52px, 13vw, 72px);
+  margin-bottom: 16px;
 }
 
 .tagline {

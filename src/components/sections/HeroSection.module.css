@@ -70,15 +70,30 @@
   flex-shrink: 0;
 }
 
+.titleWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .title {
   font-family: var(--font-sora), sans-serif;
   font-size: clamp(1.875rem, 9vw, 5.5rem);
   font-weight: 800;
   letter-spacing: -0.04em;
-  line-height: 1.1;
+  line-height: 1.08;
   color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   width: 100%;
-  text-wrap: balance;
+}
+
+.titleLine {
+  display: block;
+  width: 100%;
+  text-align: center;
 }
 
 .accent {
@@ -86,7 +101,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  display: inline;
 }
 
 .subtitle {
@@ -96,8 +110,10 @@
   line-height: 1.6;
   max-width: 36rem;
   font-weight: 400;
-  text-wrap: pretty;
   width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .actions {

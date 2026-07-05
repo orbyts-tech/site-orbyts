@@ -35,7 +35,7 @@
   --page-padding-x: 1.25rem;
   --section-padding-y: 5rem;
   --container-max: 80rem;
-  --nav-height: 4rem;
+  --nav-height: 4.5rem;
   --content-gap: 1rem;
 }
 
@@ -50,7 +50,7 @@
   :root {
     --page-padding-x: 2rem;
     --section-padding-y: 7.5rem;
-    --nav-height: 4.5rem;
+    --nav-height: 5rem;
     --content-gap: 1.25rem;
   }
 }

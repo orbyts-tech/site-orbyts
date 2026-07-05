@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FOOTER_LINKS } from "@/lib/constants/content";
-import { OrbytsLogoMark } from "@/components/ui/Icons";
+import { OrbytsLogo } from "@/components/ui/OrbytsLogo";
 import styles from "./Footer.module.css";
 
 export function Footer() {
@@ -10,10 +10,7 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <div className={styles.logoMark}>
-            <OrbytsLogoMark size={14} />
-          </div>
-          <h3 className={styles.brandName}>ORBYTS</h3>
+          <OrbytsLogo className={styles.logoImage} width={397} height={72} />
           <p className={styles.tagline}>
             Engenharia de software previsível no Rio Grande do Sul. Transformando escopos
             complexos em código de produção.

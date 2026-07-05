@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/Button";
 import buttonStyles from "@/components/ui/Button.module.css";
-import { FadeUp } from "@/components/ui/FadeUp";import { ArrowRightIcon } from "@/components/ui/Icons";
+import { FadeUp } from "@/components/ui/FadeUp";
+import { ArrowRightIcon } from "@/components/ui/Icons";
 import { HERO_STATS } from "@/lib/constants/content";
 import styles from "./HeroSection.module.css";
 
@@ -15,10 +16,13 @@ export function HeroSection() {
           </div>
         </FadeUp>
 
-        <FadeUp delay={0.1}>
+        <FadeUp delay={0.1} className={styles.titleWrap}>
           <h1 id="hero-heading" className={styles.title}>
-            Software que entrega <br />
-            <span className={styles.accent}>no prazo.</span> Sempre.
+            <span className={styles.titleLine}>Software que</span>
+            <span className={styles.titleLine}>entrega</span>
+            <span className={styles.titleLine}>
+              <span className={styles.accent}>no prazo.</span> Sempre.
+            </span>
           </h1>
         </FadeUp>
 
@@ -35,7 +39,8 @@ export function HeroSection() {
               Explorar Projetos
               <ArrowRightIcon />
             </Button>
-            <Button href="#processo" variant="ghost" className={buttonStyles.fullWidth}>              Como trabalhamos
+            <Button href="#processo" variant="ghost" className={buttonStyles.fullWidth}>
+              Como trabalhamos
             </Button>
           </div>
         </FadeUp>

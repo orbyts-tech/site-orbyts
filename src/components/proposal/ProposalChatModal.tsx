@@ -13,7 +13,7 @@ import {
   getInvestmentLabel,
   validateProposalField,
 } from "@/lib/validation/validateProposalStep";
-import { OrbytsLogoMark } from "@/components/ui/Icons";
+import { OrbytsLogo } from "@/components/ui/OrbytsLogo";
 import styles from "./ProposalChatModal.module.css";
 
 interface ProposalChatModalProps {
@@ -62,6 +62,11 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
   const [isDone, setIsDone] = useState(false);
   const [inputError, setInputError] = useState<string | null>(null);
 
+  const onCloseRef = useRef(onClose);
+  const isSubmittingRef = useRef(isSubmitting);
+  onCloseRef.current = onClose;
+  isSubmittingRef.current = isSubmitting;
+
   const stepConfig = PROPOSAL_CHAT_STEPS.find((step) => step.field === currentStep);
   const isInvestmentStep = currentStep === "investment";
   const showInput = !isDone && !isSubmitting && !isInvestmentStep;
@@ -90,7 +95,9 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
     dialogRef.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !isSubmitting) onClose();
+      if (event.key === "Escape" && !isSubmittingRef.current) {
+        onCloseRef.current();
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -111,7 +118,7 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
       window.removeEventListener("keydown", handleKeyDown);
       window.clearTimeout(introTimer);
     };
-  }, [isSubmitting, onClose]);
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -215,12 +222,10 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
       >
         <header className={styles.header}>
           <div className={styles.headerInfo}>
-            <div className={styles.avatar} aria-hidden="true">
-              <OrbytsLogoMark size={16} />
-            </div>
+            <OrbytsLogo className={styles.headerLogo} width={232} height={42} />
             <div>
               <h2 id={titleId} className={styles.headerTitle}>
-                ORBYTS · Propostas
+                Propostas
               </h2>
               <p className={styles.headerSubtitle}>Assistente comercial</p>
             </div>
@@ -248,7 +253,7 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
             >
               {message.role === "bot" ? (
                 <div className={styles.botAvatarSmall} aria-hidden="true">
-                  <OrbytsLogoMark size={12} />
+                  <OrbytsLogo className={styles.botLogo} width={122} height={22} />
                 </div>
               ) : null}
               <div
@@ -264,7 +269,7 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
           {isTyping ? (
             <div className={`${styles.messageRow} ${styles.messageRowBot}`}>
               <div className={styles.botAvatarSmall} aria-hidden="true">
-                <OrbytsLogoMark size={12} />
+                <OrbytsLogo className={styles.botLogo} width={122} height={22} />
               </div>
               <div className={`${styles.bubble} ${styles.bubbleBot} ${styles.typing}`}>
                 <span />
