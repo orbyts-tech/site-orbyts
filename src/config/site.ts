@@ -36,7 +36,7 @@ export const SITE = {
     "SaaS B2B",
     "Squad as a Service",
   ],
-  themeColor: "#42D392",
+  themeColor: "#339A62",
   logoPath: "/logo-orbyts.png",
 } as const;
 

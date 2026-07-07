@@ -38,7 +38,7 @@ export function ModelsSection() {
               ))}
             </ul>
             {model.featured ? (
-              <OpenProposalButton className={buttonStyles.fullWidth}>
+              <OpenProposalButton className={`${buttonStyles.fullWidth} ${styles.featuredCta}`}>
                 {model.ctaLabel}
               </OpenProposalButton>
             ) : (

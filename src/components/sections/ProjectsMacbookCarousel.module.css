@@ -18,13 +18,13 @@
   height: 44px;
   display: grid;
   place-items: center;
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  background: rgba(8, 8, 8, 0.82);
+  border: 1px solid var(--glass-card-border);
+  border-radius: var(--radius-control);
+  background: var(--glass-card);
   color: var(--ink);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: var(--glass-shadow), var(--glass-inset);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-sm), var(--glass-inset);
   cursor: pointer;
   transition:
     background 0.2s ease,
@@ -34,9 +34,9 @@
 }
 
 .navButton:hover:not(:disabled) {
-  background: rgba(18, 18, 18, 0.95);
-  border-color: rgba(255, 255, 255, 0.24);
-  color: #fff;
+  background: var(--surf);
+  border-color: var(--border-glow);
+  color: var(--green-dark);
   transform: translateY(-2px);
 }
 
@@ -87,16 +87,21 @@
 }
 
 .metaTag {
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  color: var(--green);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--green-dark);
+  letter-spacing: var(--tracking-caption);
   display: inline-flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
+  background: var(--glass-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-card-border);
+  border-radius: 100px;
+  padding: 6px 14px;
+  box-shadow: var(--shadow-sm);
 }
 
 .tagDot {
@@ -107,12 +112,12 @@
 }
 
 .metaTitle {
-  font-family: var(--font-sora), sans-serif;
-  font-size: clamp(1.25rem, 4vw, 1.75rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3.5vw, 1.625rem);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
   color: var(--ink);
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .metaDesc {
@@ -131,15 +136,16 @@
 }
 
 .stackItem {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  font-family: var(--font-jetbrains-mono), monospace;
-  color: var(--ink-2);
-  background: var(--glass-bg-subtle);
-  border: 1px solid var(--glass-border-subtle);
-  border-radius: 6px;
-  padding: 4px 10px;
-  backdrop-filter: blur(8px);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink-3);
+  background: var(--glass-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-card-border);
+  border-radius: var(--radius-control);
+  padding: 5px 12px;
+  letter-spacing: var(--tracking-caption);
 }
 
 .enterButton {
@@ -147,19 +153,20 @@
   height: 44px;
   padding: 0 24px;
   border: none;
-  border-radius: 100px;
-  background: linear-gradient(135deg, #42d392 0%, #29b274 100%);
-  color: #002211;
+  border-radius: var(--radius-control);
+  background: var(--green);
+  color: var(--on-green);
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(66, 211, 146, 0.25);
-  transition: transform 0.2s ease, filter 0.2s ease;
+  box-shadow: var(--green-shadow);
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
 }
 
 .enterButton:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   filter: brightness(1.05);
+  box-shadow: var(--green-shadow-lg);
 }
 
 .dots {
@@ -190,7 +197,7 @@
   position: fixed;
   inset: 0;
   z-index: 150;
-  background: rgba(0, 0, 0, 0.72);
+  background: var(--overlay);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   display: flex;
@@ -205,11 +212,11 @@
   max-width: 920px;
   max-height: calc(100dvh - 32px);
   overflow-y: auto;
-  background: var(--glass-bg-strong);
+  background: var(--glass-card);
   backdrop-filter: blur(var(--glass-blur-strong));
   -webkit-backdrop-filter: blur(var(--glass-blur-strong));
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
+  border: 1px solid var(--glass-card-border);
+  border-radius: var(--radius-card-lg);
   padding: 20px 16px 24px;
   box-shadow: var(--shadow-lg), var(--glass-inset-strong);
   outline: none;
@@ -248,20 +255,18 @@
 }
 
 .entryEyebrow {
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 0.6875rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--green);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--tracking-caption);
 }
 
 .entryTitle {
-  font-family: var(--font-sora), sans-serif;
-  font-size: clamp(1.375rem, 4vw, 2rem);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 3.5vw, 1.875rem);
+  font-weight: 600;
   margin-top: 8px;
-  letter-spacing: -0.03em;
+  letter-spacing: var(--tracking-tight);
 }
 
 .entryDesc {
@@ -290,20 +295,21 @@
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 100px;
-  background: linear-gradient(135deg, #42d392 0%, #29b274 100%);
-  color: #002211;
+  border-radius: var(--radius-control);
+  background: var(--green);
+  color: var(--on-green);
   font-size: 0.9375rem;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(66, 211, 146, 0.25);
-  transition: transform 0.2s ease, filter 0.2s ease;
+  box-shadow: var(--green-shadow);
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
 }
 
 .entryCta:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   filter: brightness(1.05);
+  box-shadow: var(--green-shadow-lg);
 }
 
 .entryNote {
@@ -365,7 +371,7 @@
 
   .entryPanel {
     padding: 24px 28px 32px;
-    border-radius: 24px;
+    border-radius: var(--radius-card-xl);
   }
 }
 

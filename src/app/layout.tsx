@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Sora } from "next/font/google";
-import { AmbientBackground } from "@/components/layout/AmbientBackground";
+import { Inter, JetBrains_Mono } from "next/font/google";
+import { DotGridBackground } from "@/components/layout/DotGridBackground";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { absoluteUrl, SITE } from "@/config/site";
 import "./globals.css";
@@ -9,18 +9,14 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
-});
-
-const sora = Sora({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-sora",
+  weight: ["400", "500", "600", "700"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-jetbrains-mono",
+  weight: ["400", "500"],
 });
 
 export const viewport: Viewport = {
@@ -86,10 +82,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang={SITE.language}
-      className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}>
-        <AmbientBackground />
+      <body>
+        <DotGridBackground />
         <OrganizationJsonLd />
         {children}
       </body>

@@ -66,7 +66,7 @@ export function Navbar() {
     <>
       <nav className={styles.nav} aria-label="Navegação principal">
         <Link className={styles.logo} href="/" onClick={closeMenu}>
-          <OrbytsLogo className={styles.logoImage} width={375} height={68} priority />
+          <OrbytsLogo className={styles.logoImage} priority />
         </Link>
 
         <ul className={styles.links}>

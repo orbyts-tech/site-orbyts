@@ -1,10 +1,10 @@
 .wrap {
-  border-top: 1px solid var(--glass-border-subtle);
-  border-bottom: 1px solid var(--glass-border-subtle);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   padding: 1.25rem 0;
-  background: var(--glass-bg-subtle);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--glass-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   overflow: hidden;
   position: relative;
   display: flex;
@@ -23,12 +23,12 @@
 
 .wrap::before {
   left: 0;
-  background: linear-gradient(to right, rgba(6, 6, 6, 0.9), transparent);
+  background: linear-gradient(to right, var(--bg), transparent);
 }
 
 .wrap::after {
   right: 0;
-  background: linear-gradient(to left, rgba(6, 6, 6, 0.9), transparent);
+  background: linear-gradient(to left, var(--bg), transparent);
 }
 
 .track {
@@ -41,10 +41,10 @@
 }
 
 .item {
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: var(--ink-3);
+  letter-spacing: var(--tracking-body);
   display: flex;
   align-items: center;
   gap: 12px;

@@ -222,7 +222,7 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
       >
         <header className={styles.header}>
           <div className={styles.headerInfo}>
-            <OrbytsLogo className={styles.headerLogo} width={232} height={42} />
+            <OrbytsLogo className={styles.headerLogo} />
             <div>
               <h2 id={titleId} className={styles.headerTitle}>
                 Propostas
@@ -253,7 +253,7 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
             >
               {message.role === "bot" ? (
                 <div className={styles.botAvatarSmall} aria-hidden="true">
-                  <OrbytsLogo className={styles.botLogo} width={122} height={22} />
+                  <OrbytsLogo className={styles.botLogo} />
                 </div>
               ) : null}
               <div
@@ -269,7 +269,7 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
           {isTyping ? (
             <div className={`${styles.messageRow} ${styles.messageRowBot}`}>
               <div className={styles.botAvatarSmall} aria-hidden="true">
-                <OrbytsLogo className={styles.botLogo} width={122} height={22} />
+                <OrbytsLogo className={styles.botLogo} />
               </div>
               <div className={`${styles.bubble} ${styles.bubbleBot} ${styles.typing}`}>
                 <span />

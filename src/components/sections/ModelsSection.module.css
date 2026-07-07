@@ -7,20 +7,22 @@
 }
 
 .title {
-  font-family: var(--font-sora), sans-serif;
-  font-size: clamp(1.75rem, 5vw, 3rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
   color: var(--ink);
-  line-height: 1.1;
+  line-height: 1.08;
 }
 
 .subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  font-size: clamp(1.0625rem, 2.2vw, 1.1875rem);
   color: var(--ink-2);
-  line-height: 1.7;
+  line-height: 1.55;
   max-width: 35rem;
   margin-top: 0.75rem;
+  font-weight: 400;
+  letter-spacing: var(--tracking-body);
 }
 
 .grid {
@@ -31,34 +33,59 @@
 }
 
 .card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  box-shadow: var(--glass-shadow), var(--glass-inset);
+  background: var(--glass-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-card-border);
+  border-radius: var(--radius-card-lg);
+  box-shadow: var(--shadow-sm), var(--glass-inset);
   padding: 1.75rem 1.25rem;
   position: relative;
-  transition: all 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   display: flex;
   flex-direction: column;
 }
 
 .card:hover {
-  border-color: var(--border-2);
+  transform: translateY(-4px);
+  border-color: rgba(var(--green-rgb), 0.22);
+  box-shadow: var(--shadow-lg);
 }
 
 .featured {
-  border-color: rgba(66, 211, 146, 0.35);
-  background: linear-gradient(
-    180deg,
-    var(--glass-bg-strong) 0%,
-    var(--glass-green-tint) 100%
-  );
-  box-shadow:
-    var(--glass-shadow),
-    var(--glass-inset-strong),
-    0 0 40px rgba(66, 211, 146, 0.08);
+  border-color: rgba(var(--green-rgb), 0.35);
+  background: var(--green-dark);
+  box-shadow: var(--green-shadow);
+}
+
+.featured .name,
+.featured .desc,
+.featured .feature {
+  color: var(--on-green);
+}
+
+.featured .desc {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.featured .feature svg {
+  color: var(--green-light);
+}
+
+.featured:hover {
+  border-color: rgba(var(--green-rgb), 0.5);
+  box-shadow: var(--green-shadow-lg);
+}
+
+.featuredCta {
+  background: var(--bg) !important;
+  color: var(--green-dark) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.featuredCta:hover {
+  background: var(--surf) !important;
+  color: var(--ink) !important;
 }
 
 .featured::before {
@@ -67,18 +94,18 @@
   top: -12px;
   left: 1.25rem;
   background: var(--green);
-  color: var(--bg);
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 0.6875rem;
-  font-weight: 700;
+  color: var(--on-green);
+  font-size: 0.75rem;
+  font-weight: 500;
   padding: 5px 12px;
   border-radius: 100px;
 }
 
 .name {
-  font-family: var(--font-sora), sans-serif;
+  font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 800;
+  font-weight: 600;
+  letter-spacing: var(--tracking-body);
   margin-bottom: 10px;
 }
 
@@ -120,18 +147,18 @@
 
   .card {
     padding: 2.5rem 2rem;
-    border-radius: 24px;
+    border-radius: var(--radius-card-xl);
   }
 
   .featured::before {
     left: 2rem;
-    font-size: 0.75rem;
-    padding: 6px 16px;
+    font-size: 0.8125rem;
+    padding: 6px 14px;
     top: -14px;
   }
 
   .name {
-    font-size: 1.5rem;
+    font-size: 1.375rem;
     margin-bottom: 12px;
   }
 

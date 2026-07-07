@@ -1,6 +1,10 @@
 import Image from "next/image";
 import { SITE } from "@/config/site";
 
+/** Dimensões nativas do wordmark (735×134 px, proporção ~5,49:1) */
+export const ORBYTS_LOGO_WIDTH = 735;
+export const ORBYTS_LOGO_HEIGHT = 134;
+
 interface OrbytsLogoProps {
   className?: string;
   width?: number;
@@ -11,8 +15,8 @@ interface OrbytsLogoProps {
 /** Logo oficial ORBYTS — wordmark verde, fundo transparente */
 export function OrbytsLogo({
   className,
-  width = 330,
-  height = 60,
+  width = ORBYTS_LOGO_WIDTH,
+  height = ORBYTS_LOGO_HEIGHT,
   priority = false,
 }: OrbytsLogoProps) {
   return (

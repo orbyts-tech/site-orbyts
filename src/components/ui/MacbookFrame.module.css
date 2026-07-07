@@ -122,11 +122,9 @@
 
 .hint {
   margin-top: 16px;
-  font-family: var(--font-jetbrains-mono), monospace;
   font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: var(--tracking-caption);
   color: var(--ink-3);
   transition: color 0.2s ease;
 }

@@ -10,7 +10,7 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <OrbytsLogo className={styles.logoImage} width={397} height={72} />
+          <OrbytsLogo className={styles.logoImage} />
           <p className={styles.tagline}>
             Engenharia de software previsível no Rio Grande do Sul. Transformando escopos
             complexos em código de produção.

@@ -1,0 +1,19 @@
+@import "tailwindcss" prefix(spatial);
+
+@theme {
+  /* Tokens Orbyts (fonte de verdade do projeto) */
+  --color-orbyts-bg: #0d0d0d;
+  --color-orbyts-green: #3b9b6e;
+  --color-orbyts-green-light: #42e6a4;
+
+  /*
+   * Mapeamento do Figma (frame home 20001:27)
+   * Design usa #303436 — mapeado para o fundo Orbyts mais próximo (#0D0D0D)
+   */
+  --color-spatial-figma-surface: #303436;
+  --color-spatial-card-solid: #323843;
+  --color-spatial-text-muted: #e6eff8;
+
+  --font-outfit: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-jura: var(--font-jura), ui-monospace, monospace;
+}
