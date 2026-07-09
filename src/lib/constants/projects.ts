@@ -49,7 +49,7 @@ export const PROJECTS: Project[] = [
   {
     id: "orb-run",
     index: 1,
-    total: 4,
+    total: 5,
     tag: "Mobile App",
     title: "Orb Run",
     description:
@@ -63,7 +63,7 @@ export const PROJECTS: Project[] = [
   {
     id: "recebi-fintech",
     index: 2,
-    total: 4,
+    total: 5,
     tag: "SaaS B2B",
     title: "Recebi Fintech",
     description:
@@ -77,7 +77,7 @@ export const PROJECTS: Project[] = [
   {
     id: "clinicflow",
     index: 3,
-    total: 4,
+    total: 5,
     tag: "Health Tech",
     title: "ClinicFlow",
     description:
@@ -91,7 +91,7 @@ export const PROJECTS: Project[] = [
   {
     id: "ffit-academia",
     index: 4,
-    total: 4,
+    total: 5,
     tag: "Mobile App",
     title: "F Fit Academia",
     description:
@@ -101,5 +101,19 @@ export const PROJECTS: Project[] = [
     imageAlt: "F Fit Academia — app de gestão para academias",
     mockup: "iphone",
     appUrl: "https://app-academia-orbyts.netlify.app/",
+  },
+  {
+    id: "conecta-condo",
+    index: 5,
+    total: 5,
+    tag: "Mobile App",
+    title: "ConectaCondo",
+    description:
+      "App para condomínios com comunicação entre moradores, gestão de ocorrências, reservas de áreas comuns e avisos em tempo real.",
+    stack: ["React", "Netlify"],
+    imageSeed: "conecta-condo",
+    imageAlt: "ConectaCondo — app de gestão para condomínios",
+    mockup: "iphone",
+    appUrl: "https://connect-condo-orbyts.netlify.app/",
   },
 ];

@@ -8,7 +8,17 @@
 }
 
 .large {
-  max-width: min(90vw, 390px);
+  max-width: min(92vw, 440px);
+}
+
+.fill {
+  --phone-available-h: calc((100dvh - var(--nav-height) - 72px) * 0.88);
+  max-width: min(
+    100%,
+    400px,
+    calc((var(--phone-available-h) - 28px) * 9 / 19.5 + 28px)
+  );
+  width: 100%;
 }
 
 .device {
@@ -46,12 +56,12 @@
 
 .screenImage,
 .liveFrame {
-  width: 100%;
-  height: 100%;
   border: none;
 }
 
 .screenImage {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: top center;
 }
@@ -59,6 +69,21 @@
 .liveFrame {
   display: block;
   background: #fff;
+}
+
+.liveViewport {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000;
+}
+
+.liveFrameScaler {
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .dynamicIsland {
@@ -102,8 +127,10 @@
   pointer-events: none;
 }
 
-.live .screenGlare {
-  opacity: 0.35;
+.live .screenGlare,
+.live .dynamicIsland,
+.live .homeIndicator {
+  display: none;
 }
 
 .hint {

@@ -26,7 +26,7 @@
 }
 
 .mockupColPhone .mockupWrap {
-  min-height: clamp(380px, 68vw, 520px);
+  min-height: clamp(420px, 72vw, 600px);
 }
 
 .slidePhone {
@@ -409,7 +409,7 @@
   }
 
   .mockupColPhone .mockupWrap {
-    min-height: clamp(440px, 42vw, 560px);
+    min-height: clamp(480px, 46vw, 640px);
   }
 
   .navButton {

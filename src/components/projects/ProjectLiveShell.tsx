@@ -173,7 +173,7 @@ export function ProjectLiveShell({ project, appUrl, urlSource }: ProjectLiveShel
               project={project}
               isActive
               enableLiveEmbed
-              size="large"
+              size="fill"
               onIframeLoad={() => setEmbedState("ready")}
             />
           </div>

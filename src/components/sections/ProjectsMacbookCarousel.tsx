@@ -69,6 +69,7 @@ export function ProjectsMacbookCarousel({ projects }: ProjectsMacbookCarouselPro
                       enableLiveEmbed
                       showHint={false}
                       interactive={false}
+                      size={project.mockup === "iphone" ? "large" : "default"}
                     />
                   </div>
                 ))}

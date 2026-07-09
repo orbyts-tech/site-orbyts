@@ -10,6 +10,7 @@ const DEMO_NAV: Record<string, string[]> = {
   "recebi-fintech": ["Dashboard", "Cobranças", "Clientes", "Réguas"],
   clinicflow: ["Dashboard", "Agenda", "Prontuários", "Pacientes"],
   "ffit-academia": ["Início", "Treinos", "Check-in", "Alunos"],
+  "conecta-condo": ["Início", "Ocorrências", "Reservas", "Avisos"],
 };
 
 const DEMO_METRICS: Record<string, Array<{ label: string; value: string }>> = {
@@ -33,6 +34,11 @@ const DEMO_METRICS: Record<string, Array<{ label: string; value: string }>> = {
     { label: "Check-ins hoje", value: "196" },
     { label: "Treinos concluídos", value: "73%" },
   ],
+  "conecta-condo": [
+    { label: "Moradores ativos", value: "312" },
+    { label: "Ocorrências abertas", value: "8" },
+    { label: "Reservas hoje", value: "14" },
+  ],
 };
 
 const DEMO_ROWS: Record<string, Array<{ primary: string; secondary: string }>> = {
@@ -55,6 +61,11 @@ const DEMO_ROWS: Record<string, Array<{ primary: string; secondary: string }>> =
     { primary: "Turma HIIT — 18h", secondary: "32 alunos confirmados" },
     { primary: "João Silva", secondary: "Check-in realizado às 07:12" },
     { primary: "Plano Premium", secondary: "12 renovações esta semana" },
+  ],
+  "conecta-condo": [
+    { primary: "Vazamento — Bloco B", secondary: "Ocorrência aberta há 2h" },
+    { primary: "Salão de festas", secondary: "Reserva confirmada para sábado" },
+    { primary: "Aviso do síndico", secondary: "Manutenção do elevador amanhã" },
   ],
 };
 

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LiveIframeViewport } from "./LiveIframeViewport";
 import styles from "./IPhoneFrame.module.css";
 
 interface IPhoneFrameProps {
@@ -8,7 +9,7 @@ interface IPhoneFrameProps {
   liveUrl?: string;
   isActive?: boolean;
   showHint?: boolean;
-  size?: "default" | "large";
+  size?: "default" | "large" | "fill";
   interactive?: boolean;
   onIframeLoad?: () => void;
 }
@@ -28,6 +29,7 @@ export function IPhoneFrame({
   const className = [
     styles.wrapper,
     size === "large" ? styles.large : "",
+    size === "fill" ? styles.fill : "",
     isActive ? styles.active : "",
     showLiveEmbed ? styles.live : "",
     interactive ? styles.interactive : "",
@@ -41,13 +43,10 @@ export function IPhoneFrame({
         <div className={styles.sideButton} aria-hidden="true" />
         <div className={styles.screen}>
           {showLiveEmbed ? (
-            <iframe
-              src={liveUrl}
+            <LiveIframeViewport
+              src={liveUrl!}
               title={`${title} — app ao vivo`}
-              className={styles.liveFrame}
               onLoad={onIframeLoad}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; geolocation; gyroscope; picture-in-picture"
-              referrerPolicy="strict-origin-when-cross-origin"
             />
           ) : (
             <Image
@@ -55,12 +54,14 @@ export function IPhoneFrame({
               alt={imageAlt}
               fill
               sizes={
-                size === "large"
-                  ? "(max-width: 768px) 90vw, 390px"
+                size === "fill"
+                  ? "(max-width: 768px) 92vw, 440px"
+                  : size === "large"
+                  ? "(max-width: 768px) 92vw, 440px"
                   : "(max-width: 768px) 72vw, 280px"
               }
               className={styles.screenImage}
-              priority={isActive || size === "large"}
+              priority={isActive || size !== "default"}
             />
           )}
           <div className={styles.dynamicIsland} aria-hidden="true" />

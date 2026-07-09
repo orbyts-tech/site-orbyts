@@ -10,6 +10,7 @@ const PROJECT_APP_URLS: Record<string, string | undefined> = {
   "recebi-fintech": process.env.NEXT_PUBLIC_PROJECT_RECEBI_URL,
   clinicflow: process.env.NEXT_PUBLIC_PROJECT_CLINICFLOW_URL,
   "ffit-academia": process.env.NEXT_PUBLIC_PROJECT_FFIT_URL,
+  "conecta-condo": process.env.NEXT_PUBLIC_PROJECT_CONECTA_CONDO_URL,
 };
 
 export function resolveProjectAppUrl(project: Project): ResolvedProjectAppUrl {

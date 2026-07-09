@@ -13,7 +13,7 @@ interface ProjectMockupFrameProps {
   enableLiveEmbed?: boolean;
   showHint?: boolean;
   interactive?: boolean;
-  size?: "default" | "large";
+  size?: "default" | "large" | "fill";
   onIframeLoad?: () => void;
   onClick?: () => void;
 }
@@ -55,6 +55,8 @@ export function ProjectMockupFrame({
     );
   }
 
+  const macbookSize = size === "fill" ? "large" : size;
+
   return (
     <MacbookFrame
       imageSrc={imageSrc}
@@ -62,7 +64,7 @@ export function ProjectMockupFrame({
       title={project.title}
       isActive={isActive}
       showHint={showHint}
-      size={size}
+      size={macbookSize}
       interactive={interactive}
       onClick={onClick}
     />
