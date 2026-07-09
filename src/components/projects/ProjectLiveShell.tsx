@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Project, ProjectAppUrlSource } from "@/lib/constants/projects";
 import { isExternalProjectUrl, isKnownEmbeddableUrl } from "@/lib/constants/projects";
+import { ProjectMockupFrame } from "@/components/ui/ProjectMockupFrame";
 import styles from "./ProjectLiveShell.module.css";
 
 interface ProjectLiveShellProps {
@@ -23,6 +24,7 @@ const SOURCE_LABELS: Record<ProjectAppUrlSource, string | null> = {
 
 export function ProjectLiveShell({ project, appUrl, urlSource }: ProjectLiveShellProps) {
   const router = useRouter();
+  const isPhoneMockup = project.mockup === "iphone";
   const [embedState, setEmbedState] = useState<EmbedState>(() => {
     if (!isExternalProjectUrl(appUrl)) return "loading";
     if (isKnownEmbeddableUrl(appUrl)) return "loading";
@@ -122,7 +124,7 @@ export function ProjectLiveShell({ project, appUrl, urlSource }: ProjectLiveShel
         </div>
       </header>
 
-      <div className={styles.frameWrap}>
+      <div className={`${styles.frameWrap} ${isPhoneMockup ? styles.frameWrapPhone : ""}`}>
         {showSpinner ? (
           <div className={styles.loading} aria-live="polite">
             <div className={styles.spinner} aria-hidden="true" />
@@ -165,7 +167,19 @@ export function ProjectLiveShell({ project, appUrl, urlSource }: ProjectLiveShel
           </div>
         ) : null}
 
-        {showIframe ? (
+        {isPhoneMockup && showIframe ? (
+          <div className={styles.phoneStage}>
+            <ProjectMockupFrame
+              project={project}
+              isActive
+              enableLiveEmbed
+              size="large"
+              onIframeLoad={() => setEmbedState("ready")}
+            />
+          </div>
+        ) : null}
+
+        {!isPhoneMockup && showIframe ? (
           <iframe
             src={appUrl}
             title={`${project.title} — sistema ao vivo`}

@@ -3,8 +3,7 @@
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Project } from "@/lib/constants/projects";
-import { getProjectImageUrl } from "@/lib/constants/projects";
-import { MacbookFrame } from "@/components/ui/MacbookFrame";
+import { ProjectMockupFrame } from "@/components/ui/ProjectMockupFrame";
 import { FadeUp } from "@/components/ui/FadeUp";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/Icons";
 import sectionStyles from "./ProjectsSection.module.css";
@@ -50,19 +49,24 @@ export function ProjectsMacbookCarousel({ projects }: ProjectsMacbookCarouselPro
       <FadeUp delay={0.1}>
         <div className={styles.stage}>
           <div className={styles.layout}>
-            <div className={styles.mockupCol}>
+            <div
+              className={`${styles.mockupCol} ${
+                activeProject.mockup === "iphone" ? styles.mockupColPhone : ""
+              }`}
+            >
               <div className={styles.mockupWrap}>
                 {projects.map((project, index) => (
                   <div
                     key={project.id}
-                    className={`${styles.slide} ${index === activeIndex ? styles.slideActive : ""}`}
+                    className={`${styles.slide} ${index === activeIndex ? styles.slideActive : ""} ${
+                      project.mockup === "iphone" ? styles.slidePhone : ""
+                    }`}
                     aria-hidden={index !== activeIndex}
                   >
-                    <MacbookFrame
-                      imageSrc={getProjectImageUrl(project)}
-                      imageAlt={project.imageAlt}
-                      title={project.title}
-                      isActive
+                    <ProjectMockupFrame
+                      project={project}
+                      isActive={index === activeIndex}
+                      enableLiveEmbed
                       showHint={false}
                       interactive={false}
                     />

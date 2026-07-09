@@ -9,6 +9,7 @@ const DEMO_NAV: Record<string, string[]> = {
   "orb-run": ["Dashboard", "Mapa ao vivo", "Rankings", "Territórios"],
   "recebi-fintech": ["Dashboard", "Cobranças", "Clientes", "Réguas"],
   clinicflow: ["Dashboard", "Agenda", "Prontuários", "Pacientes"],
+  "ffit-academia": ["Início", "Treinos", "Check-in", "Alunos"],
 };
 
 const DEMO_METRICS: Record<string, Array<{ label: string; value: string }>> = {
@@ -27,6 +28,11 @@ const DEMO_METRICS: Record<string, Array<{ label: string; value: string }>> = {
     { label: "Leitos ocupados", value: "78%" },
     { label: "Agendamentos IA", value: "41" },
   ],
+  "ffit-academia": [
+    { label: "Alunos ativos", value: "842" },
+    { label: "Check-ins hoje", value: "196" },
+    { label: "Treinos concluídos", value: "73%" },
+  ],
 };
 
 const DEMO_ROWS: Record<string, Array<{ primary: string; secondary: string }>> = {
@@ -44,6 +50,11 @@ const DEMO_ROWS: Record<string, Array<{ primary: string; secondary: string }>> =
     { primary: "Dr. Martins — Cardio", secondary: "Próximo slot 14:30" },
     { primary: "UTI — Leito 12", secondary: "Alta prevista amanhã" },
     { primary: "Paciente #4482", secondary: "Prontuário atualizado" },
+  ],
+  "ffit-academia": [
+    { primary: "Turma HIIT — 18h", secondary: "32 alunos confirmados" },
+    { primary: "João Silva", secondary: "Check-in realizado às 07:12" },
+    { primary: "Plano Premium", secondary: "12 renovações esta semana" },
   ],
 };
 

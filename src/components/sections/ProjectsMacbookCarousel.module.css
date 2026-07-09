@@ -25,6 +25,14 @@
   min-height: clamp(240px, 52vw, 380px);
 }
 
+.mockupColPhone .mockupWrap {
+  min-height: clamp(380px, 68vw, 520px);
+}
+
+.slidePhone {
+  align-items: flex-start;
+}
+
 .slide {
   position: absolute;
   inset: 0;
@@ -398,6 +406,10 @@
 
   .mockupWrap {
     min-height: clamp(300px, 34vw, 420px);
+  }
+
+  .mockupColPhone .mockupWrap {
+    min-height: clamp(440px, 42vw, 560px);
   }
 
   .navButton {

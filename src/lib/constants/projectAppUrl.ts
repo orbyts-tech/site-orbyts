@@ -9,6 +9,7 @@ const PROJECT_APP_URLS: Record<string, string | undefined> = {
   "orb-run": process.env.NEXT_PUBLIC_PROJECT_ORB_RUN_URL,
   "recebi-fintech": process.env.NEXT_PUBLIC_PROJECT_RECEBI_URL,
   clinicflow: process.env.NEXT_PUBLIC_PROJECT_CLINICFLOW_URL,
+  "ffit-academia": process.env.NEXT_PUBLIC_PROJECT_FFIT_URL,
 };
 
 export function resolveProjectAppUrl(project: Project): ResolvedProjectAppUrl {
@@ -50,6 +51,7 @@ export function isKnownEmbeddableUrl(url: string): boolean {
     ) {
       return true;
     }
+    if (parsed.hostname.endsWith(".netlify.app")) return true;
     return false;
   } catch {
     return false;
