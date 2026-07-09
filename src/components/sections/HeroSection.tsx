@@ -10,6 +10,12 @@ const TITLE_LINES = ["Software que", "entrega", "no prazo.", "Sempre."] as const
 export function HeroSection() {
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
+      <div className={styles.decorative} aria-hidden="true">
+        <div className={styles.decorativeRing} />
+        <div className={styles.decorativeOrb} />
+        <div className={styles.decorativeOrbSecondary} />
+      </div>
+
       <div className={styles.inner}>
         <div className={styles.mainGrid}>
           <div className={styles.headlineCol}>

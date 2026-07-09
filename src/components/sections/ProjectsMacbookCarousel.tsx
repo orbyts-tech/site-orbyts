@@ -49,95 +49,86 @@ export function ProjectsMacbookCarousel({ projects }: ProjectsMacbookCarouselPro
 
       <FadeUp delay={0.1}>
         <div className={styles.stage}>
-          <div className={styles.carousel}>
-            <div className={styles.track}>
-              {projects.map((project, index) => {
-                const offset = index - activeIndex;
-                return (
+          <div className={styles.layout}>
+            <div className={styles.mockupCol}>
+              <div className={styles.mockupWrap}>
+                {projects.map((project, index) => (
                   <div
                     key={project.id}
-                    className={styles.slide}
-                    style={{
-                      transform: `translateX(calc(-50% + ${offset * 108}%)) scale(${index === activeIndex ? 1 : 0.82})`,
-                      zIndex: index === activeIndex ? 3 : 1,
-                      opacity: Math.abs(offset) > 1 ? 0 : index === activeIndex ? 1 : 0.4,
-                      pointerEvents: Math.abs(offset) > 1 ? "none" : "auto",
-                    }}
+                    className={`${styles.slide} ${index === activeIndex ? styles.slideActive : ""}`}
                     aria-hidden={index !== activeIndex}
                   >
                     <MacbookFrame
                       imageSrc={getProjectImageUrl(project)}
                       imageAlt={project.imageAlt}
                       title={project.title}
-                      isActive={index === activeIndex}
-                      onClick={() => {
-                        if (index !== activeIndex) {
-                          goTo(index);
-                          return;
-                        }
-                        openProject(project);
-                      }}
+                      isActive
+                      showHint={false}
+                      interactive={false}
                     />
                   </div>
-                );
-              })}
-            </div>
+                ))}
+              </div>
 
-            <button
-              type="button"
-              className={`${styles.navButton} ${styles.navPrev}`}
-              onClick={goPrev}
-              disabled={activeIndex === 0}
-              aria-label="Projeto anterior"
-            >
-              <ChevronLeftIcon />
-            </button>
-            <button
-              type="button"
-              className={`${styles.navButton} ${styles.navNext}`}
-              onClick={goNext}
-              disabled={activeIndex === projects.length - 1}
-              aria-label="Próximo projeto"
-            >
-              <ChevronRightIcon />
-            </button>
-          </div>
-
-          <div className={styles.meta}>
-            <div className={styles.metaTag}>
-              <span className={styles.tagDot} aria-hidden="true" />
-              {activeProject.tag}
-            </div>
-            <h3 className={styles.metaTitle}>{activeProject.title}</h3>
-            <p className={styles.metaDesc}>{activeProject.description}</p>
-            <div className={styles.stack}>
-              {activeProject.stack.map((item) => (
-                <span key={item} className={styles.stackItem}>
-                  {item}
-                </span>
-              ))}
-            </div>
-            <button
-              type="button"
-              className={styles.enterButton}
-              onClick={() => openProject(activeProject)}
-            >
-              Entrar no sistema
-            </button>
-          </div>
-
-          <div className={styles.dots} role="tablist" aria-label="Projetos">
-            {projects.map((project, index) => (
               <button
-                key={project.id}
                 type="button"
-                role="tab"
-                className={`${styles.dot} ${index === activeIndex ? styles.dotActive : ""}`}
-                aria-selected={index === activeIndex}
-                aria-label={`Ver ${project.title}`}
-                onClick={() => goTo(index)}
-              />
-            ))}
+                className={`${styles.navButton} ${styles.navPrev}`}
+                onClick={goPrev}
+                disabled={activeIndex === 0}
+                aria-label="Projeto anterior"
+              >
+                <ChevronLeftIcon />
+              </button>
+            </div>
+
+            <div className={styles.detailsCol}>
+              <div className={styles.meta} key={activeProject.id}>
+                <div className={styles.metaTag}>
+                  <span className={styles.tagDot} aria-hidden="true" />
+                  {activeProject.tag}
+                </div>
+                <h3 className={styles.metaTitle}>{activeProject.title}</h3>
+                <p className={styles.metaDesc}>{activeProject.description}</p>
+                <div className={styles.stack}>
+                  {activeProject.stack.map((item) => (
+                    <span key={item} className={styles.stackItem}>
+                      {item}
+                    </span>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  className={styles.enterButton}
+                  onClick={() => openProject(activeProject)}
+                >
+                  Entrar no sistema
+                </button>
+              </div>
+
+              <div className={styles.dots} role="tablist" aria-label="Projetos">
+                {projects.map((project, index) => (
+                  <button
+                    key={project.id}
+                    type="button"
+                    role="tab"
+                    className={`${styles.dot} ${index === activeIndex ? styles.dotActive : ""}`}
+                    aria-selected={index === activeIndex}
+                    aria-label={`Ver ${project.title}`}
+                    onClick={() => goTo(index)}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                className={`${styles.navButton} ${styles.navNext}`}
+                onClick={goNext}
+                disabled={activeIndex === projects.length - 1}
+                aria-label="Próximo projeto"
+              >
+                <ChevronRightIcon />
+              </button>
+            </div>
           </div>
         </div>
       </FadeUp>

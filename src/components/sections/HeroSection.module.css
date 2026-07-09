@@ -10,6 +10,86 @@
   background: transparent;
 }
 
+.decorative {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.decorativeRing {
+  position: absolute;
+  top: 18%;
+  right: -8%;
+  width: clamp(280px, 38vw, 520px);
+  height: clamp(280px, 38vw, 520px);
+  border-radius: 50%;
+  border: 1px solid rgba(var(--green-rgb), 0.08);
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(var(--green-rgb), 0.04) 0%,
+    transparent 68%
+  );
+}
+
+.decorativeRing::before,
+.decorativeRing::after {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--green-rgb), 0.06);
+}
+
+.decorativeRing::after {
+  inset: 28%;
+  border-color: rgba(var(--green-rgb), 0.04);
+}
+
+.decorativeOrb {
+  position: absolute;
+  top: 42%;
+  right: 12%;
+  width: clamp(120px, 16vw, 220px);
+  height: clamp(120px, 16vw, 220px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(var(--green-rgb), 0.12) 0%,
+    rgba(var(--green-rgb), 0.03) 55%,
+    transparent 72%
+  );
+  filter: blur(24px);
+}
+
+.decorativeOrbSecondary {
+  position: absolute;
+  bottom: 22%;
+  right: 28%;
+  width: clamp(80px, 10vw, 140px);
+  height: clamp(80px, 10vw, 140px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(var(--green-rgb), 0.08) 0%,
+    transparent 70%
+  );
+  filter: blur(18px);
+}
+
+@media (min-width: 768px) {
+  .decorative {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  .decorative {
+    display: none;
+  }
+}
+
 .inner {
   position: relative;
   z-index: 2;
@@ -250,7 +330,17 @@
 
   .stats {
     margin-top: 5rem;
-    max-width: 56rem;
+    width: 100%;
+  }
+
+  .decorativeRing {
+    top: 14%;
+    right: 4%;
+  }
+
+  .decorativeOrb {
+    top: 38%;
+    right: 18%;
   }
 }
 

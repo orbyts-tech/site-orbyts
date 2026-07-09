@@ -7,11 +7,11 @@ export type DotGridParameters = {
 };
 
 export const DOT_GRID_PARAMETERS: DotGridParameters = {
-  size: 30,
+  size: 34,
   radius: 1,
-  proximity: 125,
-  growth: 60,
-  ease: 0.075,
+  proximity: 88,
+  growth: 16,
+  ease: 0.065,
 };
 
 class Point {
@@ -36,8 +36,8 @@ export class DotGridCircle {
     this.radius += (this.baseRadius + this.growthValue - this.radius) * ease;
 
     const growthRatio = growthMax > 0 ? this.growthValue / growthMax : 0;
-    const alpha = 0.035 + growthRatio * 0.62;
-    const greenLightMix = growthRatio * 0.35;
+    const alpha = 0.06 + growthRatio * 0.22;
+    const greenLightMix = growthRatio * 0.28;
 
     context.beginPath();
     context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);

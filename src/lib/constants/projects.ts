@@ -15,6 +15,11 @@ export interface Project {
   appUrl?: string;
 }
 
+/**
+ * URL da captura exibida no mockup do notebook.
+ * Trocar por assets locais definitivos (ex.: `/images/projects/${project.id}.webp`)
+ * com proporção 16:10 — o frame aplica `object-fit: cover` automaticamente.
+ */
 export function getProjectImageUrl(project: Project): string {
   return `https://picsum.photos/seed/${project.imageSeed}/1600/1000`;
 }

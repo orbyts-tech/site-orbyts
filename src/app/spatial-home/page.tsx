@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Jura } from "next/font/google";
 import { spatialHomeContent, SpatialHomeScreen } from "@/features/spatial-home";
+import { createPageMetadata } from "@/lib/seo/metadata";
 import "@/features/spatial-home/presentation/spatial-home.css";
 
 const outfit = Outfit({
@@ -15,10 +16,12 @@ const jura = Jura({
   variable: "--font-jura",
 });
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Spatial Home — Preview Figma",
-  robots: { index: false, follow: false },
-};
+  description: "Preview interno de layout Figma.",
+  path: "/spatial-home",
+  noIndex: true,
+});
 
 export default function SpatialHomePage() {
   return (

@@ -252,8 +252,8 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
               }`}
             >
               {message.role === "bot" ? (
-                <div className={styles.botAvatarSmall} aria-hidden="true">
-                  <OrbytsLogo className={styles.botLogo} />
+                <div className={styles.botAvatar} aria-hidden="true">
+                  <span className={styles.botAvatarMark}>O</span>
                 </div>
               ) : null}
               <div
@@ -268,8 +268,8 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
 
           {isTyping ? (
             <div className={`${styles.messageRow} ${styles.messageRowBot}`}>
-              <div className={styles.botAvatarSmall} aria-hidden="true">
-                <OrbytsLogo className={styles.botLogo} />
+              <div className={styles.botAvatar} aria-hidden="true">
+                <span className={styles.botAvatarMark}>O</span>
               </div>
               <div className={`${styles.bubble} ${styles.bubbleBot} ${styles.typing}`}>
                 <span />

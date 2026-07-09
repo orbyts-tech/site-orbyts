@@ -4,16 +4,60 @@
   padding-bottom: 0.5rem;
 }
 
-.carousel {
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.mockupCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.mockupWrap {
   position: relative;
   width: 100%;
-  margin-bottom: 1.5rem;
+  min-height: clamp(240px, 52vw, 380px);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.97);
+  pointer-events: none;
+  transition:
+    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.slideActive {
+  position: relative;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.detailsCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  min-width: 0;
 }
 
 .navButton {
-  position: absolute;
-  top: 42%;
-  z-index: 10;
+  position: relative;
+  z-index: 1;
   width: 44px;
   height: 44px;
   display: grid;
@@ -26,6 +70,7 @@
   -webkit-backdrop-filter: blur(20px);
   box-shadow: var(--shadow-sm), var(--glass-inset);
   cursor: pointer;
+  flex-shrink: 0;
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
@@ -52,38 +97,19 @@
 }
 
 .navPrev {
-  left: max(0px, calc(50% - min(47vw, 360px) - 56px));
+  align-self: flex-start;
+  margin-top: auto;
 }
 
 .navNext {
-  right: max(0px, calc(50% - min(47vw, 360px) - 56px));
-}
-
-.track {
-  position: relative;
-  width: 100%;
-  height: clamp(300px, 58vw, 520px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.slide {
-  position: absolute;
-  left: 50%;
-  width: min(88vw, 680px);
-  transition:
-    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.4s ease;
-  will-change: transform, opacity;
+  align-self: flex-end;
+  margin-top: auto;
 }
 
 .meta {
-  max-width: 36rem;
-  margin: 0 auto;
-  text-align: center;
-  padding: 0 0.25rem;
+  text-align: left;
+  padding: 0;
+  animation: meta-fade-in 0.35s ease;
 }
 
 .metaTag {
@@ -94,7 +120,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   background: var(--glass-card);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -113,26 +139,27 @@
 
 .metaTitle {
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 3.5vw, 1.625rem);
+  font-size: clamp(1.375rem, 3.5vw, 2rem);
   font-weight: 600;
   letter-spacing: var(--tracking-tight);
   color: var(--ink);
-  line-height: 1.15;
+  line-height: 1.12;
 }
 
 .metaDesc {
-  margin-top: 10px;
-  font-size: 0.875rem;
+  margin-top: 12px;
+  font-size: 0.9375rem;
   color: var(--ink-2);
   line-height: 1.65;
+  max-width: 28rem;
 }
 
 .stack {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 16px;
 }
 
 .stackItem {
@@ -149,31 +176,31 @@
 }
 
 .enterButton {
-  margin-top: 18px;
-  height: 44px;
-  padding: 0 24px;
+  margin-top: 1.5rem;
+  height: 48px;
+  padding: 0 28px;
   border: none;
   border-radius: var(--radius-control);
   background: var(--green);
   color: var(--on-green);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   cursor: pointer;
   box-shadow: var(--green-shadow);
-  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .enterButton:hover {
   transform: translateY(-2px);
-  filter: brightness(1.05);
-  box-shadow: var(--green-shadow-lg);
+  box-shadow:
+    var(--green-shadow-lg),
+    0 0 24px rgba(var(--green-rgb), 0.2);
 }
 
 .dots {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
-  margin-top: 1.25rem;
 }
 
 .dot {
@@ -190,6 +217,17 @@
 .dotActive {
   background: var(--green);
   transform: scale(1.15);
+}
+
+@keyframes meta-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Project entry overlay ── */
@@ -344,8 +382,22 @@
     margin-top: 2.5rem;
   }
 
-  .carousel {
-    margin-bottom: 2rem;
+  .layout {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 2.5rem 4rem;
+    align-items: stretch;
+  }
+
+  .mockupCol {
+    gap: 1.5rem;
+  }
+
+  .detailsCol {
+    gap: 1.5rem;
+  }
+
+  .mockupWrap {
+    min-height: clamp(300px, 34vw, 420px);
   }
 
   .navButton {
@@ -353,20 +405,8 @@
     height: 48px;
   }
 
-  .navPrev {
-    left: max(8px, calc(50% - 392px));
-  }
-
-  .navNext {
-    right: max(8px, calc(50% - 392px));
-  }
-
-  .track {
-    height: clamp(360px, 46vw, 540px);
-  }
-
   .metaDesc {
-    font-size: 0.9375rem;
+    font-size: 1rem;
   }
 
   .entryPanel {
@@ -375,22 +415,61 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (min-width: 1024px) {
+  .layout {
+    gap: 3rem 5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .meta {
+    text-align: center;
+  }
+
+  .metaTag,
+  .stack,
+  .dots {
+    justify-content: center;
+  }
+
+  .metaTag {
+    display: inline-flex;
+  }
+
+  .stack {
+    display: flex;
+  }
+
+  .metaDesc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .enterButton {
+    width: 100%;
+    max-width: 20rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .navPrev,
+  .navNext {
+    margin-top: 0;
+  }
+
   .navPrev {
-    left: 4px;
+    align-self: flex-start;
   }
 
   .navNext {
-    right: 4px;
-  }
-
-  .slide {
-    width: min(82vw, 680px);
+    align-self: flex-end;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .slide,
+  .meta,
   .overlay,
   .entryPanel {
     animation: none;

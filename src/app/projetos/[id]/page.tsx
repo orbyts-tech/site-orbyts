@@ -6,6 +6,7 @@ import {
   PROJECTS,
   resolveProjectAppUrl,
 } from "@/lib/constants/projects";
+import { createPageMetadata } from "@/lib/seo/metadata";
 
 interface ProjectLivePageProps {
   params: Promise<{ id: string }>;
@@ -25,11 +26,12 @@ export async function generateMetadata({ params }: ProjectLivePageProps): Promis
     return { title: "Projeto não encontrado" };
   }
 
-  return {
+  return createPageMetadata({
     title: `${project.title} — Demo ao vivo`,
     description: project.description,
-    robots: { index: false, follow: false },
-  };
+    path: `/projetos/${project.id}`,
+    noIndex: true,
+  });
 }
 
 export default async function ProjectLivePage({ params }: ProjectLivePageProps) {

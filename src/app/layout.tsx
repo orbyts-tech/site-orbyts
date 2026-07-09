@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { DotGridBackground } from "@/components/layout/DotGridBackground";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
-import { absoluteUrl, SITE } from "@/config/site";
+import { SITE } from "@/config/site";
+import { DEFAULT_ROBOTS } from "@/lib/seo/metadata";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,10 +24,12 @@ export const viewport: Viewport = {
   themeColor: SITE.themeColor,
   width: "device-width",
   initialScale: 1,
+  colorScheme: "light",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
+  applicationName: SITE.name,
   title: {
     default: SITE.title,
     template: `%s | ${SITE.name}`,
@@ -36,44 +39,11 @@ export const metadata: Metadata = {
   authors: [{ name: SITE.legalName, url: SITE.url }],
   creator: SITE.legalName,
   publisher: SITE.legalName,
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  alternates: {
-    canonical: "/",
-    languages: {
-      [SITE.language]: "/",
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: SITE.locale,
-    url: SITE.url,
-    siteName: SITE.name,
-    title: SITE.title,
-    description: SITE.description,
-    images: [
-      {
-        url: absoluteUrl(SITE.logoPath),
-        width: 512,
-        height: 512,
-        alt: `${SITE.name} — Software House`,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: SITE.title,
-    description: SITE.description,
-    images: [absoluteUrl(SITE.logoPath)],
+  robots: DEFAULT_ROBOTS,
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
   },
   category: "technology",
 };
@@ -85,6 +55,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body>
+        <a href="#conteudo-principal" className="skip-link">
+          Ir para o conteúdo principal
+        </a>
         <DotGridBackground />
         <OrganizationJsonLd />
         {children}

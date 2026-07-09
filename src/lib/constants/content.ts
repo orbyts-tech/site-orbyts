@@ -19,11 +19,11 @@ export const COMMERCIAL_MODELS: CommercialModel[] = [
     id: "escopo-fechado",
     name: "Escopo Fechado",
     description:
-      "Ideal para construir do zero. Prazo, orçamento e entregáveis definidos contratualmente.",
+      "Ideal para projetos maiores com duração acima de 3 meses, prazo definido e orçamento único.",
     features: [
-      { text: "Cláusula de multa por atraso", variant: "check-circle" },
-      { text: "Pagamento parcelado por marcos", variant: "check-circle" },
-      { text: "Design aprovado antecipadamente", variant: "check-circle" },
+      { text: "Projeto todo documentado", variant: "check-circle" },
+      { text: "Qualidade na infraestrutura e segurança", variant: "check-circle" },
+      { text: "Time de desenvolvimento focado full-time", variant: "check-circle" },
     ],
     ctaLabel: "Solicitar Orçamento",
     ctaHref: "#contato",
@@ -34,11 +34,11 @@ export const COMMERCIAL_MODELS: CommercialModel[] = [
     id: "squad-as-a-service",
     name: "Squad as a Service",
     description:
-      "Ideal para produtos em evolução. Ciclos de desenvolvimento sob demanda para escalar seu app.",
+      "Ideal para projetos que ainda estão nascendo junto com a ideia e precisam validar ela antes de investir mais.",
     features: [
-      { text: "Sprints ágeis de 14 dias úteis", variant: "check" },
-      { text: "Flexibilidade total de backlog", variant: "check" },
-      { text: "Alocação dedicada de engenharia", variant: "check" },
+      { text: "30 dias de desenvolvimento", variant: "check" },
+      { text: "MVP completo para você já ter retorno do investimento", variant: "check" },
+      { text: "Investimento menor e retorno mais rápido", variant: "check" },
     ],
     ctaLabel: "Conhecer Modelo",
     ctaHref: "#contato",

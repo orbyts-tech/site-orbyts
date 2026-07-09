@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectDemoApp } from "@/components/projects/ProjectDemoApp";
 import { getProjectById, PROJECTS } from "@/lib/constants/projects";
+import { createPageMetadata } from "@/lib/seo/metadata";
 
 interface DemoPageProps {
   params: Promise<{ id: string }>;
@@ -16,10 +17,12 @@ export async function generateMetadata({ params }: DemoPageProps): Promise<Metad
   const project = getProjectById(id);
   if (!project) return { title: "Demo" };
 
-  return {
+  return createPageMetadata({
     title: `${project.title} — Demo`,
-    robots: { index: false, follow: false },
-  };
+    description: project.description,
+    path: `/demo/${project.id}`,
+    noIndex: true,
+  });
 }
 
 export default async function ProjectDemoPage({ params }: DemoPageProps) {

@@ -35,6 +35,11 @@ export function MacbookFrame({
     <>
       <div className={styles.lid}>
         <div className={styles.bezel}>
+          {/*
+            Tela do mockup — proporção travada em 16:10.
+            Substituir `imageSrc` pelas capturas finais dos projetos
+            (ex.: /images/projects/clinicflow-dashboard.webp) via projects.ts.
+          */}
           <div className={styles.screen}>
             <Image
               src={imageSrc}

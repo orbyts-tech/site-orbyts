@@ -134,6 +134,26 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 1000;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-control);
+  background: var(--green);
+  color: var(--on-green);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--green-shadow);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
 /* ── GLASS / SURFACE UTILITIES ── */
 .glass {
   background: var(--glass-bg);

@@ -7,12 +7,17 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { ModelsSection } from "@/components/sections/ModelsSection";
 import { CtaSection } from "@/components/sections/CtaSection";
+import { WebPageJsonLd } from "@/components/seo/WebPageJsonLd";
+import { createPageMetadata } from "@/lib/seo/metadata";
+
+export const metadata = createPageMetadata();
 
 export default function HomePage() {
   return (
     <ProposalFormProvider>
+      <WebPageJsonLd />
       <Navbar />
-      <main>
+      <main id="conteudo-principal">
         <HeroSection />
         <TechMarquee />
         <ProjectsSection />
