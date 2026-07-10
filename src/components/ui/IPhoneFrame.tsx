@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { LiveIframeViewport } from "./LiveIframeViewport";
+import { DeviceMockup, iPhone16Pro } from "@mockifydev/react";
+import { LiveEmbedGate } from "./LiveEmbedGate";
 import styles from "./IPhoneFrame.module.css";
 
 interface IPhoneFrameProps {
@@ -7,11 +8,55 @@ interface IPhoneFrameProps {
   imageAlt: string;
   title: string;
   liveUrl?: string;
+  canEmbed?: boolean;
   isActive?: boolean;
   showHint?: boolean;
-  size?: "default" | "large" | "fill";
+  size?: "default" | "large" | "fill" | "carousel";
   interactive?: boolean;
   onIframeLoad?: () => void;
+}
+
+const MOCKIFY_BASE_PATH = "/mockify";
+
+const MOCKUP_WIDTH: Record<NonNullable<IPhoneFrameProps["size"]>, number> = {
+  carousel: 220,
+  default: 280,
+  large: 380,
+  fill: 400,
+};
+
+function getScreenContent(
+  showLiveEmbed: boolean,
+  liveUrl: string | undefined,
+  imageSrc: string,
+  imageAlt: string,
+  title: string,
+  canEmbed: boolean,
+  onIframeLoad?: () => void,
+) {
+  if (showLiveEmbed && liveUrl) {
+    return (
+      <LiveEmbedGate
+        src={liveUrl}
+        title={`${title} — app ao vivo`}
+        fallbackImageSrc={imageSrc}
+        fallbackImageAlt={imageAlt}
+        canEmbed={canEmbed}
+        onLoad={onIframeLoad}
+      />
+    );
+  }
+
+  return (
+    <Image
+      src={imageSrc}
+      alt={imageAlt}
+      fill
+      sizes="400px"
+      className={styles.screenImage}
+      priority
+    />
+  );
 }
 
 export function IPhoneFrame({
@@ -19,6 +64,7 @@ export function IPhoneFrame({
   imageAlt,
   title,
   liveUrl,
+  canEmbed = true,
   isActive = false,
   showHint = false,
   size = "default",
@@ -26,10 +72,10 @@ export function IPhoneFrame({
   onIframeLoad,
 }: IPhoneFrameProps) {
   const showLiveEmbed = Boolean(liveUrl && isActive);
+  const mockupWidth = MOCKUP_WIDTH[size];
   const className = [
     styles.wrapper,
-    size === "large" ? styles.large : "",
-    size === "fill" ? styles.fill : "",
+    styles[size],
     isActive ? styles.active : "",
     showLiveEmbed ? styles.live : "",
     interactive ? styles.interactive : "",
@@ -39,36 +85,28 @@ export function IPhoneFrame({
 
   return (
     <div className={className} aria-label={`Projeto ${title}`}>
-      <div className={styles.device}>
-        <div className={styles.sideButton} aria-hidden="true" />
-        <div className={styles.screen}>
-          {showLiveEmbed ? (
-            <LiveIframeViewport
-              src={liveUrl!}
-              title={`${title} — app ao vivo`}
-              onLoad={onIframeLoad}
-            />
-          ) : (
-            <Image
-              src={imageSrc}
-              alt={imageAlt}
-              fill
-              sizes={
-                size === "fill"
-                  ? "(max-width: 768px) 92vw, 440px"
-                  : size === "large"
-                  ? "(max-width: 768px) 92vw, 440px"
-                  : "(max-width: 768px) 72vw, 280px"
-              }
-              className={styles.screenImage}
-              priority={isActive || size !== "default"}
-            />
+      <DeviceMockup
+        device={iPhone16Pro}
+        width={mockupWidth}
+        color="Black Titanium"
+        basePath={MOCKIFY_BASE_PATH}
+        showStatusBar={false}
+        screenColor="#000000"
+        className={styles.mockup}
+      >
+        <div className={styles.screenContent}>
+          {getScreenContent(
+            showLiveEmbed,
+            liveUrl,
+            imageSrc,
+            imageAlt,
+            title,
+            canEmbed,
+            onIframeLoad,
           )}
-          <div className={styles.dynamicIsland} aria-hidden="true" />
-          <div className={styles.screenGlare} aria-hidden="true" />
-          <div className={styles.homeIndicator} aria-hidden="true" />
         </div>
-      </div>
+      </DeviceMockup>
+
       {showHint ? (
         <span className={styles.hint}>
           {showLiveEmbed ? "Toque para interagir" : isActive ? "Selecionado" : "Selecionar"}

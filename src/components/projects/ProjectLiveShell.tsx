@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Project, ProjectAppUrlSource } from "@/lib/constants/projects";
-import { isExternalProjectUrl, isKnownEmbeddableUrl } from "@/lib/constants/projects";
-import { ProjectMockupFrame } from "@/components/ui/ProjectMockupFrame";
+import { canEmbedProject, isExternalProjectUrl, isKnownEmbeddableUrl } from "@/lib/constants/projects";
 import styles from "./ProjectLiveShell.module.css";
 
 interface ProjectLiveShellProps {
@@ -26,6 +25,7 @@ export function ProjectLiveShell({ project, appUrl, urlSource }: ProjectLiveShel
   const router = useRouter();
   const isPhoneMockup = project.mockup === "iphone";
   const [embedState, setEmbedState] = useState<EmbedState>(() => {
+    if (!canEmbedProject(project)) return "blocked";
     if (!isExternalProjectUrl(appUrl)) return "loading";
     if (isKnownEmbeddableUrl(appUrl)) return "loading";
     return "checking";
@@ -167,27 +167,17 @@ export function ProjectLiveShell({ project, appUrl, urlSource }: ProjectLiveShel
           </div>
         ) : null}
 
-        {isPhoneMockup && showIframe ? (
-          <div className={styles.phoneStage}>
-            <ProjectMockupFrame
-              project={project}
-              isActive
-              enableLiveEmbed
-              size="fill"
-              onIframeLoad={() => setEmbedState("ready")}
+        {showIframe ? (
+          <div className={`${styles.browserWindow} ${isPhoneMockup ? styles.phoneWindow : ""}`}>
+            <iframe
+              src={appUrl}
+              title={`${project.title} — sistema ao vivo`}
+              className={styles.frame}
+              onLoad={() => setEmbedState("ready")}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; geolocation; gyroscope; picture-in-picture"
+              referrerPolicy="strict-origin-when-cross-origin"
             />
           </div>
-        ) : null}
-
-        {!isPhoneMockup && showIframe ? (
-          <iframe
-            src={appUrl}
-            title={`${project.title} — sistema ao vivo`}
-            className={styles.frame}
-            onLoad={() => setEmbedState("ready")}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; fullscreen; geolocation; gyroscope; picture-in-picture"
-            referrerPolicy="strict-origin-when-cross-origin"
-          />
         ) : null}
       </div>
     </div>

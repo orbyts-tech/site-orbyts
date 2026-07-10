@@ -1,0 +1,27 @@
+.viewport {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden;
+  background: #fff;
+}
+
+.frameScaler {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.frame {
+  display: block;
+  border: none;
+  background: #fff;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.viewport,
+.frameScaler {
+  pointer-events: auto;
+}

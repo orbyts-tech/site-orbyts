@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectLiveShell } from "@/components/projects/ProjectLiveShell";
+import { ExternalProjectShell } from "@/components/projects/ExternalProjectShell";
 import {
+  canEmbedProject,
   getProjectById,
   PROJECTS,
   resolveProjectAppUrl,
@@ -41,6 +43,10 @@ export default async function ProjectLivePage({ params }: ProjectLivePageProps) 
   if (!project) notFound();
 
   const { url, source } = resolveProjectAppUrl(project);
+
+  if (!canEmbedProject(project)) {
+    return <ExternalProjectShell project={project} appUrl={url} />;
+  }
 
   return <ProjectLiveShell project={project} appUrl={url} urlSource={source} />;
 }

@@ -6,28 +6,22 @@ interface ProjectDemoAppProps {
 }
 
 const DEMO_NAV: Record<string, string[]> = {
-  "orb-run": ["Dashboard", "Mapa ao vivo", "Rankings", "Territórios"],
-  "recebi-fintech": ["Dashboard", "Cobranças", "Clientes", "Réguas"],
-  clinicflow: ["Dashboard", "Agenda", "Prontuários", "Pacientes"],
+  trancatto: ["Início", "Produtos", "Cores", "Contato"],
+  "nilo-consultor-grafico": ["Início", "Serviços", "Projetos", "Contato"],
   "ffit-academia": ["Início", "Treinos", "Check-in", "Alunos"],
   "conecta-condo": ["Início", "Ocorrências", "Reservas", "Avisos"],
 };
 
 const DEMO_METRICS: Record<string, Array<{ label: string; value: string }>> = {
-  "orb-run": [
-    { label: "Corredores ativos", value: "1.284" },
-    { label: "Territórios hoje", value: "342" },
-    { label: "Km registrados", value: "18.9k" },
+  trancatto: [
+    { label: "Linhas no catálogo", value: "6" },
+    { label: "Cores disponíveis", value: "12+" },
+    { label: "Anos de produção", value: "15+" },
   ],
-  "recebi-fintech": [
-    { label: "MRR monitorado", value: "R$ 2.4M" },
-    { label: "Inadimplência", value: "3.1%" },
-    { label: "Cobranças ativas", value: "8.920" },
-  ],
-  clinicflow: [
-    { label: "Consultas hoje", value: "126" },
-    { label: "Leitos ocupados", value: "78%" },
-    { label: "Agendamentos IA", value: "41" },
+  "nilo-consultor-grafico": [
+    { label: "Anos de experiência", value: "20+" },
+    { label: "Projetos entregues", value: "200+" },
+    { label: "Materiais atendidos", value: "Multi" },
   ],
   "ffit-academia": [
     { label: "Alunos ativos", value: "842" },
@@ -42,20 +36,15 @@ const DEMO_METRICS: Record<string, Array<{ label: string; value: string }>> = {
 };
 
 const DEMO_ROWS: Record<string, Array<{ primary: string; secondary: string }>> = {
-  "orb-run": [
-    { primary: "Zona Sul — POA", secondary: "47 corredores online" },
-    { primary: "Centro Histórico", secondary: "Território disputado" },
-    { primary: "Orla Menino Deus", secondary: "Recorde de km/dia" },
+  trancatto: [
+    { primary: "Tricô náutico — Terracota", secondary: "Consulta de catálogo enviada" },
+    { primary: "Corda com alma — Verde pinho", secondary: "Amostra solicitada via WhatsApp" },
+    { primary: "Paleta Areia + Bronze", secondary: "Projeto moveleiro em andamento" },
   ],
-  "recebi-fintech": [
-    { primary: "Fatura #9821 — SaaS B2B", secondary: "Régua D+3 acionada" },
-    { primary: "Cliente Acme Ltda", secondary: "Score 92 · adimplente" },
-    { primary: "Assinatura anual", secondary: "Renovação em 12 dias" },
-  ],
-  clinicflow: [
-    { primary: "Dr. Martins — Cardio", secondary: "Próximo slot 14:30" },
-    { primary: "UTI — Leito 12", secondary: "Alta prevista amanhã" },
-    { primary: "Paciente #4482", secondary: "Prontuário atualizado" },
+  "nilo-consultor-grafico": [
+    { primary: "Totens de papel — Varejo", secondary: "Orçamento aprovado e em produção" },
+    { primary: "Displays em acrílico — PDV", secondary: "Consultoria de materiais concluída" },
+    { primary: "Kit multi-material — Franquias", secondary: "Entrega prevista para esta semana" },
   ],
   "ffit-academia": [
     { primary: "Turma HIIT — 18h", secondary: "32 alunos confirmados" },

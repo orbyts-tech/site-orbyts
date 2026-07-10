@@ -1,4 +1,5 @@
 export type ProjectMockup = "macbook" | "iphone";
+export type ProjectEmbedMode = "iframe" | "external";
 
 export interface Project {
   id: string;
@@ -11,6 +12,11 @@ export interface Project {
   imageSeed: string;
   imageAlt: string;
   mockup?: ProjectMockup;
+  /**
+   * iframe — testável dentro da ORBYTS.
+   * external — abre o sistema em nova aba (site bloqueia iframe).
+   */
+  embedMode?: ProjectEmbedMode;
   /**
    * URL do sistema ao vivo (iframe). Sobrescreve o preview de teste.
    * Ex.: "https://app.seudominio.com.br"
@@ -40,6 +46,8 @@ export {
   hasProjectLiveApp,
   isExternalProjectUrl,
   isKnownEmbeddableUrl,
+  canEmbedProject,
+  opensProjectExternally,
   resolveProjectAppUrl,
 } from "./projectAppUrl";
 
@@ -47,51 +55,38 @@ export type { ProjectAppUrlSource, ResolvedProjectAppUrl } from "./projectEmbedU
 
 export const PROJECTS: Project[] = [
   {
-    id: "orb-run",
+    id: "trancatto",
     index: 1,
-    total: 5,
-    tag: "Mobile App",
-    title: "Orb Run",
+    total: 4,
+    tag: "Site Institucional",
+    title: "Trançatto",
     description:
-      "App de corrida geolocalizada com conquista de territórios, mapas em tempo real e rankings globais.",
-    stack: ["React Native", "PostGIS"],
-    imageSeed: "tech1",
-    imageAlt: "Orb Run — app mobile de corrida geolocalizada",
+      "Site institucional e catálogo digital de cordas e tricôs náuticos para móveis, com paleta de cores e contato integrado.",
+    stack: ["React", "Netlify"],
+    imageSeed: "trancatto",
+    imageAlt: "Trançatto — cordas e tricôs náuticos para móveis",
     mockup: "macbook",
-    // appUrl: "https://app.orbrun.com.br",
+    appUrl: "https://trancatto-orbyts.netlify.app/",
   },
   {
-    id: "recebi-fintech",
+    id: "nilo-consultor-grafico",
     index: 2,
-    total: 5,
-    tag: "SaaS B2B",
-    title: "Recebi Fintech",
+    total: 4,
+    tag: "Site Institucional",
+    title: "Consultoria Nilo",
     description:
-      "Plataforma de billing recorrente com réguas de cobrança automatizadas e scoring de clientes.",
-    stack: ["Next.js", "Supabase"],
-    imageSeed: "tech2",
-    imageAlt: "Recebi Fintech — plataforma de billing recorrente",
+      "Site de consultoria gráfica com apresentação de serviços, portfólio de projetos em múltiplos materiais e fluxo de orçamento integrado.",
+    stack: ["React", "Netlify"],
+    imageSeed: "nilo-consultor-grafico",
+    imageAlt: "Jorge Nilo — consultoria gráfica e produção gráfica",
     mockup: "macbook",
-    // appUrl: "https://app.recebi.com.br",
-  },
-  {
-    id: "clinicflow",
-    index: 3,
-    total: 5,
-    tag: "Health Tech",
-    title: "ClinicFlow",
-    description:
-      "ERP hospitalar completo com prontuário eletrônico inteligente e agendamento preditivo.",
-    stack: ["React", "Node.js"],
-    imageSeed: "tech3",
-    imageAlt: "ClinicFlow — ERP hospitalar com prontuário eletrônico",
-    mockup: "macbook",
-    // appUrl: "https://app.clinicflow.com.br",
+    appUrl: "https://nilo-consultor-grafico.netlify.app/",
+    embedMode: "external",
   },
   {
     id: "ffit-academia",
-    index: 4,
-    total: 5,
+    index: 3,
+    total: 4,
     tag: "Mobile App",
     title: "F Fit Academia",
     description:
@@ -104,8 +99,8 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "conecta-condo",
-    index: 5,
-    total: 5,
+    index: 4,
+    total: 4,
     tag: "Mobile App",
     title: "ConectaCondo",
     description:

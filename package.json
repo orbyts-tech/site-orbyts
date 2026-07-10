@@ -12,6 +12,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mockifydev/react": "^0.1.0",
     "@tailwindcss/postcss": "^4.3.2",
     "next": "^15.5.0",
     "nodemailer": "^9.0.3",

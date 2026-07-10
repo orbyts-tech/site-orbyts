@@ -81,6 +81,17 @@
     transparent 100%
   );
   pointer-events: none;
+  z-index: 2;
+}
+
+.live .screenGlare,
+.live .camera {
+  display: none;
+}
+
+.live .screen {
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .camera {

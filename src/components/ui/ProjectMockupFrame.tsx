@@ -1,5 +1,6 @@
 import type { Project } from "@/lib/constants/projects";
 import {
+  canEmbedProject,
   getProjectImageUrl,
   isExternalProjectUrl,
   resolveProjectAppUrl,
@@ -13,7 +14,7 @@ interface ProjectMockupFrameProps {
   enableLiveEmbed?: boolean;
   showHint?: boolean;
   interactive?: boolean;
-  size?: "default" | "large" | "fill";
+  size?: "default" | "large" | "fill" | "carousel";
   onIframeLoad?: () => void;
   onClick?: () => void;
 }
@@ -38,6 +39,7 @@ export function ProjectMockupFrame({
   const imageSrc = getProjectImageUrl(project);
   const liveUrl = getLiveEmbedUrl(project, isActive, enableLiveEmbed);
   const mockup = project.mockup ?? "macbook";
+  const canEmbed = canEmbedProject(project);
 
   if (mockup === "iphone") {
     return (
@@ -46,6 +48,7 @@ export function ProjectMockupFrame({
         imageAlt={project.imageAlt}
         title={project.title}
         liveUrl={liveUrl}
+        canEmbed={canEmbed}
         isActive={isActive}
         showHint={showHint}
         size={size}
@@ -55,17 +58,21 @@ export function ProjectMockupFrame({
     );
   }
 
-  const macbookSize = size === "fill" ? "large" : size;
+  const macbookSize =
+    size === "fill" ? "large" : size === "carousel" ? "default" : size;
 
   return (
     <MacbookFrame
       imageSrc={imageSrc}
       imageAlt={project.imageAlt}
       title={project.title}
+      liveUrl={liveUrl}
+      canEmbed={canEmbed}
       isActive={isActive}
       showHint={showHint}
       size={macbookSize}
       interactive={interactive}
+      onIframeLoad={onIframeLoad}
       onClick={onClick}
     />
   );

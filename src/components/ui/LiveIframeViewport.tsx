@@ -1,18 +1,29 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import styles from "./IPhoneFrame.module.css";
+import styles from "./LiveIframeViewport.module.css";
 
 export const MOBILE_VIEWPORT_WIDTH = 390;
 export const MOBILE_VIEWPORT_HEIGHT = 844;
 
+export const DESKTOP_VIEWPORT_WIDTH = 1280;
+export const DESKTOP_VIEWPORT_HEIGHT = 800;
+
 interface LiveIframeViewportProps {
   src: string;
   title: string;
+  viewportWidth?: number;
+  viewportHeight?: number;
   onLoad?: () => void;
 }
 
-export function LiveIframeViewport({ src, title, onLoad }: LiveIframeViewportProps) {
+export function LiveIframeViewport({
+  src,
+  title,
+  viewportWidth = MOBILE_VIEWPORT_WIDTH,
+  viewportHeight = MOBILE_VIEWPORT_HEIGHT,
+  onLoad,
+}: LiveIframeViewportProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
 
@@ -24,9 +35,7 @@ export function LiveIframeViewport({ src, title, onLoad }: LiveIframeViewportPro
       const { width, height } = node.getBoundingClientRect();
       if (width === 0 || height === 0) return;
 
-      setScale(
-        Math.min(width / MOBILE_VIEWPORT_WIDTH, height / MOBILE_VIEWPORT_HEIGHT),
-      );
+      setScale(Math.min(width / viewportWidth, height / viewportHeight));
     };
 
     updateScale();
@@ -34,23 +43,23 @@ export function LiveIframeViewport({ src, title, onLoad }: LiveIframeViewportPro
     observer.observe(node);
 
     return () => observer.disconnect();
-  }, []);
+  }, [viewportWidth, viewportHeight]);
 
   return (
-    <div ref={containerRef} className={styles.liveViewport}>
+    <div ref={containerRef} className={styles.viewport}>
       <div
-        className={styles.liveFrameScaler}
+        className={styles.frameScaler}
         style={{
-          width: MOBILE_VIEWPORT_WIDTH * scale,
-          height: MOBILE_VIEWPORT_HEIGHT * scale,
+          width: viewportWidth * scale,
+          height: viewportHeight * scale,
         }}
       >
         <iframe
           src={src}
           title={title}
-          className={styles.liveFrame}
-          width={MOBILE_VIEWPORT_WIDTH}
-          height={MOBILE_VIEWPORT_HEIGHT}
+          className={styles.frame}
+          width={viewportWidth}
+          height={viewportHeight}
           style={{
             transform: `scale(${scale})`,
             transformOrigin: "top left",

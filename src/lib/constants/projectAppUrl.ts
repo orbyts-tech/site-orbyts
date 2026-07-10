@@ -6,9 +6,8 @@ import {
 } from "./projectEmbedUrls";
 
 const PROJECT_APP_URLS: Record<string, string | undefined> = {
-  "orb-run": process.env.NEXT_PUBLIC_PROJECT_ORB_RUN_URL,
-  "recebi-fintech": process.env.NEXT_PUBLIC_PROJECT_RECEBI_URL,
-  clinicflow: process.env.NEXT_PUBLIC_PROJECT_CLINICFLOW_URL,
+  trancatto: process.env.NEXT_PUBLIC_PROJECT_TRANCATTO_URL,
+  "nilo-consultor-grafico": process.env.NEXT_PUBLIC_PROJECT_NILO_URL,
   "ffit-academia": process.env.NEXT_PUBLIC_PROJECT_FFIT_URL,
   "conecta-condo": process.env.NEXT_PUBLIC_PROJECT_CONECTA_CONDO_URL,
 };
@@ -36,6 +35,14 @@ export function getProjectAppUrlSource(project: Project): ProjectAppUrlSource {
 
 export function isExternalProjectUrl(url: string): boolean {
   return url.startsWith("http://") || url.startsWith("https://");
+}
+
+export function opensProjectExternally(project: Project): boolean {
+  return project.embedMode === "external";
+}
+
+export function canEmbedProject(project: Project): boolean {
+  return project.embedMode !== "external";
 }
 
 /** Hosts/rotas pensadas para iframe — pula verificação HEAD */

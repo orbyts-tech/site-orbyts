@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import buttonStyles from "@/components/ui/Button.module.css";
 import { FadeUp } from "@/components/ui/FadeUp";
@@ -10,6 +11,18 @@ const TITLE_LINES = ["Software que", "entrega", "no prazo.", "Sempre."] as const
 export function HeroSection() {
   return (
     <section className={styles.hero} aria-labelledby="hero-heading">
+      <div className={styles.background} aria-hidden="true">
+        <Image
+          src="/hero-team-bg.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className={styles.backgroundImage}
+        />
+        <div className={styles.backgroundOverlay} />
+      </div>
+
       <div className={styles.decorative} aria-hidden="true">
         <div className={styles.decorativeRing} />
         <div className={styles.decorativeOrb} />
@@ -52,7 +65,11 @@ export function HeroSection() {
                 Explorar Projetos
                 <ArrowRightIcon />
               </Button>
-              <Button href="#processo" variant="ghost" className={buttonStyles.fullWidth}>
+              <Button
+                href="#processo"
+                variant="ghost"
+                className={`${buttonStyles.fullWidth} ${styles.heroGhostButton}`}
+              >
                 Como trabalhamos
               </Button>
             </div>
