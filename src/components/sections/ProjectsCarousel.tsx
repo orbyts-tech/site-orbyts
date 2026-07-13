@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { useRouter } from "next/navigation";
 import type { Project } from "@/lib/constants/projects";
 import { getProjectAppUrl, isExternalProjectUrl, opensProjectExternally, getProjectImageUrl, canEmbedProject, resolveProjectAppUrl } from "@/lib/constants/projects";
 import { FadeUp } from "@/components/ui/FadeUp";
@@ -14,7 +13,6 @@ interface ProjectsCarouselProps {
 }
 
 export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
-  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const activeProject = projects[activeIndex];
@@ -28,19 +26,6 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
 
   const goPrev = () => goTo(activeIndex - 1);
   const goNext = () => goTo(activeIndex + 1);
-
-  const openProject = (project: Project) => {
-    const appUrl = getProjectAppUrl(project);
-
-    if (opensProjectExternally(project) && isExternalProjectUrl(appUrl)) {
-      window.open(appUrl, "_blank", "noopener,noreferrer");
-      return;
-    }
-
-    router.push(`/projetos/${project.id}`);
-  };
-
-  const enterLabel = opensProjectExternally(activeProject) ? "Testar projeto ↗" : "Entrar no sistema";
 
   return (
     <>
@@ -78,8 +63,8 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
                   {projects.map((project, index) => {
                     const isActive = index === activeIndex;
                     const { url } = resolveProjectAppUrl(project);
-                    const liveUrl = canEmbedProject(project) && isActive && isExternalProjectUrl(url) ? url : undefined;
                     const isPhone = project.mockup === "iphone";
+                    const liveUrl = !isPhone && canEmbedProject(project) && isActive && isExternalProjectUrl(url) ? url : undefined;
 
                     return (
                       <div
@@ -158,30 +143,6 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
                     ))}
                   </div>
                 </div>
-
-                <div className={styles.detailsFooter}>
-                  <button
-                    type="button"
-                    className={styles.enterButton}
-                    onClick={() => openProject(activeProject)}
-                  >
-                    {enterLabel}
-                  </button>
-
-                  <div className={styles.dots} role="tablist" aria-label="Projetos">
-                    {projects.map((project, index) => (
-                      <button
-                        key={project.id}
-                        type="button"
-                        role="tab"
-                        className={`${styles.dot} ${index === activeIndex ? styles.dotActive : ""}`}
-                        aria-selected={index === activeIndex}
-                        aria-label={`Ver ${project.title}`}
-                        onClick={() => goTo(index)}
-                      />
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -194,6 +155,22 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
             >
               <ChevronRightIcon />
             </button>
+          </div>
+
+          <div className={styles.dotsContainer}>
+            <div className={styles.dots} role="tablist" aria-label="Projetos">
+              {projects.map((project, index) => (
+                <button
+                  key={project.id}
+                  type="button"
+                  role="tab"
+                  className={`${styles.dot} ${index === activeIndex ? styles.dotActive : ""}`}
+                  aria-selected={index === activeIndex}
+                  aria-label={`Ver ${project.title}`}
+                  onClick={() => goTo(index)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </FadeUp>

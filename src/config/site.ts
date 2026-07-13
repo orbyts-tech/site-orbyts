@@ -4,7 +4,7 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://orbyts.com.br",
   locale: "pt_BR",
   language: "pt-BR",
-  title: "ORBYTS — Software que entrega no prazo",
+  title: "ORBYTS - Software que entrega no prazo",
   description:
     "Software house especializada em sistemas web e apps mobile com arquitetura escalável, código limpo e cronograma blindado. +100 projetos entregues, 100% no prazo.",
   ogImagePath: "/og-image.png",

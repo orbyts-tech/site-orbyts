@@ -22,6 +22,11 @@ export interface Project {
    * Ex.: "https://app.seudominio.com.br"
    */
   appUrl?: string;
+  /**
+   * Caminho para a imagem local (ex.: "/ffit-academia.png").
+   * Se não for fornecida, usará o placeholder gerado pelo Picsum.
+   */
+  imageUrl?: string;
 }
 
 /**
@@ -29,6 +34,10 @@ export interface Project {
  * Trocar por assets locais definitivos (ex.: `/images/projects/${project.id}.webp`).
  */
 export function getProjectImageUrl(project: Project): string {
+  if (project.imageUrl) {
+    return project.imageUrl;
+  }
+
   if (project.mockup === "iphone") {
     return `https://picsum.photos/seed/${project.imageSeed}/900/1950`;
   }
@@ -81,7 +90,6 @@ export const PROJECTS: Project[] = [
     imageAlt: "Jorge Nilo — consultoria gráfica e produção gráfica",
     mockup: "macbook",
     appUrl: "https://nilo-consultor-grafico.netlify.app/",
-    embedMode: "external",
   },
   {
     id: "ffit-academia",
@@ -96,6 +104,7 @@ export const PROJECTS: Project[] = [
     imageAlt: "F Fit Academia — app de gestão para academias",
     mockup: "iphone",
     appUrl: "https://app-academia-orbyts.netlify.app/",
+    imageUrl: "/ffit-academia.png",
   },
   {
     id: "conecta-condo",
@@ -110,5 +119,6 @@ export const PROJECTS: Project[] = [
     imageAlt: "ConectaCondo — app de gestão para condomínios",
     mockup: "iphone",
     appUrl: "https://connect-condo-orbyts.netlify.app/",
+    imageUrl: "/conecta-condo.png",
   },
 ];
