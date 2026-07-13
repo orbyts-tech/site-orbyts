@@ -17,7 +17,8 @@ export async function POST(request: Request) {
     await sendProposalNotification(parsed.data);
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (error) {
+    console.error("Error submitting proposal:", error);
     return NextResponse.json(
       { error: "Não foi possível enviar sua solicitação. Tente novamente." },
       { status: 500 },

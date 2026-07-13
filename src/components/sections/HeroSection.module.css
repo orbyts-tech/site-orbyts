@@ -254,7 +254,7 @@
 
 .statCard {
   border-radius: var(--radius-card-xl);
-  padding: 1.5rem 1.25rem;
+  padding: 1.5rem 1.25rem 1rem 1.25rem;
   min-height: 9.5rem;
   display: flex;
   flex-direction: column;
@@ -328,7 +328,7 @@
 
 @media (min-width: 768px) {
   .hero {
-    padding: calc(var(--nav-height) + 3rem) var(--page-padding-x) 5rem;
+    padding: calc(var(--nav-height) + 3rem) var(--page-padding-x) 6.5rem;
   }
 
   .backgroundOverlay {
@@ -360,12 +360,12 @@
   }
 
   .stats {
-    margin-top: 4rem;
+    margin-top: 6rem;
     gap: 1.25rem;
   }
 
   .statCard {
-    padding: 1.75rem 1.5rem;
+    padding: 1.75rem 1.5rem 1rem 1.5rem;
     min-height: 10.5rem;
   }
 }
@@ -373,7 +373,7 @@
 @media (min-width: 1024px) {
   .hero {
     padding-top: calc(var(--nav-height) + 4rem);
-    padding-bottom: 6rem;
+    padding-bottom: 8rem;
   }
 
   .title {
@@ -381,7 +381,7 @@
   }
 
   .stats {
-    margin-top: 5rem;
+    margin-top: 7.5rem;
     width: 100%;
   }
 
