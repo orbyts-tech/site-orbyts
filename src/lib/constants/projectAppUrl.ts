@@ -8,8 +8,6 @@ import {
 const PROJECT_APP_URLS: Record<string, string | undefined> = {
   trancatto: process.env.NEXT_PUBLIC_PROJECT_TRANCATTO_URL,
   "nilo-consultor-grafico": process.env.NEXT_PUBLIC_PROJECT_NILO_URL,
-  "ffit-academia": process.env.NEXT_PUBLIC_PROJECT_FFIT_URL,
-  "conecta-condo": process.env.NEXT_PUBLIC_PROJECT_CONECTA_CONDO_URL,
 };
 
 export function resolveProjectAppUrl(project: Project): ResolvedProjectAppUrl {

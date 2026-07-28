@@ -1,12 +1,7 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
-import buttonStyles from "@/components/ui/Button.module.css";
 import { FadeUp } from "@/components/ui/FadeUp";
-import { ArrowRightIcon } from "@/components/ui/Icons";
 import { HERO_STATS } from "@/lib/constants/content";
 import styles from "./HeroSection.module.css";
-
-const TITLE_LINES = ["Software que", "entrega", "no prazo.", "Sempre."] as const;
 
 export function HeroSection() {
   return (
@@ -41,39 +36,14 @@ export function HeroSection() {
 
             <FadeUp delay={0.08} className={styles.titleWrap}>
               <h1 id="hero-heading" className={styles.title}>
-                {TITLE_LINES.map((line) => (
-                  <span key={line} className={styles.titleLine}>
-                    {line === "no prazo." ? (
-                      <span className={styles.accent}>no prazo.</span>
-                    ) : (
-                      line
-                    )}
-                  </span>
-                ))}
+                <span className={styles.titleLead}>Software que entrega</span>
+                <span className={styles.titleFocus}>
+                  <span className={styles.accent}>no prazo.</span>
+                  <span className={styles.titleCloser}> Sempre.</span>
+                </span>
               </h1>
             </FadeUp>
           </div>
-
-          <FadeUp delay={0.16} className={styles.aside}>
-            <h2 className={styles.asideTitle}>Engenharia previsível</h2>
-            <p className={styles.subtitle}>
-              Construímos sistemas web e apps mobile com arquitetura escalável, código limpo e
-              cronograma blindado. Sem surpresas no meio do caminho.
-            </p>
-            <div className={styles.actions}>
-              <Button href="#projetos" className={buttonStyles.fullWidth}>
-                Explorar Projetos
-                <ArrowRightIcon />
-              </Button>
-              <Button
-                href="#processo"
-                variant="ghost"
-                className={`${buttonStyles.fullWidth} ${styles.heroGhostButton}`}
-              >
-                Como trabalhamos
-              </Button>
-            </div>
-          </FadeUp>
         </div>
 
         <FadeUp delay={0.24}>

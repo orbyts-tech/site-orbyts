@@ -23,6 +23,7 @@
 .mockupCol {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 100%;
   min-width: 0;
 }
@@ -30,24 +31,35 @@
 .mockupWrap {
   position: relative;
   width: 100%;
-  min-height: clamp(240px, 52vw, 380px);
+  min-height: clamp(360px, 72vw, 520px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mockupColPhone {
-  --carousel-phone-height: min(48vh, 450px);
+  --carousel-phone-height: min(68vh, 640px);
+  justify-content: center;
 }
 
 .mockupColPhone .mockupWrap {
   min-height: 0;
   height: var(--carousel-phone-height);
   max-height: var(--carousel-phone-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mockupColDesktop .mockupWrap {
+  min-height: clamp(380px, 70vw, 560px);
 }
 
 .imageContainer {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  max-width: 860px;
+  max-width: none;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow-lg), 0 24px 64px -12px rgba(0, 0, 0, 0.15);
@@ -56,6 +68,19 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+}
+
+.deviceFrameWide {
+  width: 100%;
+  height: clamp(380px, 62vw, 580px);
+  max-width: none;
+  aspect-ratio: auto;
+}
+
+.deviceFrameImage {
+  object-fit: contain;
+  object-position: center center;
+  image-rendering: auto;
 }
 
 .browserHeader {
@@ -97,6 +122,16 @@
   flex-shrink: 0;
 }
 
+.deviceFrame {
+  position: relative;
+  height: var(--carousel-phone-height, 640px);
+  width: calc(var(--carousel-phone-height, 640px) * 0.5);
+  max-width: min(100%, 360px);
+  margin: 0 auto;
+  flex-shrink: 0;
+  background: transparent;
+}
+
 .phoneNotch {
   position: absolute;
   top: 0;
@@ -120,11 +155,8 @@
 }
 
 .projectImage {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: #fff;
   object-fit: cover;
+  background: #fff;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -152,12 +184,8 @@
   transform-origin: top left;
 }
 
-.slidePhone .projectImage {
-  position: absolute;
-  top: 26px;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 26px);
+.slidePhone .phoneContent .projectImage {
+  object-position: center top;
 }
 
 .slideActive .projectImage {
@@ -169,18 +197,17 @@
 }
 
 .slide {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transform: scale(0.97);
-  pointer-events: none;
-  transition:
-    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  animation: slide-fade-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .slideActive {
@@ -190,10 +217,21 @@
   pointer-events: auto;
 }
 
+@keyframes slide-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .detailsCol {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   min-width: 0;
   min-height: 100%;
 }
@@ -520,9 +558,9 @@
   }
 
   .layout {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: 2.5rem 4rem;
-    align-items: stretch;
+    grid-template-columns: minmax(0, 1.85fr) minmax(0, 0.5fr);
+    gap: 1.75rem 2rem;
+    align-items: center;
   }
 
   .detailsFooter {
@@ -530,17 +568,34 @@
   }
 
   .mockupWrap {
-    min-height: clamp(300px, 34vw, 420px);
+    min-height: clamp(520px, 58vw, 720px);
+  }
+
+  .mockupColDesktop .mockupWrap {
+    min-height: clamp(520px, 58vw, 740px);
   }
 
   .mockupColPhone {
-    --carousel-phone-height: min(56vh, 480px);
+    --carousel-phone-height: min(72vh, 720px);
   }
 
   .mockupColPhone .mockupWrap {
     min-height: 0;
     height: var(--carousel-phone-height);
     max-height: var(--carousel-phone-height);
+  }
+
+  .deviceFrameWide {
+    height: clamp(480px, 54vw, 700px);
+    max-width: none;
+  }
+
+  .imageContainer {
+    max-height: 700px;
+  }
+
+  .deviceFrame {
+    max-width: min(100%, 370px);
   }
 
   .navButton {
@@ -560,7 +615,31 @@
 
 @media (min-width: 1024px) {
   .layout {
-    gap: 3rem 5rem;
+    grid-template-columns: minmax(0, 2fr) minmax(240px, 0.42fr);
+    gap: 2rem 2.25rem;
+    align-items: center;
+  }
+
+  .mockupColPhone {
+    --carousel-phone-height: min(74vh, 740px);
+  }
+
+  .mockupColDesktop .mockupWrap {
+    min-height: clamp(580px, 62vh, 820px);
+  }
+
+  .deviceFrame {
+    max-width: min(100%, 380px);
+  }
+
+  .deviceFrameWide {
+    height: clamp(560px, 62vh, 820px);
+    width: 100%;
+    max-width: none;
+  }
+
+  .imageContainer {
+    max-height: 820px;
   }
 }
 
@@ -620,7 +699,8 @@
   .slide,
   .meta,
   .overlay,
-  .entryPanel {
+  .entryPanel,
+  .projectImage {
     animation: none;
     transition: none;
   }

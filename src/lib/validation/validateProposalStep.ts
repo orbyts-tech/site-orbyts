@@ -19,9 +19,7 @@ export function validateProposalField(
     case "email":
       return EMAIL_PATTERN.test(trimmed) ? null : "Informe um e-mail válido.";
     case "scope":
-      return trimmed.length < 20
-        ? "Descreva o escopo com um pouco mais de detalhe (mínimo 20 caracteres)."
-        : null;
+      return trimmed.length === 0 ? "Conte um pouco sobre o projeto." : null;
     case "investment":
       return INVESTMENT_RANGES.some((range) => range.value === value)
         ? null

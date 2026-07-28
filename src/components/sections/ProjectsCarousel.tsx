@@ -1,8 +1,14 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Project } from "@/lib/constants/projects";
-import { getProjectAppUrl, isExternalProjectUrl, opensProjectExternally, getProjectImageUrl, canEmbedProject, resolveProjectAppUrl } from "@/lib/constants/projects";
+import {
+  canEmbedProject,
+  getProjectImageUrl,
+  isExternalProjectUrl,
+  resolveProjectAppUrl,
+} from "@/lib/constants/projects";
 import { FadeUp } from "@/components/ui/FadeUp";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/Icons";
 import sectionStyles from "./ProjectsSection.module.css";
@@ -12,10 +18,122 @@ interface ProjectsCarouselProps {
   projects: Project[];
 }
 
+function ProjectPreview({
+  project,
+  allowLiveEmbed,
+}: {
+  project: Project;
+  allowLiveEmbed: boolean;
+}) {
+  const isPhone = project.mockup === "iphone";
+  const { url } = resolveProjectAppUrl(project);
+  const liveUrl =
+    allowLiveEmbed && !isPhone && canEmbedProject(project) && isExternalProjectUrl(url)
+      ? url
+      : undefined;
+  const imageSrc = getProjectImageUrl(project);
+  const isRemoteImage = imageSrc.startsWith("http");
+  const imageSizes = isPhone
+    ? "(max-width: 767px) 70vw, 420px"
+    : "(max-width: 767px) 100vw, 70vw";
+
+  const previewImage = (
+    <Image
+      src={imageSrc}
+      alt={project.imageAlt}
+      fill
+      sizes={imageSizes}
+      className={styles.projectImage}
+      unoptimized={isRemoteImage}
+      quality={90}
+    />
+  );
+
+  if (project.hasDeviceFrame) {
+    return (
+      <div
+        className={`${styles.deviceFrame} ${isPhone ? "" : styles.deviceFrameWide}`}
+      >
+        <Image
+          src={imageSrc}
+          alt={project.imageAlt}
+          fill
+          sizes={
+            isPhone
+              ? "(max-width: 767px) 70vw, 380px"
+              : "(max-width: 767px) 100vw, 75vw"
+          }
+          className={styles.deviceFrameImage}
+          quality={100}
+          unoptimized
+          priority={
+            project.id === "forma" ||
+            project.id === "b6pay" ||
+            project.id === "thora-orcamentos" ||
+            project.id === "rastrek"
+          }
+        />
+      </div>
+    );
+  }
+
+  if (!isPhone) {
+    return (
+      <div className={styles.imageContainer}>
+        <div className={styles.browserHeader}>
+          <span className={`${styles.browserDot} ${styles.dotRed}`} />
+          <span className={`${styles.browserDot} ${styles.dotYellow}`} />
+          <span className={`${styles.browserDot} ${styles.dotGreen}`} />
+        </div>
+        <div className={styles.browserContent}>
+          {liveUrl ? (
+            <iframe
+              src={liveUrl}
+              title={`${project.title} preview`}
+              className={styles.projectIframe}
+              loading="lazy"
+            />
+          ) : (
+            previewImage
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`${styles.imageContainer} ${styles.imageContainerPhone}`}>
+      <div className={styles.phoneNotch} />
+      <div className={styles.phoneContent}>{previewImage}</div>
+    </div>
+  );
+}
+
 export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isInView, setIsInView] = useState(false);
+  const stageRef = useRef<HTMLDivElement>(null);
 
   const activeProject = projects[activeIndex];
+  const isPhone = activeProject.mockup === "iphone";
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "120px 0px", threshold: 0.15 },
+    );
+
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
 
   const goTo = useCallback(
     (index: number) => {
@@ -41,7 +159,7 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
       </FadeUp>
 
       <FadeUp delay={0.1}>
-        <div className={styles.stage}>
+        <div className={styles.stage} ref={stageRef}>
           <div className={styles.carousel}>
             <button
               type="button"
@@ -56,74 +174,21 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
             <div className={styles.layout}>
               <div
                 className={`${styles.mockupCol} ${
-                  activeProject.mockup === "iphone" ? styles.mockupColPhone : ""
+                  isPhone ? styles.mockupColPhone : styles.mockupColDesktop
                 }`}
               >
                 <div className={styles.mockupWrap}>
-                  {projects.map((project, index) => {
-                    const isActive = index === activeIndex;
-                    const { url } = resolveProjectAppUrl(project);
-                    const isPhone = project.mockup === "iphone";
-                    const liveUrl = !isPhone && canEmbedProject(project) && isActive && isExternalProjectUrl(url) ? url : undefined;
-
-                    return (
-                      <div
-                        key={project.id}
-                        className={`${styles.slide} ${isActive ? styles.slideActive : ""} ${isPhone ? styles.slidePhone : ""}`}
-                        aria-hidden={!isActive}
-                      >
-                        <div className={`${styles.imageContainer} ${isPhone ? styles.imageContainerPhone : ""}`}>
-                          {!isPhone ? (
-                            <>
-                              <div className={styles.browserHeader}>
-                                <span className={`${styles.browserDot} ${styles.dotRed}`} />
-                                <span className={`${styles.browserDot} ${styles.dotYellow}`} />
-                                <span className={`${styles.browserDot} ${styles.dotGreen}`} />
-                              </div>
-                              <div className={styles.browserContent}>
-                                {liveUrl ? (
-                                  <iframe
-                                    src={liveUrl}
-                                    title={`${project.title} preview`}
-                                    className={styles.projectIframe}
-                                    loading="lazy"
-                                  />
-                                ) : (
-                                  /* eslint-disable-next-line @next/next/no-img-element */
-                                  <img 
-                                    src={getProjectImageUrl(project)} 
-                                    alt={project.imageAlt} 
-                                    className={styles.projectImage} 
-                                  />
-                                )}
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <div className={styles.phoneNotch} />
-                              <div className={styles.phoneContent}>
-                                {liveUrl ? (
-                                  <iframe
-                                    src={liveUrl}
-                                    title={`${project.title} preview`}
-                                    className={styles.projectIframe}
-                                    loading="lazy"
-                                  />
-                                ) : (
-                                  /* eslint-disable-next-line @next/next/no-img-element */
-                                  <img 
-                                    src={getProjectImageUrl(project)} 
-                                    alt={project.imageAlt} 
-                                    className={styles.projectImage} 
-                                  />
-                                )}
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
+                  <div
+                    key={activeProject.id}
+                    className={`${styles.slide} ${styles.slideActive} ${
+                      isPhone ? styles.slidePhone : ""
+                    }`}
+                  >
+                    <ProjectPreview
+                      project={activeProject}
+                      allowLiveEmbed={isInView}
+                    />
+                  </div>
                 </div>
               </div>
 

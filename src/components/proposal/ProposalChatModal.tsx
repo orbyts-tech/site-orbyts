@@ -135,24 +135,40 @@ export function ProposalChatModal({ onClose }: ProposalChatModalProps) {
       setIsSubmitting(true);
       addBotMessage("Enviando sua solicitação...", 300);
 
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 20000);
+
       try {
         const response = await fetch("/api/proposal", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
+          signal: controller.signal,
         });
 
-        if (!response.ok) throw new Error("Falha ao enviar");
+        const result = (await response.json().catch(() => null)) as {
+          error?: string;
+        } | null;
+
+        if (!response.ok) {
+          throw new Error(result?.error || "Falha ao enviar");
+        }
 
         setIsDone(true);
         setCurrentStep("done");
         addBotMessage(PROPOSAL_CHAT_SUCCESS, 600);
-      } catch {
+      } catch (error) {
+        const message =
+          error instanceof Error && error.name === "AbortError"
+            ? "O envio demorou demais. Verifique se o servidor está na porta correta e tente de novo."
+            : error instanceof Error
+              ? error.message
+              : "Não consegui enviar agora. Tente novamente em instantes.";
+
+        addBotMessage(message, 400);
+      } finally {
+        window.clearTimeout(timeoutId);
         setIsSubmitting(false);
-        addBotMessage(
-          "Não consegui enviar agora. Tente novamente em instantes ou fale conosco por e-mail.",
-          400,
-        );
       }
     },
     [addBotMessage],

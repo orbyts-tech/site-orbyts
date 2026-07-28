@@ -7,11 +7,11 @@ export type DotGridParameters = {
 };
 
 export const DOT_GRID_PARAMETERS: DotGridParameters = {
-  size: 34,
-  radius: 1,
-  proximity: 88,
-  growth: 16,
-  ease: 0.065,
+  size: 56,
+  radius: 1.1,
+  proximity: 96,
+  growth: 14,
+  ease: 0.08,
 };
 
 class Point {
@@ -93,8 +93,20 @@ export function applyProximity(
   clientY: number,
   parameters: DotGridParameters,
 ): void {
+  const proximityLimit = parameters.proximity + parameters.radius;
+  const proximityLimitSq = proximityLimit * proximityLimit;
+
   for (const circle of circles) {
-    const distance = Math.hypot(circle.x - clientX, circle.y - clientY);
+    const dx = circle.x - clientX;
+    const dy = circle.y - clientY;
+    const distanceSq = dx * dx + dy * dy;
+
+    if (distanceSq > proximityLimitSq) {
+      if (circle.growthValue !== 0) circle.setGrowth(0);
+      continue;
+    }
+
+    const distance = Math.sqrt(distanceSq);
     let growth = mapValue(
       distance,
       circle.baseRadius,
@@ -117,7 +129,7 @@ export function resizeCanvas(canvas: HTMLCanvasElement): CanvasRenderingContext2
   const context = canvas.getContext("2d");
   if (!context) return null;
 
-  const deviceRatio = Math.min(window.devicePixelRatio || 1, 2);
+  const deviceRatio = Math.min(window.devicePixelRatio || 1, 1.5);
   const width = window.innerWidth;
   const height = window.innerHeight;
 

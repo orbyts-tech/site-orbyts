@@ -24,8 +24,8 @@ export function validateProposalForm(data: ProposalFormData): ProposalFormErrors
     errors.email = "Informe um e-mail válido.";
   }
 
-  if (scope.length < 20) {
-    errors.scope = "Descreva o escopo com pelo menos 20 caracteres.";
+  if (scope.length === 0) {
+    errors.scope = "Conte um pouco sobre o projeto.";
   }
 
   if (!VALID_INVESTMENTS.has(data.investment)) {

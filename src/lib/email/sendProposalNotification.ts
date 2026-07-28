@@ -1,11 +1,15 @@
 import "server-only";
 
 import type { z } from "zod";
+import { SITE } from "@/config/site";
 import { proposalSchema } from "@/lib/schemas/proposal.server";
 import { getInvestmentLabel } from "@/lib/validation/validateProposalStep";
 import {
+  getMailFromAddress,
   getMailTransporter,
   getProposalNotificationEmail,
+  getResendClient,
+  isEmailConfigured,
 } from "@/lib/email/getMailTransporter";
 
 type ProposalPayload = z.infer<typeof proposalSchema>;
@@ -41,24 +45,44 @@ function buildProposalEmailContent(data: ProposalPayload) {
 export async function sendProposalNotification(
   data: ProposalPayload,
 ): Promise<void> {
-  const transporter = getMailTransporter();
-
-  if (!transporter) {
-    throw new Error("Configuração SMTP ausente.");
-  }
-
-  const from = process.env.SMTP_FROM ?? process.env.SMTP_USER;
-  if (!from) {
-    throw new Error("Remetente SMTP não configurado.");
+  if (!isEmailConfigured()) {
+    throw new Error(
+      "E-mail não configurado. Defina RESEND_API_KEY no .env.local.",
+    );
   }
 
   const { text, html } = buildProposalEmailContent(data);
+  const to = getProposalNotificationEmail();
+  const from = getMailFromAddress();
+  const subject = `[Proposta] ${data.fullName}`;
+
+  const resend = getResendClient();
+  if (resend) {
+    const { error } = await resend.emails.send({
+      from,
+      to: [to],
+      replyTo: data.email,
+      subject,
+      text,
+      html,
+    });
+
+    if (error) {
+      throw new Error(error.message || "Falha ao enviar e-mail via Resend.");
+    }
+    return;
+  }
+
+  const transporter = getMailTransporter();
+  if (!transporter) {
+    throw new Error("Transportador de e-mail não configurado.");
+  }
 
   await transporter.sendMail({
-    from: `ORBYTS Site <${from}>`,
-    to: getProposalNotificationEmail(),
+    from: from.includes("<") ? from : `${SITE.name} Site <${from}>`,
+    to,
     replyTo: data.email,
-    subject: `[Proposta] ${data.fullName}`,
+    subject,
     text,
     html,
   });

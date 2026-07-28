@@ -53,4 +53,27 @@ npm start
 
 ```env
 NEXT_PUBLIC_SITE_URL=https://orbyts.com.br
+RESEND_API_KEY=re_xxxxxxxx
+PROPOSAL_NOTIFICATION_EMAIL=comercial@orbytstech.com
+# Opcional (após verificar domínio no Resend):
+# RESEND_FROM="ORBYTS Site <comercial@orbytstech.com>"
+```
+
+## Deploy no Netlify
+
+1. Conecte o repositório no [Netlify](https://app.netlify.com).
+2. Build settings (já no `netlify.toml`):
+   - **Build command:** `npm run build`
+   - **Publish directory:** `.next`
+   - **Node:** `22`
+3. Em **Site settings → Environment variables**, adicione:
+   - `RESEND_API_KEY`
+   - `PROPOSAL_NOTIFICATION_EMAIL`
+   - `NEXT_PUBLIC_SITE_URL` (URL definitiva do site)
+   - `RESEND_FROM` (depois de verificar `orbytstech.com` no Resend)
+4. Deploy. A rota `/api/proposal` roda como função serverless automaticamente.
+
+```bash
+# Teste local de produção
+npm run build && npm start
 ```

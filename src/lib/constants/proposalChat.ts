@@ -30,9 +30,8 @@ export const PROPOSAL_CHAT_STEPS: ProposalChatStepConfig[] = [
   },
   {
     field: "scope",
-    botPrompt:
-      "Agora conte sobre o projeto: o que precisa construir, integrações, prazos e objetivos.",
-    inputPlaceholder: "Descreva o escopo do projeto...",
+    botPrompt: "Agora conte sobre o projeto — pode escrever do jeito que preferir.",
+    inputPlaceholder: "Escreva sobre o projeto...",
     inputType: "textarea",
   },
   {

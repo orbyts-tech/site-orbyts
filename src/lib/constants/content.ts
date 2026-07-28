@@ -36,7 +36,7 @@ export const COMMERCIAL_MODELS: CommercialModel[] = [
     description:
       "Ideal para projetos que ainda estão nascendo junto com a ideia e precisam validar ela antes de investir mais.",
     features: [
-      { text: "30 dias de desenvolvimento", variant: "check" },
+      { text: "15 dias de desenvolvimento", variant: "check" },
       { text: "MVP completo para você já ter retorno do investimento", variant: "check" },
       { text: "Investimento menor e retorno mais rápido", variant: "check" },
     ],
