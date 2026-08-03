@@ -18,7 +18,7 @@ export function Footer() {
         </div>
 
         <div className={styles.linksCol}>
-          <h4>Serviços</h4>
+          <p className={styles.colTitle}>Serviços</p>
           <ul>
             {FOOTER_LINKS.services.map((link) => (
               <li key={link.label}>
@@ -29,7 +29,7 @@ export function Footer() {
         </div>
 
         <div className={styles.linksCol}>
-          <h4>Empresa</h4>
+          <p className={styles.colTitle}>Empresa</p>
           <ul>
             {FOOTER_LINKS.company.map((link) => (
               <li key={link.label}>

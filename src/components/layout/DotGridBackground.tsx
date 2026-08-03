@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   applyProximity,
   buildDotGrid,
@@ -46,17 +46,30 @@ function paintFrame(
   }
 }
 
+/** Canvas só no desktop — no mobile economiza CPU/bateria e JS. */
 export function DotGridBackground() {
+  const [isEnabled, setIsEnabled] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const circlesRef = useRef<DotGridCircle[]>([]);
   const frameRef = useRef(0);
   const idleTimerRef = useRef(0);
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia(
+      "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
+    );
+    const sync = () => setIsEnabled(mediaQuery.matches);
+    sync();
+    mediaQuery.addEventListener("change", sync);
+    return () => mediaQuery.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (!isEnabled) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const parameters = DOT_GRID_PARAMETERS;
 
     let context = resizeCanvas(canvas);
@@ -87,9 +100,9 @@ export function DotGridBackground() {
         return;
       }
 
-      paintFrame(context, circlesRef.current, parameters.ease, parameters.growth, !prefersReducedMotion);
+      paintFrame(context, circlesRef.current, parameters.ease, parameters.growth, true);
 
-      if (!prefersReducedMotion && needsAnimation(circlesRef.current)) {
+      if (needsAnimation(circlesRef.current)) {
         frameRef.current = window.requestAnimationFrame(animate);
         return;
       }
@@ -98,7 +111,7 @@ export function DotGridBackground() {
     };
 
     const startLoop = () => {
-      if (prefersReducedMotion || isHidden || isLooping) return;
+      if (isHidden || isLooping) return;
       isLooping = true;
       frameRef.current = window.requestAnimationFrame(animate);
     };
@@ -112,7 +125,7 @@ export function DotGridBackground() {
     };
 
     const handlePointer = (clientX: number, clientY: number) => {
-      if (prefersReducedMotion || isHidden) return;
+      if (isHidden) return;
       applyProximity(circlesRef.current, clientX, clientY, parameters);
       startLoop();
       scheduleIdleStop();
@@ -120,12 +133,6 @@ export function DotGridBackground() {
 
     const onMouseMove = (event: MouseEvent) => {
       handlePointer(event.clientX, event.clientY);
-    };
-
-    const onTouchMove = (event: TouchEvent) => {
-      const touch = event.touches[0];
-      if (!touch) return;
-      handlePointer(touch.clientX, touch.clientY);
     };
 
     const onPointerLeave = () => {
@@ -152,7 +159,6 @@ export function DotGridBackground() {
 
     window.addEventListener("resize", onResize);
     window.addEventListener("mousemove", onMouseMove, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("mouseout", onPointerLeave);
     document.addEventListener("visibilitychange", onVisibilityChange);
 
@@ -161,11 +167,12 @@ export function DotGridBackground() {
       window.clearTimeout(idleTimerRef.current);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("mouseout", onPointerLeave);
       document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, []);
+  }, [isEnabled]);
+
+  if (!isEnabled) return null;
 
   return (
     <div className={styles.root} aria-hidden="true">

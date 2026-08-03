@@ -27,6 +27,7 @@ export function createPageMetadata({
       canonical: canonicalPath,
       languages: {
         [SITE.language]: canonicalPath,
+        "x-default": canonicalPath,
       },
     },
     openGraph: {
@@ -41,7 +42,7 @@ export function createPageMetadata({
           url: ogImageUrl,
           width: SITE.ogImageWidth,
           height: SITE.ogImageHeight,
-          alt: `${SITE.name} — Software House`,
+          alt: `${SITE.name} — Software House em Porto Alegre`,
           type: "image/png",
         },
       ],

@@ -5,7 +5,7 @@ export function OrganizationJsonLd() {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
         "@id": `${SITE.url}/#organization`,
         name: SITE.legalName,
         alternateName: SITE.name,
@@ -13,32 +13,51 @@ export function OrganizationJsonLd() {
         logo: {
           "@type": "ImageObject",
           url: absoluteUrl("/icon.png"),
-          width: 512,
-          height: 512,
+          width: 192,
+          height: 192,
         },
         image: absoluteUrl(SITE.ogImagePath),
         description: SITE.description,
         email: SITE.contact.email,
+        telephone: SITE.contact.phone,
         address: {
           "@type": "PostalAddress",
           addressLocality: SITE.location.city,
           addressRegion: SITE.location.region,
           addressCountry: SITE.location.country,
         },
-        areaServed: {
-          "@type": "Country",
-          name: "Brasil",
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: -30.0346,
+          longitude: -51.2177,
         },
+        areaServed: [
+          {
+            "@type": "City",
+            name: SITE.location.city,
+          },
+          {
+            "@type": "AdministrativeArea",
+            name: "Rio Grande do Sul",
+          },
+          {
+            "@type": "Country",
+            name: "Brasil",
+          },
+        ],
         contactPoint: [
           {
             "@type": "ContactPoint",
             contactType: "sales",
             email: SITE.contact.email,
+            telephone: SITE.contact.phone,
             availableLanguage: ["Portuguese"],
             areaServed: "BR",
+            url: SITE.contact.whatsapp,
           },
         ],
         knowsAbout: SITE.keywords,
+        priceRange: "$$",
       },
       {
         "@type": "ProfessionalService",

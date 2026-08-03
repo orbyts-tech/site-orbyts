@@ -7,6 +7,7 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { ModelsSection } from "@/components/sections/ModelsSection";
 import { CtaSection } from "@/components/sections/CtaSection";
+import { FaqSection } from "@/components/sections/FaqSection";
 import { WebPageJsonLd } from "@/components/seo/WebPageJsonLd";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
@@ -23,6 +24,7 @@ export default function HomePage() {
         <ProjectsSection />
         <ProcessSection />
         <ModelsSection />
+        <FaqSection />
         <CtaSection />
       </main>
       <Footer />

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FadeUp } from "@/components/ui/FadeUp";
+import { OpenProposalButton } from "@/components/proposal/OpenProposalButton";
 import { HERO_STATS } from "@/lib/constants/content";
 import styles from "./HeroSection.module.css";
 
@@ -8,10 +9,11 @@ export function HeroSection() {
     <section className={styles.hero} aria-labelledby="hero-heading">
       <div className={styles.background} aria-hidden="true">
         <Image
-          src="/hero-team-bg.png"
+          src="/hero-team-bg.webp"
           alt=""
           fill
           priority
+          fetchPriority="high"
           sizes="100vw"
           className={styles.backgroundImage}
         />
@@ -43,10 +45,27 @@ export function HeroSection() {
                 </span>
               </h1>
             </FadeUp>
+
+            <FadeUp delay={0.14}>
+              <p className={styles.subtitle}>
+                Sistemas web e apps com arquitetura sólida, cronograma blindado e entrega previsível.
+              </p>
+            </FadeUp>
+
+            <FadeUp delay={0.2}>
+              <div className={styles.ctaGroup}>
+                <OpenProposalButton className={styles.ctaPrimary}>
+                  Solicitar proposta
+                </OpenProposalButton>
+                <a href="#projetos" className={styles.ctaSecondary}>
+                  Ver projetos
+                </a>
+              </div>
+            </FadeUp>
           </div>
         </div>
 
-        <FadeUp delay={0.24}>
+        <FadeUp delay={0.28}>
           <div className={styles.stats} role="list" aria-label="Métricas da ORBYTS">
             {HERO_STATS.map((stat, index) => (
               <div

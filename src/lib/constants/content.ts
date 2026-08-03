@@ -60,13 +60,15 @@ export const NAV_LINKS = [
 
 export const FOOTER_LINKS = {
   services: [
-    { href: "#projetos", label: "Web Apps" },
-    { href: "#projetos", label: "Mobile Apps" },
-    { href: "#modelos", label: "SaaS B2B" },
+    { href: "/desenvolvimento-web", label: "Desenvolvimento Web" },
+    { href: "/desenvolvimento-aplicativos", label: "Apps Mobile" },
+    { href: "/software-house-porto-alegre", label: "Software House POA" },
+    { href: "/#modelos", label: "Modelos comerciais" },
   ],
   company: [
-    { href: "#processo", label: "Sobre Nós" },
-    { href: "#contato", label: "Carreiras" },
-    { href: "#contato", label: "Contato" },
+    { href: "/#projetos", label: "Projetos" },
+    { href: "/#processo", label: "Processo" },
+    { href: "/#faq", label: "FAQ" },
+    { href: "/#contato", label: "Contato" },
   ],
 } as const;

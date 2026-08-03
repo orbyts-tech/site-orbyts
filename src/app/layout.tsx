@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
-import { DotGridBackground } from "@/components/layout/DotGridBackground";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { DotGridLazy } from "@/components/layout/DotGridLazy";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { SITE } from "@/config/site";
 import { DEFAULT_ROBOTS } from "@/lib/seo/metadata";
@@ -10,14 +10,14 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-jetbrains-mono",
-  weight: ["400", "500"],
+  variable: "--font-plus-jakarta",
+  weight: ["500", "600", "700"],
 });
 
 export const viewport: Viewport = {
@@ -46,19 +46,20 @@ export const metadata: Metadata = {
     address: false,
   },
   category: "technology",
+  other: {
+    "geo.region": `${SITE.location.country}-${SITE.location.region}`,
+    "geo.placename": SITE.location.city,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang={SITE.language}
-      className={`${inter.variable} ${jetbrainsMono.variable}`}
-    >
+    <html lang={SITE.language} className={`${inter.variable} ${plusJakarta.variable}`}>
       <body>
         <a href="#conteudo-principal" className="skip-link">
           Ir para o conteúdo principal
         </a>
-        <DotGridBackground />
+        <DotGridLazy />
         <OrganizationJsonLd />
         {children}
       </body>

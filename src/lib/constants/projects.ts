@@ -108,7 +108,7 @@ export const PROJECTS: Project[] = [
     imageSeed: "forma",
     imageAlt: "Forma — app de rede social e treinos de musculação",
     mockup: "iphone",
-    imageUrl: "/forma-app.png",
+    imageUrl: "/forma-app.webp",
     hasDeviceFrame: true,
   },
   {
@@ -123,7 +123,7 @@ export const PROJECTS: Project[] = [
     imageSeed: "b6pay",
     imageAlt: "B6Pay — gestão de pagamentos de débitos veiculares",
     mockup: "macbook",
-    imageUrl: "/b6pay.png",
+    imageUrl: "/b6pay.webp",
     hasDeviceFrame: true,
   },
   {
@@ -138,7 +138,7 @@ export const PROJECTS: Project[] = [
     imageSeed: "thora-orcamentos",
     imageAlt: "Thora Orçamentos — análise de orçamentos com IA e curva ABC",
     mockup: "macbook",
-    imageUrl: "/thora-orcamentos.png",
+    imageUrl: "/thora-orcamentos.webp",
     hasDeviceFrame: true,
   },
   {
@@ -153,7 +153,7 @@ export const PROJECTS: Project[] = [
     imageSeed: "rastrek",
     imageAlt: "Rastrek — gestão de frota e rastreio veicular em tempo real",
     mockup: "macbook",
-    imageUrl: "/rastrek.png",
+    imageUrl: "/rastrek.webp",
     hasDeviceFrame: true,
   },
 ];

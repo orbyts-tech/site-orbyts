@@ -8,8 +8,8 @@ Landing page da software house ORBYTS, construída com **Next.js 15** (App Route
 - React 19
 - TypeScript (strict)
 - CSS Modules + design tokens globais
-- `next/font` (Sora, Inter, JetBrains Mono)
-- `next/image` para imagens otimizadas
+- `next/font` (Inter + Plus Jakarta Sans)
+- `next/image` (AVIF/WebP) + assets otimizados
 
 ## Estrutura
 
@@ -43,11 +43,19 @@ npm start
 
 ## SEO
 
-- Metadata API (title, description, Open Graph, Twitter Cards)
-- `sitemap.ts` e `robots.ts` dinâmicos
-- JSON-LD (`Organization`, `ProfessionalService`, `WebSite`)
-- HTML semântico com landmarks (`nav`, `main`, `section`, `footer`)
-- Canonical URL configurável via `NEXT_PUBLIC_SITE_URL`
+- Metadata API (title, description, Open Graph, Twitter Cards, hreflang `pt-BR` + `x-default`)
+- `sitemap.ts` e `robots.ts` dinâmicos (home + páginas de serviço)
+- JSON-LD: `Organization`/`LocalBusiness`, `FAQPage`, `BreadcrumbList`, `WebSite`
+- Landing pages indexáveis: `/desenvolvimento-web`, `/desenvolvimento-aplicativos`, `/software-house-porto-alegre`
+- FAQ na home com schema para rich results
+- Canonical via `NEXT_PUBLIC_SITE_URL`
+
+### Pós-deploy (Google)
+
+1. [Google Search Console](https://search.google.com/search-console) → adicionar propriedade `orbyts.com.br`
+2. Enviar `https://orbyts.com.br/sitemap.xml`
+3. Pedir indexação da home e das 3 páginas de serviço
+4. (Opcional) Bing Webmaster Tools com o mesmo sitemap
 
 ## Variáveis de ambiente
 
