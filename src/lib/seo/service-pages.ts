@@ -54,13 +54,13 @@ export const SERVICE_PAGES: ServicePageContent[] = [
     slug: "software-house-porto-alegre",
     title: "Software House em Porto Alegre",
     description:
-      "ORBYTS — software house em Porto Alegre (RS) para sistemas web, apps e SaaS B2B. +100 projetos, 100% das entregas no prazo.",
+      "ORBYTS — software house em Porto Alegre (RS) para sistemas web, apps e SaaS B2B. +40 projetos, 100% das entregas no prazo.",
     heading: "Software house em Porto Alegre com entrega previsível.",
     intro:
       "Somos a ORBYTS Tecnologia: engenharia de software para empresas do RS e de todo o Brasil que não podem errar no prazo nem na qualidade.",
     highlights: [
       "Base em Porto Alegre, atendimento nacional",
-      "+100 projetos entregues",
+      "+40 projetos entregues",
       "100% das entregas no prazo",
       "Web, mobile e SaaS B2B",
     ],

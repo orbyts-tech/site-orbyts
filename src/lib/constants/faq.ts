@@ -28,6 +28,6 @@ export const HOME_FAQS: FaqItem[] = [
   {
     question: "Vocês realmente entregam no prazo?",
     answer:
-      "Sim. Trabalhamos com cronograma blindado, documentação e checkpoints com o cliente. Nossa operação é orientada a previsibilidade: +100 projetos entregues com 100% das entregas no prazo.",
+      "Sim. Trabalhamos com cronograma blindado, documentação e checkpoints com o cliente. Nossa operação é orientada a previsibilidade: +40 projetos entregues com 100% das entregas no prazo.",
   },
 ];

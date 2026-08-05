@@ -6,7 +6,7 @@ export const SITE = {
   language: "pt-BR",
   title: "ORBYTS — Software House em Porto Alegre | Entrega no prazo",
   description:
-    "Software house em Porto Alegre especializada em sistemas web, apps mobile e SaaS B2B. Arquitetura escalável, código limpo e cronograma blindado. +100 projetos, 100% no prazo.",
+    "Software house em Porto Alegre especializada em sistemas web, apps mobile e SaaS B2B. Arquitetura escalável, código limpo e cronograma blindado. +40 projetos, 100% no prazo.",
   ogImagePath: "/og-image.png",
   ogImageWidth: 1200,
   ogImageHeight: 630,
