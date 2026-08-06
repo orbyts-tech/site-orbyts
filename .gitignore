@@ -11,6 +11,9 @@
 # next.js
 /.next/
 /out/
+/public/_next/
+deploy/
+deploy.zip
 
 # production
 /build
