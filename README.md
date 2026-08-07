@@ -67,6 +67,17 @@ PROPOSAL_NOTIFICATION_EMAIL=comercial@orbytstech.com
 # RESEND_FROM="ORBYTS Site <comercial@orbytstech.com>"
 ```
 
+## Deploy na Hostinger (Node.js)
+
+1. Framework: **Next.js**, Node **20.x**, build: `npm run build`, start: `npm start`.
+2. **Não** use o hack de copiar `.next/static` para `public/_next/static` — isso dessincroniza HTML e assets no CDN.
+3. Após cada deploy (ou se o site aparecer sem CSS):
+   - Painel Hostinger → site → **Limpar cache** (CDN)
+   - Confirme no navegador com hard refresh (`Cmd+Shift+R`)
+4. Variáveis de ambiente:
+   - `NEXT_PUBLIC_SITE_URL=https://orbytstech.com` (ou o domínio canônico)
+   - `RESEND_API_KEY`, `PROPOSAL_NOTIFICATION_EMAIL`, opcionalmente `RESEND_FROM`
+
 ## Deploy no Netlify
 
 1. Conecte o repositório no [Netlify](https://app.netlify.com).

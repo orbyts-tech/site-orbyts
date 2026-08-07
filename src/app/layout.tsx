@@ -6,6 +6,9 @@ import { SITE } from "@/config/site";
 import { DEFAULT_ROBOTS } from "@/lib/seo/metadata";
 import "./globals.css";
 
+/** Evita HTML pinado 1 ano no CDN da Hostinger (dessincroniza com /_next/static). */
+export const revalidate = 60;
+
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
