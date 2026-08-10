@@ -47,7 +47,7 @@ export const COMMERCIAL_MODELS: CommercialModel[] = [
 ];
 
 export const HERO_STATS = [
-  { value: "+100", label: "Projetos entregues", highlightPrefix: "+", highlightSuffix: "100" },
+  { value: "+30", label: "Projetos entregues", highlightPrefix: "+", highlightSuffix: "30" },
   { value: "100%", label: "Entregas no prazo", highlightPrefix: "100", highlightSuffix: "%" },
   { value: "24h", label: "Para proposta formal", highlightPrefix: "24", highlightSuffix: "h" },
 ] as const;
