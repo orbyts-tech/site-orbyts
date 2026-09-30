@@ -3,6 +3,8 @@ import { absoluteUrl, SITE } from "@/config/site";
 
 interface PageMetadataOptions {
   title?: string;
+  /** Ignora o template "%s | Orbyts" — usado na home, que já carrega a marca no título. */
+  isAbsoluteTitle?: boolean;
   description?: string;
   path?: string;
   noIndex?: boolean;
@@ -11,6 +13,7 @@ interface PageMetadataOptions {
 
 export function createPageMetadata({
   title = SITE.title,
+  isAbsoluteTitle = false,
   description = SITE.description,
   path = "/",
   noIndex = false,
@@ -21,13 +24,16 @@ export function createPageMetadata({
   const ogImageUrl = absoluteUrl(ogImage);
 
   return {
-    title,
+    title: isAbsoluteTitle ? { absolute: title } : title,
     description,
     alternates: {
       canonical: canonicalPath,
       languages: {
         [SITE.language]: canonicalPath,
         "x-default": canonicalPath,
+      },
+      types: {
+        "text/plain": [{ url: "/llms.txt", title: `Resumo da ${SITE.name} para IAs (llms.txt)` }],
       },
     },
     openGraph: {

@@ -57,8 +57,8 @@ export function ServicePageView({ page }: ServicePageViewProps) {
 
           <div className={styles.actions}>
             <OpenProposalButton>{page.ctaLabel}</OpenProposalButton>
-            <Link href="/#projetos" className={styles.secondaryLink}>
-              Ver projetos
+            <Link href="/portfolio" className={styles.secondaryLink}>
+              Ver portfólio
             </Link>
           </div>
         </article>

@@ -154,6 +154,23 @@
   margin-top: 2px;
 }
 
+.learnMore {
+  margin-top: 1rem;
+  align-self: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  text-decoration: none;
+}
+
+.learnMore:hover {
+  text-decoration: underline;
+}
+
+.featured .learnMore {
+  color: var(--on-green);
+}
+
 @media (min-width: 768px) {
   .grid {
     gap: 1.5rem;
@@ -200,11 +217,17 @@
 
 @media (min-width: 1024px) {
   .grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .card {
-    padding: 3rem;
+    padding: 2.25rem 1.75rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .card {
+    padding: 2.75rem 2.25rem;
   }
 }
 

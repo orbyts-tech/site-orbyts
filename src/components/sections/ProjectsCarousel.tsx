@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Project } from "@/lib/constants/projects";
 import {
@@ -221,6 +222,10 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
             Projeto iniciado, prazo garantido, cliente no controle.
           </p>
         </div>
+        <Link href="/portfolio" className={sectionStyles.allProjectsLink}>
+          Ver portfólio completo
+          <span aria-hidden="true"> →</span>
+        </Link>
       </FadeUp>
 
       <FadeUp delay={0.1}>
@@ -228,7 +233,7 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
           <div className={styles.carousel}>
             <button
               type="button"
-              className={`${styles.navButton} ${styles.navPrev}`}
+              className={styles.navButton}
               onClick={goPrev}
               disabled={activeIndex === 0}
               aria-label="Projeto anterior"
@@ -242,6 +247,32 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
                   usePhoneLayout ? styles.mockupColPhone : styles.mockupColDesktop
                 }`}
               >
+                <div className={styles.compactControls}>
+                  <button
+                    type="button"
+                    className={styles.compactNavButton}
+                    onClick={goPrev}
+                    disabled={activeIndex === 0}
+                    aria-label="Projeto anterior"
+                  >
+                    <ChevronLeftIcon />
+                  </button>
+                  <p className={styles.compactCounter} aria-live="polite">
+                    <span>{String(activeIndex + 1).padStart(2, "0")}</span>
+                    <span className={styles.compactCounterSep}>/</span>
+                    <span>{String(projects.length).padStart(2, "0")}</span>
+                  </p>
+                  <button
+                    type="button"
+                    className={styles.compactNavButton}
+                    onClick={goNext}
+                    disabled={activeIndex === projects.length - 1}
+                    aria-label="Próximo projeto"
+                  >
+                    <ChevronRightIcon />
+                  </button>
+                </div>
+
                 <div className={styles.mockupWrap}>
                   <div
                     key={`${activeProject.id}-${viewportMode ?? "pending"}`}
@@ -291,33 +322,7 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
 
             <button
               type="button"
-              className={`${styles.navButton} ${styles.navNext}`}
-              onClick={goNext}
-              disabled={activeIndex === projects.length - 1}
-              aria-label="Próximo projeto"
-            >
-              <ChevronRightIcon />
-            </button>
-          </div>
-
-          <div className={styles.mobileControls}>
-            <button
-              type="button"
-              className={styles.mobileNavButton}
-              onClick={goPrev}
-              disabled={activeIndex === 0}
-              aria-label="Projeto anterior"
-            >
-              <ChevronLeftIcon />
-            </button>
-            <p className={styles.mobileCounter} aria-live="polite">
-              <span>{String(activeIndex + 1).padStart(2, "0")}</span>
-              <span className={styles.mobileCounterSep}>/</span>
-              <span>{String(projects.length).padStart(2, "0")}</span>
-            </p>
-            <button
-              type="button"
-              className={styles.mobileNavButton}
+              className={styles.navButton}
               onClick={goNext}
               disabled={activeIndex === projects.length - 1}
               aria-label="Próximo projeto"

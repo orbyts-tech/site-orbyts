@@ -1,3 +1,7 @@
+import { COMPANY_FACTS } from "@/config/site";
+
+const { projectsDelivered, onTimeDeliveryRate } = COMPANY_FACTS;
+
 export interface ServicePageContent {
   slug: string;
   title: string;
@@ -26,7 +30,7 @@ export const SERVICE_PAGES: ServicePageContent[] = [
     ],
     body: [
       "Se você busca uma software house para desenvolvimento web no Rio Grande do Sul ou remoto em todo o Brasil, a ORBYTS entrega sistemas pensados para crescer sem surpresa de prazo.",
-      "Trabalhamos com Escopo Fechado para projetos maiores e Squad as a Service para validar MVPs com ciclos curtos — sempre com o cliente no controle.",
+      "Trabalhamos com Escopo Fechado para projetos maiores, Squad as a Service para validar MVPs com ciclos curtos e SaaS Full Cycle para quem quer o SaaS desenvolvido e operado de ponta a ponta — sempre com o cliente no controle.",
     ],
     ctaLabel: "Solicitar proposta de sistema web",
   },
@@ -53,19 +57,18 @@ export const SERVICE_PAGES: ServicePageContent[] = [
   {
     slug: "software-house-porto-alegre",
     title: "Software House em Porto Alegre",
-    description:
-      "ORBYTS — software house em Porto Alegre (RS) para sistemas web, apps e SaaS B2B. +40 projetos, 100% das entregas no prazo.",
+    description: `ORBYTS — software house em Porto Alegre (RS) para sistemas web, apps e SaaS B2B. +${projectsDelivered} projetos, ${onTimeDeliveryRate}% das entregas no prazo.`,
     heading: "Software house em Porto Alegre com entrega previsível.",
     intro:
       "Somos a ORBYTS Tecnologia: engenharia de software para empresas do RS e de todo o Brasil que não podem errar no prazo nem na qualidade.",
     highlights: [
       "Base em Porto Alegre, atendimento nacional",
-      "+40 projetos entregues",
-      "100% das entregas no prazo",
+      `+${projectsDelivered} projetos entregues`,
+      `${onTimeDeliveryRate}% das entregas no prazo`,
       "Web, mobile e SaaS B2B",
     ],
     body: [
-      "Contratar uma software house em Porto Alegre significa ter proximidade cultural e fuso horário alinhado — com a maturidade de um time que já entregou dezenas de produtos digitais.",
+      `Contratar uma software house em Porto Alegre significa ter proximidade cultural e fuso horário alinhado — com a maturidade de um time que já entregou mais de ${projectsDelivered} produtos digitais.`,
       "Converse com nosso comercial e receba uma proposta objetiva: escopo, prazo, investimento e próximos passos.",
     ],
     ctaLabel: "Falar com a ORBYTS",

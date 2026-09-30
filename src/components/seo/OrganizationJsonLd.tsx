@@ -1,14 +1,24 @@
-import { absoluteUrl, SITE } from "@/config/site";
+import { absoluteUrl, COMPANY_FACTS, SITE } from "@/config/site";
+import { MODEL_PAGES } from "@/lib/seo/model-pages";
+import { SERVICE_PAGES } from "@/lib/seo/service-pages";
+
+const AREA_SERVED = [
+  { "@type": "City", name: SITE.location.city },
+  { "@type": "AdministrativeArea", name: "Rio Grande do Sul" },
+  { "@type": "Country", name: "Brasil" },
+];
 
 export function OrganizationJsonLd() {
+  const organizationId = `${SITE.url}/#organization`;
+
   const schema = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
-        "@id": `${SITE.url}/#organization`,
+        "@type": ["Organization", "ProfessionalService"],
+        "@id": organizationId,
         name: SITE.legalName,
-        alternateName: SITE.name,
+        alternateName: [SITE.name, SITE.title],
         url: SITE.url,
         logo: {
           "@type": "ImageObject",
@@ -18,6 +28,12 @@ export function OrganizationJsonLd() {
         },
         image: absoluteUrl(SITE.ogImagePath),
         description: SITE.description,
+        slogan: SITE.tagline,
+        foundingDate: String(COMPANY_FACTS.foundingYear),
+        foundingLocation: {
+          "@type": "Place",
+          name: `${SITE.location.city}, ${SITE.location.region}, Brasil`,
+        },
         email: SITE.contact.email,
         telephone: SITE.contact.phone,
         address: {
@@ -31,20 +47,7 @@ export function OrganizationJsonLd() {
           latitude: -30.0346,
           longitude: -51.2177,
         },
-        areaServed: [
-          {
-            "@type": "City",
-            name: SITE.location.city,
-          },
-          {
-            "@type": "AdministrativeArea",
-            name: "Rio Grande do Sul",
-          },
-          {
-            "@type": "Country",
-            name: "Brasil",
-          },
-        ],
+        areaServed: AREA_SERVED,
         contactPoint: [
           {
             "@type": "ContactPoint",
@@ -56,32 +59,33 @@ export function OrganizationJsonLd() {
             url: SITE.contact.whatsapp,
           },
         ],
-        knowsAbout: SITE.keywords,
+        knowsAbout: [...SITE.services, ...SITE.technologies],
+        knowsLanguage: "pt-BR",
         priceRange: "$$",
-      },
-      {
-        "@type": "ProfessionalService",
-        "@id": `${SITE.url}/#service`,
-        name: SITE.name,
-        url: SITE.url,
-        description: SITE.description,
-        provider: { "@id": `${SITE.url}/#organization` },
-        serviceType: SITE.services,
-        areaServed: {
-          "@type": "AdministrativeArea",
-          name: `${SITE.location.city}, ${SITE.location.region}`,
-        },
+        ...(SITE.socialProfiles.length > 0 ? { sameAs: SITE.socialProfiles } : {}),
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Modelos de parceria",
-          itemListElement: SITE.services.map((service, index) => ({
-            "@type": "Offer",
-            position: index + 1,
-            itemOffered: {
-              "@type": "Service",
-              name: service,
-            },
-          })),
+          name: "Serviços e modelos de parceria",
+          itemListElement: [
+            ...SERVICE_PAGES.map((page) => ({
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: page.title,
+                description: page.description,
+                url: absoluteUrl(`/${page.slug}`),
+              },
+            })),
+            ...MODEL_PAGES.map((page) => ({
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: page.name,
+                description: page.summary,
+                url: absoluteUrl(`/modelos/${page.slug}`),
+              },
+            })),
+          ],
         },
       },
       {
@@ -89,8 +93,9 @@ export function OrganizationJsonLd() {
         "@id": `${SITE.url}/#website`,
         url: SITE.url,
         name: SITE.title,
+        alternateName: SITE.legalName,
         description: SITE.description,
-        publisher: { "@id": `${SITE.url}/#organization` },
+        publisher: { "@id": organizationId },
         inLanguage: SITE.language,
       },
     ],

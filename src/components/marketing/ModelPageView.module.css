@@ -1,0 +1,102 @@
+.block {
+  margin-top: 2.5rem;
+}
+
+.blockTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.steps {
+  margin-top: 1.25rem;
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius-card-lg);
+  border: 1px solid rgba(15, 23, 20, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-sm), var(--glass-inset);
+}
+
+.stepNumber {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.6;
+}
+
+.stepTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.stepText {
+  margin-top: 0.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.faqList {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.related {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.relatedTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.related ul {
+  margin-top: 1rem;
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.related li {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.related a {
+  font-weight: 600;
+  color: var(--green-dark);
+  text-decoration: none;
+}
+
+.related a:hover {
+  text-decoration: underline;
+}
+
+.related span {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+}

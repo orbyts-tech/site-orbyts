@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   applicationName: SITE.name,
   title: {
     default: SITE.title,
-    template: `%s | ${SITE.name}`,
+    template: `%s | ${SITE.title}`,
   },
   description: SITE.description,
   keywords: [...SITE.keywords],
@@ -49,6 +49,12 @@ export const metadata: Metadata = {
     address: false,
   },
   category: "technology",
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+      : undefined,
+  },
   other: {
     "geo.region": `${SITE.location.country}-${SITE.location.region}`,
     "geo.placename": SITE.location.city,

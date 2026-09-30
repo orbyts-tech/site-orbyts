@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FadeUp } from "@/components/ui/FadeUp";
 import { CheckCircleIcon, CheckIcon } from "@/components/ui/Icons";
 import { OpenProposalButton } from "@/components/proposal/OpenProposalButton";
@@ -13,7 +14,7 @@ export function ModelsSection() {
           Como Estruturamos Parcerias.
         </h2>
         <p className={styles.subtitle}>
-          Dois caminhos, sem letras miúdas. Transparência financeira total.
+          Três caminhos, sem letras miúdas. Transparência financeira total.
         </p>
       </FadeUp>
 
@@ -46,6 +47,10 @@ export function ModelsSection() {
                 {model.ctaLabel}
               </OpenProposalButton>
             )}
+            <Link href={`/modelos/${model.slug}`} className={styles.learnMore}>
+              Saiba mais sobre {model.name}
+              <span aria-hidden="true"> →</span>
+            </Link>
           </article>
         ))}
       </FadeUp>

@@ -17,7 +17,7 @@ export function ServiceJsonLd({ serviceName, description, path }: ServiceJsonLdP
     description,
     url,
     provider: {
-      "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
+      "@type": ["Organization", "ProfessionalService"],
       "@id": `${SITE.url}/#organization`,
       name: SITE.legalName,
       url: SITE.url,
