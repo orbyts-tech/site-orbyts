@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { PROCESS_STEPS } from "@/lib/constants/process";
 import { FadeUp } from "@/components/ui/FadeUp";
+import { staggerIndex } from "@/lib/motion";
 import styles from "./ProcessSection.module.css";
 
 export function ProcessSection() {
@@ -30,6 +31,8 @@ export function ProcessSection() {
           id="tlOuter"
           className={styles.timeline}
           delay={0.1}
+          stagger
+          staggerCount={PROCESS_STEPS.length}
           onVisible={handleVisible}
         >
           <div className={styles.rail} aria-hidden="true">
@@ -37,15 +40,16 @@ export function ProcessSection() {
           </div>
 
           <ol className={styles.steps}>
-            {PROCESS_STEPS.map((step) => (
+            {PROCESS_STEPS.map((step, index) => (
               <li
                 key={step.phase}
-                className={`${styles.step} ${styles[step.status]}`}
+                className={`${styles.step} ${styles[step.status]} reveal-item`}
+                style={staggerIndex(index + 1)}
               >
                 <div className={styles.node}>
                   <span className={styles.nodeNum}>{step.nodeLabel}</span>
                 </div>
-                <div className={styles.card}>
+                <div className={styles.card} data-spotlight>
                   <div className={styles.tag}>{step.phase}</div>
                   <h3 className={styles.cardTitle}>{step.title}</h3>
                   <p className={styles.cardText}>{step.description}</p>

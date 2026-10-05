@@ -31,6 +31,7 @@ export function OpenProposalButton({
     <button
       type="button"
       className={`${variantClass} ${extraClass}`.trim()}
+      data-magnetic={variant === "ghost" ? undefined : ""}
       onClick={openProposalForm}
     >
       {children}

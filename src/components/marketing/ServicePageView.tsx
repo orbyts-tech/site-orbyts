@@ -7,7 +7,9 @@ import { OpenProposalButton } from "@/components/proposal/OpenProposalButton";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
 import { WebPageJsonLd } from "@/components/seo/WebPageJsonLd";
+import { FadeUp } from "@/components/ui/FadeUp";
 import { SITE } from "@/config/site";
+import { enterDelay, staggerIndex } from "@/lib/motion";
 import styles from "./ServicePageView.module.css";
 
 interface ServicePageViewProps {
@@ -39,21 +41,29 @@ export function ServicePageView({ page }: ServicePageViewProps) {
             </ol>
           </nav>
 
-          <p className={styles.eyebrow}>{SITE.legalName}</p>
-          <h1 className={styles.title}>{page.heading}</h1>
-          <p className={styles.intro}>{page.intro}</p>
+          <p className={`${styles.eyebrow} enter-up`}>{SITE.legalName}</p>
+          <h1 className={`${styles.title} enter-up`} style={enterDelay(80)}>
+            {page.heading}
+          </h1>
+          <p className={`${styles.intro} enter-up`} style={enterDelay(160)}>
+            {page.intro}
+          </p>
 
-          <ul className={styles.highlights}>
-            {page.highlights.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+          <FadeUp stagger staggerCount={page.highlights.length}>
+            <ul className={styles.highlights}>
+              {page.highlights.map((item, index) => (
+                <li key={item} className="reveal-item" style={staggerIndex(index)}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </FadeUp>
 
-          <div className={styles.body}>
+          <FadeUp className={styles.body}>
             {page.body.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
-          </div>
+          </FadeUp>
 
           <div className={styles.actions}>
             <OpenProposalButton>{page.ctaLabel}</OpenProposalButton>

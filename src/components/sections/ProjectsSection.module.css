@@ -45,8 +45,13 @@
   white-space: nowrap;
 }
 
-.allProjectsLink:hover {
-  text-decoration: underline;
+.allProjectsLink span {
+  display: inline-block;
+  transition: transform 0.35s var(--ease-out-expo);
+}
+
+.allProjectsLink:hover span {
+  transform: translateX(3px);
 }
 
 .controls {

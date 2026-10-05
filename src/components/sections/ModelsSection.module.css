@@ -163,8 +163,13 @@
   text-decoration: none;
 }
 
-.learnMore:hover {
-  text-decoration: underline;
+.learnMore span {
+  display: inline-block;
+  transition: transform 0.35s var(--ease-out-expo);
+}
+
+.learnMore:hover span {
+  transform: translateX(3px);
 }
 
 .featured .learnMore {

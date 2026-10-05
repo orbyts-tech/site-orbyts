@@ -14,8 +14,6 @@ import {
   DESKTOP_VIEWPORT_HEIGHT,
   DESKTOP_VIEWPORT_WIDTH,
   LiveIframeViewport,
-  MOBILE_VIEWPORT_HEIGHT,
-  MOBILE_VIEWPORT_WIDTH,
 } from "@/components/ui/LiveIframeViewport";
 import { FadeUp } from "@/components/ui/FadeUp";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/Icons";
@@ -27,6 +25,7 @@ interface ProjectsCarouselProps {
 }
 
 type ViewportMode = "mobile" | "desktop";
+type SlideDirection = "next" | "prev";
 
 function useCarouselViewport(): ViewportMode | null {
   const [mode, setMode] = useState<ViewportMode | null>(null);
@@ -58,9 +57,11 @@ function ProjectPreview({
   allowLiveEmbed: boolean;
   viewportMode: ViewportMode | null;
 }) {
+  const [isLiveLoaded, setIsLiveLoaded] = useState(false);
   const isPhone = project.mockup === "iphone";
   const { url } = resolveProjectAppUrl(project);
-  const canShowLive = allowLiveEmbed && hasLiveEmbedUrl(project) && viewportMode !== null;
+  // No mobile o iframe baixaria o site inteiro do cliente; a captura otimizada carrega na hora.
+  const canShowLive = allowLiveEmbed && hasLiveEmbedUrl(project) && viewportMode === "desktop";
   const imageSrc = getProjectImageUrl(project);
   const isRemoteImage = imageSrc.startsWith("http");
   const imageSizes = isPhone
@@ -89,24 +90,7 @@ function ProjectPreview({
     );
   }
 
-  if (canShowLive && viewportMode === "mobile") {
-    return (
-      <div className={styles.mobileLiveFrame}>
-        <div className={styles.mobileLiveNotch} aria-hidden="true" />
-        <div className={styles.mobileLiveScreen}>
-          <LiveIframeViewport
-            src={url}
-            title={`${project.title} — preview mobile`}
-            viewportWidth={MOBILE_VIEWPORT_WIDTH}
-            viewportHeight={MOBILE_VIEWPORT_HEIGHT}
-          />
-        </div>
-        <div className={styles.mobileLiveHome} aria-hidden="true" />
-      </div>
-    );
-  }
-
-  if (canShowLive && viewportMode === "desktop") {
+  if (canShowLive) {
     return (
       <div className={styles.imageContainer}>
         <div className={styles.browserHeader}>
@@ -115,13 +99,25 @@ function ProjectPreview({
           <span className={`${styles.browserDot} ${styles.dotGreen}`} />
           <span className={styles.browserUrl}>{new URL(url).hostname}</span>
         </div>
-        <div className={styles.browserContent}>
-          <LiveIframeViewport
-            src={url}
-            title={`${project.title} — preview`}
-            viewportWidth={DESKTOP_VIEWPORT_WIDTH}
-            viewportHeight={DESKTOP_VIEWPORT_HEIGHT}
+        <div className={styles.browserContent} aria-busy={!isLiveLoaded}>
+          <Image
+            src={imageSrc}
+            alt={project.imageAlt}
+            fill
+            sizes={imageSizes}
+            className={styles.projectImage}
+            unoptimized={isRemoteImage}
+            quality={75}
           />
+          <div className={`${styles.liveLayer} ${isLiveLoaded ? styles.liveLayerReady : ""}`}>
+            <LiveIframeViewport
+              src={url}
+              title={`${project.title} — preview`}
+              viewportWidth={DESKTOP_VIEWPORT_WIDTH}
+              viewportHeight={DESKTOP_VIEWPORT_HEIGHT}
+              onLoad={() => setIsLiveLoaded(true)}
+            />
+          </div>
         </div>
       </div>
     );
@@ -172,6 +168,7 @@ function ProjectPreview({
 
 export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState<SlideDirection | null>(null);
   const [isInView, setIsInView] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const viewportMode = useCarouselViewport();
@@ -180,8 +177,7 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
   const isPhone = activeProject.mockup === "iphone";
   const liveUrl = resolveProjectAppUrl(activeProject).url;
   const showOpenLink = isExternalProjectUrl(liveUrl);
-  const usePhoneLayout =
-    isPhone || (viewportMode === "mobile" && hasLiveEmbedUrl(activeProject));
+  const usePhoneLayout = isPhone;
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -203,10 +199,20 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
 
   const goTo = useCallback(
     (index: number) => {
-      setActiveIndex(Math.min(Math.max(index, 0), projects.length - 1));
+      const nextIndex = Math.min(Math.max(index, 0), projects.length - 1);
+      if (nextIndex === activeIndex) return;
+      setSlideDirection(nextIndex > activeIndex ? "next" : "prev");
+      setActiveIndex(nextIndex);
     },
-    [projects.length],
+    [activeIndex, projects.length],
   );
+
+  const slideDirectionClass =
+    slideDirection === "next"
+      ? styles.slideFromNext
+      : slideDirection === "prev"
+        ? styles.slideFromPrev
+        : "";
 
   const goPrev = () => goTo(activeIndex - 1);
   const goNext = () => goTo(activeIndex + 1);
@@ -222,7 +228,7 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
             Projeto iniciado, prazo garantido, cliente no controle.
           </p>
         </div>
-        <Link href="/portfolio" className={sectionStyles.allProjectsLink}>
+        <Link href="/portfolio" className={`${sectionStyles.allProjectsLink} animated-underline`}>
           Ver portfólio completo
           <span aria-hidden="true"> →</span>
         </Link>
@@ -276,7 +282,7 @@ export function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
                 <div className={styles.mockupWrap}>
                   <div
                     key={`${activeProject.id}-${viewportMode ?? "pending"}`}
-                    className={`${styles.slide} ${styles.slideActive} ${
+                    className={`${styles.slide} ${styles.slideActive} ${slideDirectionClass} ${
                       usePhoneLayout ? styles.slidePhone : ""
                     }`}
                   >

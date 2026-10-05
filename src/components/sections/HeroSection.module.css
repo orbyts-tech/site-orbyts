@@ -17,11 +17,76 @@
   pointer-events: none;
 }
 
+.backgroundParallax,
+.backgroundZoom {
+  position: absolute;
+  inset: 0;
+}
+
+.backgroundParallax {
+  will-change: transform;
+}
+
+.backgroundZoom {
+  animation: hero-zoom 2.8s var(--ease-out-soft) backwards;
+}
+
 .backgroundImage {
   object-fit: cover;
   object-position: center 42%;
   filter: blur(6px);
   transform: scale(1.05);
+}
+
+/* Entrada do hero em CSS puro: roda já no primeiro paint, sem depender da hidratação. */
+.enter,
+.enterLine {
+  animation-duration: 0.9s;
+  animation-timing-function: var(--ease-out-expo);
+  animation-delay: var(--enter-delay, 0ms);
+  animation-fill-mode: backwards;
+}
+
+.enter {
+  animation-name: hero-enter;
+}
+
+.enterLine {
+  animation-name: hero-enter-line;
+  animation-duration: 1.1s;
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+}
+
+@keyframes hero-enter-line {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate3d(0, 0.35em, 0);
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes hero-float {
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes hero-drift {
+  50% {
+    transform: translate3d(-12px, 10px, 0) scale(1.06);
+  }
 }
 
 .backgroundOverlay {
@@ -57,6 +122,7 @@
     rgba(var(--green-rgb), 0.05) 0%,
     transparent 68%
   );
+  animation: hero-float 14s ease-in-out infinite;
 }
 
 .decorativeRing::before,
@@ -87,6 +153,7 @@
     transparent 72%
   );
   filter: blur(14px);
+  animation: hero-drift 11s ease-in-out infinite;
 }
 
 .decorativeOrbSecondary {
@@ -98,6 +165,7 @@
   border-radius: 50%;
   background: radial-gradient(circle, rgba(var(--green-rgb), 0.1) 0%, transparent 70%);
   filter: blur(12px);
+  animation: hero-drift 13s ease-in-out -4s infinite reverse;
 }
 
 .inner {
@@ -303,7 +371,7 @@
 }
 
 .statCardSolid .statNum,
-.statCardSolid .statNum span {
+.statCardSolid .statHighlight {
   color: var(--on-green);
   background: none;
   -webkit-text-fill-color: var(--on-green);
@@ -323,7 +391,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-.statNum span {
+.statHighlight {
   background: var(--green-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -452,7 +520,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .eyebrowDot {
+  .eyebrowDot,
+  .enter,
+  .enterLine,
+  .backgroundZoom,
+  .decorativeRing,
+  .decorativeOrb,
+  .decorativeOrbSecondary {
     animation: none;
   }
 }

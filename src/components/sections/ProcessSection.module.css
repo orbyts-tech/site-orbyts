@@ -107,6 +107,29 @@
   color: var(--on-green);
 }
 
+.active .node::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid var(--green);
+  opacity: 0;
+  animation: node-ping 2.8s var(--ease-out-soft) 1.2s infinite;
+  pointer-events: none;
+}
+
+@keyframes node-ping {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
 .card {
   background: rgba(255, 255, 255, 0.68);
   backdrop-filter: blur(20px);
@@ -116,6 +139,7 @@
   box-shadow: var(--shadow-sm), var(--glass-inset);
   padding: 1.35rem 1.25rem;
   width: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -219,8 +243,8 @@
     left: 0;
     height: 100%;
     width: 0%;
-    background: var(--green);
-    transition: width 1.5s ease-out;
+    background: var(--green-gradient);
+    transition: width 1.6s var(--ease-out-soft) 0.25s;
   }
 
   .animated {
@@ -262,5 +286,15 @@
 @media (hover: none) {
   .step:hover .card {
     transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .active .node::after {
+    animation: none;
+  }
+
+  .railFill {
+    transition: none;
   }
 }

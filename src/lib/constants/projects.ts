@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
   {
     id: "trancatto",
     index: 1,
-    total: 7,
+    total: 8,
     tag: "Site Institucional",
     title: "Trançatto",
     description:
@@ -86,7 +86,7 @@ export const PROJECTS: Project[] = [
   {
     id: "nilo-consultor-grafico",
     index: 2,
-    total: 7,
+    total: 8,
     tag: "Site Institucional",
     title: "Consultoria Nilo",
     description:
@@ -101,7 +101,7 @@ export const PROJECTS: Project[] = [
   {
     id: "acalanto-moveis-planejados",
     index: 3,
-    total: 7,
+    total: 8,
     tag: "Site Institucional",
     title: "Acalanto Móveis Planejados",
     description:
@@ -116,7 +116,7 @@ export const PROJECTS: Project[] = [
   {
     id: "casey-formatura",
     index: 4,
-    total: 7,
+    total: 8,
     tag: "Site de Evento",
     title: "Casey · Formatura 2027",
     description:
@@ -130,9 +130,24 @@ export const PROJECTS: Project[] = [
     imageUrl: "/casey-formatura.webp",
   },
   {
-    id: "b6pay",
+    id: "glacier-crest-roofing",
     index: 5,
-    total: 7,
+    total: 8,
+    tag: "Site Institucional",
+    title: "Glacier Crest Roofing",
+    description:
+      "Site institucional para empresa de telhados no Alasca com serviços, portfólio de obras, depoimentos, área de atendimento e captação de orçamentos.",
+    stack: ["Next.js", "Vercel"],
+    imageSeed: "glacier-crest-roofing",
+    imageAlt: "Glacier Crest Roofing Co. — reparo e troca de telhados em Anchorage, Alasca",
+    mockup: "macbook",
+    appUrl: "https://roofing-website-ashen.vercel.app/",
+    imageUrl: "/glacier-crest-roofing.webp",
+  },
+  {
+    id: "b6pay",
+    index: 6,
+    total: 8,
     tag: "Web · Mobile",
     title: "B6Pay",
     description:
@@ -146,8 +161,8 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "thora-orcamentos",
-    index: 6,
-    total: 7,
+    index: 7,
+    total: 8,
     tag: "SaaS · IA",
     title: "Thora Orçamentos",
     description:
@@ -161,8 +176,8 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "rastrek",
-    index: 7,
-    total: 7,
+    index: 8,
+    total: 8,
     tag: "SaaS · Frota",
     title: "Rastrek",
     description:

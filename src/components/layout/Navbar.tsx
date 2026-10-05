@@ -6,6 +6,8 @@ import { NAV_LINKS } from "@/lib/constants/content";
 import { OrbytsLogo } from "@/components/ui/OrbytsLogo";
 import { OpenProposalButton } from "@/components/proposal/OpenProposalButton";
 import { useProposalForm } from "@/components/proposal/ProposalFormContext";
+import { staggerIndex } from "@/lib/motion";
+import { useNavbarScroll } from "@/hooks/useNavbarScroll";
 import styles from "./Navbar.module.css";
 
 function MenuIcon({ isOpen }: { isOpen: boolean }) {
@@ -39,6 +41,15 @@ function MenuIcon({ isOpen }: { isOpen: boolean }) {
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { openProposalForm } = useProposalForm();
+  const { isScrolled, isHidden } = useNavbarScroll(isMenuOpen);
+
+  const navClassName = [
+    styles.nav,
+    isScrolled ? "" : styles.navAtTop,
+    isHidden ? styles.navHidden : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
 
@@ -64,7 +75,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav className={styles.nav} aria-label="Navegação principal">
+      <nav className={navClassName} aria-label="Navegação principal">
         <Link className={styles.logo} href="/" onClick={closeMenu}>
           <OrbytsLogo className={styles.logoImage} priority />
         </Link>
@@ -107,8 +118,8 @@ export function Navbar() {
           <div className={styles.mobileBackdrop} onClick={closeMenu} aria-hidden="true" />
           <div className={styles.mobilePanel}>
             <ul className={styles.mobileLinks}>
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
+              {NAV_LINKS.map((link, index) => (
+                <li key={link.href} style={staggerIndex(index)}>
                   <Link href={link.href} onClick={closeMenu}>
                     {link.label}
                   </Link>

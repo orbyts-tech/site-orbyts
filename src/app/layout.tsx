@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { DotGridLazy } from "@/components/layout/DotGridLazy";
+import { PointerEffects } from "@/components/motion/PointerEffects";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { SITE } from "@/config/site";
 import { DEFAULT_ROBOTS } from "@/lib/seo/metadata";
@@ -68,8 +69,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#conteudo-principal" className="skip-link">
           Ir para o conteúdo principal
         </a>
+        <div className="scroll-progress" aria-hidden="true" />
         <DotGridLazy />
         <OrganizationJsonLd />
+        <PointerEffects />
         {children}
       </body>
     </html>

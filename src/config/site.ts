@@ -52,6 +52,7 @@ export const SITE = {
     phone: "+5551989573146",
     phoneDisplay: "+55 51 98957-3146",
     whatsapp: "https://wa.me/5551989573146",
+    whatsappQuoteMessage: "Vim do seu site, quero um orçamento!",
   },
   services: [
     "Desenvolvimento de sistemas web",

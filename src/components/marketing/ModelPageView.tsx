@@ -9,7 +9,9 @@ import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
 import { WebPageJsonLd } from "@/components/seo/WebPageJsonLd";
+import { FadeUp } from "@/components/ui/FadeUp";
 import { SITE } from "@/config/site";
+import { enterDelay, staggerIndex } from "@/lib/motion";
 import faqStyles from "@/components/sections/FaqSection.module.css";
 import serviceStyles from "./ServicePageView.module.css";
 import styles from "./ModelPageView.module.css";
@@ -49,64 +51,82 @@ export function ModelPageView({ page }: ModelPageViewProps) {
             </ol>
           </nav>
 
-          <p className={serviceStyles.eyebrow}>Modelo de parceria · {SITE.legalName}</p>
-          <h1 className={serviceStyles.title}>{page.heading}</h1>
-          <p className={serviceStyles.intro}>{page.intro}</p>
+          <p className={`${serviceStyles.eyebrow} enter-up`}>
+            Modelo de parceria · {SITE.legalName}
+          </p>
+          <h1 className={`${serviceStyles.title} enter-up`} style={enterDelay(80)}>
+            {page.heading}
+          </h1>
+          <p className={`${serviceStyles.intro} enter-up`} style={enterDelay(160)}>
+            {page.intro}
+          </p>
 
-          <section className={styles.block} aria-labelledby="ideal-para">
-            <h2 id="ideal-para" className={styles.blockTitle}>
-              Para quem é o {page.name}
-            </h2>
-            <ul className={serviceStyles.highlights}>
-              {page.idealFor.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </section>
+          <FadeUp>
+            <section className={styles.block} aria-labelledby="ideal-para">
+              <h2 id="ideal-para" className={styles.blockTitle}>
+                Para quem é o {page.name}
+              </h2>
+              <ul className={serviceStyles.highlights}>
+                {page.idealFor.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          </FadeUp>
 
-          <section className={styles.block} aria-labelledby="como-funciona">
-            <h2 id="como-funciona" className={styles.blockTitle}>
-              Como funciona
-            </h2>
-            <ol className={styles.steps}>
-              {page.steps.map((step, index) => (
-                <li key={step.title} className={styles.step}>
-                  <span className={styles.stepNumber} aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className={styles.stepTitle}>{step.title}</h3>
-                    <p className={styles.stepText}>{step.description}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </section>
+          <FadeUp stagger staggerCount={page.steps.length}>
+            <section className={styles.block} aria-labelledby="como-funciona">
+              <h2 id="como-funciona" className={styles.blockTitle}>
+                Como funciona
+              </h2>
+              <ol className={styles.steps}>
+                {page.steps.map((step, index) => (
+                  <li
+                    key={step.title}
+                    className={`${styles.step} reveal-item`}
+                    style={staggerIndex(index)}
+                  >
+                    <span className={styles.stepNumber} aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <h3 className={styles.stepTitle}>{step.title}</h3>
+                      <p className={styles.stepText}>{step.description}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          </FadeUp>
 
-          <section className={styles.block} aria-labelledby="o-que-inclui">
-            <h2 id="o-que-inclui" className={styles.blockTitle}>
-              O que está incluído
-            </h2>
-            <ul className={serviceStyles.highlights}>
-              {page.includes.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </section>
+          <FadeUp>
+            <section className={styles.block} aria-labelledby="o-que-inclui">
+              <h2 id="o-que-inclui" className={styles.blockTitle}>
+                O que está incluído
+              </h2>
+              <ul className={serviceStyles.highlights}>
+                {page.includes.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          </FadeUp>
 
-          <section className={styles.block} aria-labelledby="perguntas">
-            <h2 id="perguntas" className={styles.blockTitle}>
-              Perguntas frequentes sobre {page.name}
-            </h2>
-            <div className={styles.faqList}>
-              {page.faqs.map((faq) => (
-                <details key={faq.question} className={faqStyles.item}>
-                  <summary className={faqStyles.question}>{faq.question}</summary>
-                  <p className={faqStyles.answer}>{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-          </section>
+          <FadeUp>
+            <section className={styles.block} aria-labelledby="perguntas">
+              <h2 id="perguntas" className={styles.blockTitle}>
+                Perguntas frequentes sobre {page.name}
+              </h2>
+              <div className={styles.faqList}>
+                {page.faqs.map((faq) => (
+                  <details key={faq.question} className={faqStyles.item}>
+                    <summary className={faqStyles.question}>{faq.question}</summary>
+                    <p className={faqStyles.answer}>{faq.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          </FadeUp>
 
           <div className={serviceStyles.actions}>
             <OpenProposalButton>{page.ctaLabel}</OpenProposalButton>

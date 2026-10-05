@@ -1,94 +1,56 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
+export type RevealVariant = "up" | "fade" | "scale" | "blur";
 
 interface FadeUpProps {
   children: ReactNode;
   className?: string;
   delay?: number;
   id?: string;
+  variant?: RevealVariant;
+  /** Anima os filhos marcados com `reveal-item` (e `--i`) em sequência, em vez do bloco inteiro. */
+  stagger?: boolean;
+  /** Quantidade aproximada de filhos escalonados — define quando a animação termina. */
+  staggerCount?: number;
   onVisible?: () => void;
 }
 
-function isElementInViewport(element: HTMLElement): boolean {
-  const rect = element.getBoundingClientRect();
-  const viewHeight = window.innerHeight || document.documentElement.clientHeight;
-  return rect.top < viewHeight * 0.95 && rect.bottom > 0;
-}
+const BASE_DURATION_MS = 800;
+const STAGGER_STEP_MS = 80;
 
 export function FadeUp({
   children,
   className = "",
   delay = 0,
   id,
+  variant = "up",
+  stagger = false,
+  staggerCount = 6,
   onVisible,
 }: FadeUpProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const onVisibleRef = useRef(onVisible);
-  onVisibleRef.current = onVisible;
+  const delayMs = Math.round(delay * 1000);
+  const settleAfterMs =
+    BASE_DURATION_MS + delayMs + (stagger ? staggerCount * STAGGER_STEP_MS : 0);
 
-  // Visível por padrão — conteúdo nunca fica em branco se JS falhar
-  const [isVisible, setIsVisible] = useState(true);
-  const [shouldAnimate, setShouldAnimate] = useState(false);
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    const reveal = () => {
-      setIsVisible(true);
-      onVisibleRef.current?.();
-    };
-
-    const inView = isElementInViewport(element);
-
-    if (inView) {
-      reveal();
-      return;
-    }
-
-    setShouldAnimate(true);
-    setIsVisible(false);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            reveal();
-            observer.disconnect();
-            break;
-          }
-        }
-      },
-      { threshold: 0.05, rootMargin: "0px 0px -2% 0px" },
-    );
-
-    observer.observe(element);
-
-    const fallbackTimer = window.setTimeout(reveal, 600);
-
-    return () => {
-      observer.disconnect();
-      window.clearTimeout(fallbackTimer);
-    };
-  }, []);
+  const { ref, state } = useScrollReveal<HTMLDivElement>({ settleAfterMs, onReveal: onVisible });
 
   const classes = [
-    "fade-up",
-    shouldAnimate && !isVisible ? "fade-up--hidden" : "",
-    isVisible ? "visible" : "",
+    "reveal",
+    stagger ? "reveal--stagger" : "",
+    state === "armed" ? "is-armed" : "",
+    state === "revealing" ? "is-revealing" : "",
     className,
   ]
     .filter(Boolean)
     .join(" ");
 
+  const style = delayMs ? ({ "--reveal-delay": `${delayMs}ms` } as CSSProperties) : undefined;
+
   return (
-    <div
-      ref={ref}
-      id={id}
-      className={classes}
-      style={delay && isVisible ? { transitionDelay: `${delay}s` } : undefined}
-    >
+    <div ref={ref} id={id} className={classes} data-variant={variant} style={style}>
       {children}
     </div>
   );

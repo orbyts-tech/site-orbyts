@@ -75,18 +75,24 @@ export const HERO_STATS = [
     label: "Projetos entregues",
     highlightPrefix: "+",
     highlightSuffix: String(projectsDelivered),
+    countTo: projectsDelivered,
+    countedPart: "suffix",
   },
   {
     value: `${onTimeDeliveryRate}%`,
     label: "Entregas no prazo",
     highlightPrefix: String(onTimeDeliveryRate),
     highlightSuffix: "%",
+    countTo: onTimeDeliveryRate,
+    countedPart: "prefix",
   },
   {
     value: `${yearsInMarket} anos`,
     label: "De mercado",
     highlightPrefix: String(yearsInMarket),
     highlightSuffix: " anos",
+    countTo: yearsInMarket,
+    countedPart: "prefix",
   },
 ] as const;
 
