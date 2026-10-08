@@ -129,6 +129,10 @@
   border-color: var(--border-glow);
 }
 
+.contact {
+  margin: 4rem calc(-1 * var(--page-padding-x)) 0;
+}
+
 @media (min-width: 768px) {
   .main {
     padding-top: calc(var(--nav-height) + 3.5rem);

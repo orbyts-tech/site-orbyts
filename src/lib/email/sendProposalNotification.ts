@@ -1,9 +1,9 @@
 import "server-only";
 
-import type { z } from "zod";
 import { SITE } from "@/config/site";
-import { proposalSchema } from "@/lib/schemas/proposal.server";
-import { getInvestmentLabel } from "@/lib/validation/validateProposalStep";
+import { getInvestmentLabel, getSolutionLabel } from "@/lib/constants/proposal";
+import { formatBrazilianPhone } from "@/lib/formatters/phone";
+import type { ProposalPayload } from "@/lib/schemas/proposal.schema";
 import {
   getMailFromAddress,
   getMailTransporter,
@@ -12,56 +12,74 @@ import {
   isEmailConfigured,
 } from "@/lib/email/getMailTransporter";
 
-type ProposalPayload = z.infer<typeof proposalSchema>;
+type ProposalLead = Omit<ProposalPayload, "website">;
 
-function buildProposalEmailContent(data: ProposalPayload) {
-  const investmentLabel = getInvestmentLabel(data.investment);
+const HTML_ESCAPES: Record<string, string> = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+};
+
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (character) => HTML_ESCAPES[character] ?? character);
+}
+
+function buildProposalEmailContent(lead: ProposalLead) {
+  const whatsappDisplay = formatBrazilianPhone(lead.whatsapp);
+  const whatsappLink = `https://wa.me/55${lead.whatsapp}`;
+  const details = lead.details || "Não informado.";
+
+  const rows: ReadonlyArray<readonly [string, string]> = [
+    ["Nome", lead.fullName],
+    ["E-mail", lead.email],
+    ["WhatsApp", whatsappDisplay],
+    ["Empresa", lead.company],
+    ["Cargo", lead.jobTitle],
+    ["Solução", getSolutionLabel(lead.solution)],
+    ["Investimento", getInvestmentLabel(lead.investment)],
+  ];
 
   const text = [
     "Nova solicitação de proposta pelo site:",
     "",
-    `Nome: ${data.fullName}`,
-    `Telefone: ${data.phone}`,
-    `E-mail: ${data.email}`,
-    `Investimento: ${investmentLabel}`,
+    ...rows.map(([label, value]) => `${label}: ${value}`),
+    `Link WhatsApp: ${whatsappLink}`,
     "",
-    "Escopo do projeto:",
-    data.scope,
+    "Detalhes do projeto:",
+    details,
   ].join("\n");
 
   const html = `
     <h2>Nova solicitação de proposta pelo site</h2>
-    <p><strong>Nome:</strong> ${data.fullName}</p>
-    <p><strong>Telefone:</strong> ${data.phone}</p>
-    <p><strong>E-mail:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
-    <p><strong>Investimento:</strong> ${investmentLabel}</p>
-    <h3>Escopo do projeto</h3>
-    <p>${data.scope.replace(/\n/g, "<br>")}</p>
+    ${rows.map(([label, value]) => `<p><strong>${label}:</strong> ${escapeHtml(value)}</p>`).join("\n")}
+    <p><a href="${whatsappLink}">Abrir conversa no WhatsApp</a></p>
+    <h3>Detalhes do projeto</h3>
+    <p>${escapeHtml(details).replace(/\n/g, "<br>")}</p>
   `.trim();
 
-  return { text, html, investmentLabel };
+  return { text, html };
 }
 
-export async function sendProposalNotification(
-  data: ProposalPayload,
-): Promise<void> {
+export async function sendProposalNotification(lead: ProposalLead): Promise<void> {
   if (!isEmailConfigured()) {
     throw new Error(
       "E-mail não configurado. Defina RESEND_API_KEY no .env.local.",
     );
   }
 
-  const { text, html } = buildProposalEmailContent(data);
+  const { text, html } = buildProposalEmailContent(lead);
   const to = getProposalNotificationEmail();
   const from = getMailFromAddress();
-  const subject = `[Proposta] ${data.fullName}`;
+  const subject = `[Proposta] ${lead.fullName} — ${lead.company}`;
 
   const resend = getResendClient();
   if (resend) {
     const { error } = await resend.emails.send({
       from,
       to: [to],
-      replyTo: data.email,
+      replyTo: lead.email,
       subject,
       text,
       html,
@@ -81,7 +99,7 @@ export async function sendProposalNotification(
   await transporter.sendMail({
     from: from.includes("<") ? from : `${SITE.name} Site <${from}>`,
     to,
-    replyTo: data.email,
+    replyTo: lead.email,
     subject,
     text,
     html,

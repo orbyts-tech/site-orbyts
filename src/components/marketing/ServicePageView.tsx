@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { ServicePageContent } from "@/lib/seo/service-pages";
-import { ProposalFormProvider } from "@/components/proposal/ProposalFormContext";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { OpenProposalButton } from "@/components/proposal/OpenProposalButton";
+import { CtaSection } from "@/components/sections/CtaSection";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
 import { WebPageJsonLd } from "@/components/seo/WebPageJsonLd";
@@ -20,7 +20,7 @@ export function ServicePageView({ page }: ServicePageViewProps) {
   const path = `/${page.slug}`;
 
   return (
-    <ProposalFormProvider>
+    <>
       <WebPageJsonLd path={path} title={page.title} description={page.description} />
       <ServiceJsonLd serviceName={page.title} description={page.description} path={path} />
       <BreadcrumbJsonLd
@@ -72,8 +72,11 @@ export function ServicePageView({ page }: ServicePageViewProps) {
             </Link>
           </div>
         </article>
+        <div className={styles.contact}>
+          <CtaSection />
+        </div>
       </main>
       <Footer />
-    </ProposalFormProvider>
+    </>
   );
 }

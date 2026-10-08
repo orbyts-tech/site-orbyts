@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { isEmailConfigured } from "@/lib/email/getMailTransporter";
 import { sendProposalNotification } from "@/lib/email/sendProposalNotification";
-import { proposalSchema } from "@/lib/schemas/proposal.server";
+import { proposalSchema } from "@/lib/schemas/proposal.schema";
 
 export async function POST(request: Request) {
   try {
@@ -28,7 +28,13 @@ export async function POST(request: Request) {
       );
     }
 
-    await sendProposalNotification(parsed.data);
+    const { website: honeypot, ...lead } = parsed.data;
+
+    if (honeypot) {
+      return NextResponse.json({ success: true });
+    }
+
+    await sendProposalNotification(lead);
 
     return NextResponse.json({ success: true });
   } catch (error) {

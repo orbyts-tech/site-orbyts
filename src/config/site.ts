@@ -52,7 +52,7 @@ export const SITE = {
     phone: "+5551989573146",
     phoneDisplay: "+55 51 98957-3146",
     whatsapp: "https://wa.me/5551989573146",
-    whatsappQuoteMessage: "Vim do seu site, quero um orçamento!",
+    whatsappQuoteMessage: "Vim do site de vocês, quero fazer o orçamento de um projeto!",
   },
   services: [
     "Desenvolvimento de sistemas web",
@@ -74,6 +74,10 @@ export const SITE = {
   ],
   themeColor: "#339A62",
   logoPath: "/logo-orbyts.webp",
+  analytics: {
+    googleAdsId: "AW-18501575118",
+    leadConversionLabel: process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL ?? "",
+  },
 } as const;
 
 /** Data da última revisão relevante de conteúdo — usada no sitemap e no llms.txt. */

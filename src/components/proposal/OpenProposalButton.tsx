@@ -1,22 +1,21 @@
-"use client";
-
 import type { ReactNode } from "react";
-import { useProposalForm } from "./ProposalFormContext";
 import buttonStyles from "@/components/ui/Button.module.css";
+
+export const PROPOSAL_SECTION_HREF = "#contato";
 
 interface OpenProposalButtonProps {
   children: ReactNode;
   className?: string;
   variant?: "primary" | "ghost" | "nav";
+  onClick?: () => void;
 }
 
 export function OpenProposalButton({
   children,
   className = "",
   variant = "primary",
+  onClick,
 }: OpenProposalButtonProps) {
-  const { openProposalForm } = useProposalForm();
-
   const variantClass =
     variant === "ghost" || variant === "nav"
       ? buttonStyles.ghost
@@ -28,13 +27,13 @@ export function OpenProposalButton({
       : className;
 
   return (
-    <button
-      type="button"
+    <a
+      href={PROPOSAL_SECTION_HREF}
       className={`${variantClass} ${extraClass}`.trim()}
       data-magnetic={variant === "ghost" ? undefined : ""}
-      onClick={openProposalForm}
+      onClick={onClick}
     >
       {children}
-    </button>
+    </a>
   );
 }

@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { ModelPageContent } from "@/lib/seo/model-pages";
 import { MODEL_PAGES } from "@/lib/seo/model-pages";
-import { ProposalFormProvider } from "@/components/proposal/ProposalFormContext";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { OpenProposalButton } from "@/components/proposal/OpenProposalButton";
+import { CtaSection } from "@/components/sections/CtaSection";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { ServiceJsonLd } from "@/components/seo/ServiceJsonLd";
@@ -25,7 +25,7 @@ export function ModelPageView({ page }: ModelPageViewProps) {
   const otherModels = MODEL_PAGES.filter((model) => model.slug !== page.slug);
 
   return (
-    <ProposalFormProvider>
+    <>
       <WebPageJsonLd path={path} title={page.metaTitle} description={page.metaDescription} />
       <ServiceJsonLd serviceName={page.name} description={page.summary} path={path} />
       <FaqJsonLd items={page.faqs} />
@@ -147,8 +147,11 @@ export function ModelPageView({ page }: ModelPageViewProps) {
             </ul>
           </nav>
         </article>
+        <div className={serviceStyles.contact}>
+          <CtaSection />
+        </div>
       </main>
       <Footer />
-    </ProposalFormProvider>
+    </>
   );
 }

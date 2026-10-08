@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { NAV_LINKS } from "@/lib/constants/content";
 import { OrbytsLogo } from "@/components/ui/OrbytsLogo";
-import { OpenProposalButton } from "@/components/proposal/OpenProposalButton";
-import { useProposalForm } from "@/components/proposal/ProposalFormContext";
+import {
+  OpenProposalButton,
+  PROPOSAL_SECTION_HREF,
+} from "@/components/proposal/OpenProposalButton";
 import { staggerIndex } from "@/lib/motion";
 import { useNavbarScroll } from "@/hooks/useNavbarScroll";
 import styles from "./Navbar.module.css";
@@ -40,7 +42,6 @@ function MenuIcon({ isOpen }: { isOpen: boolean }) {
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { openProposalForm } = useProposalForm();
   const { isScrolled, isHidden } = useNavbarScroll(isMenuOpen);
 
   const navClassName = [
@@ -52,11 +53,6 @@ export function Navbar() {
     .join(" ");
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
-
-  const handleProposalClick = () => {
-    closeMenu();
-    openProposalForm();
-  };
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
@@ -126,9 +122,9 @@ export function Navbar() {
                 </li>
               ))}
             </ul>
-            <button type="button" className={styles.mobileCta} onClick={handleProposalClick}>
+            <a href={PROPOSAL_SECTION_HREF} className={styles.mobileCta} onClick={closeMenu}>
               Solicitar Proposta
-            </button>
+            </a>
           </div>
         </div>
       ) : null}

@@ -1,5 +1,5 @@
 import { FadeUp } from "@/components/ui/FadeUp";
-import { CtaSectionActions } from "./CtaSectionActions";
+import { ProposalForm } from "@/components/proposal/ProposalForm";
 import styles from "./CtaSection.module.css";
 
 export function CtaSection() {
@@ -11,10 +11,10 @@ export function CtaSection() {
           <span className={styles.accent}>entregue no prazo.</span>
         </h2>
         <p className={styles.subtitle}>
-          Deixe-nos entender seu desafio. Em 24h retornamos com uma avaliação técnica e estimativa
-          financeira.
+          Preencha o formulário e conte qual é o seu desafio. Em até 24h retornamos com uma
+          avaliação técnica e estimativa financeira.
         </p>
-        <CtaSectionActions />
+        <ProposalForm />
       </section>
     </FadeUp>
   );

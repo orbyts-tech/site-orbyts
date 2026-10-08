@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/lib/constants/projects";
 import { getProjectImageUrl, isExternalProjectUrl } from "@/lib/constants/projects";
-import { ProposalFormProvider } from "@/components/proposal/ProposalFormContext";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { OpenProposalButton } from "@/components/proposal/OpenProposalButton";
+import { CtaSection } from "@/components/sections/CtaSection";
 import { FadeUp } from "@/components/ui/FadeUp";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { PortfolioJsonLd } from "@/components/seo/PortfolioJsonLd";
@@ -23,7 +23,7 @@ interface PortfolioViewProps {
 
 export function PortfolioView({ projects, title, description }: PortfolioViewProps) {
   return (
-    <ProposalFormProvider>
+    <>
       <WebPageJsonLd path="/portfolio" title={title} description={description} />
       <PortfolioJsonLd projects={projects} />
       <BreadcrumbJsonLd
@@ -111,8 +111,11 @@ export function PortfolioView({ projects, title, description }: PortfolioViewPro
             </Link>
           </div>
         </div>
+        <div className={serviceStyles.contact}>
+          <CtaSection />
+        </div>
       </main>
       <Footer />
-    </ProposalFormProvider>
+    </>
   );
 }

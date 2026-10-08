@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { GoogleAdsTag } from "@/components/analytics/GoogleAdsTag";
 import { DotGridLazy } from "@/components/layout/DotGridLazy";
 import { PointerEffects } from "@/components/motion/PointerEffects";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <OrganizationJsonLd />
         <PointerEffects />
         {children}
+        <GoogleAdsTag />
       </body>
     </html>
   );
