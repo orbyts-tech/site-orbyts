@@ -219,7 +219,7 @@ export function QualificationForm({ config }: { config: QualificationConfig }) {
         service: config.product,
         form: "qualification",
       });
-      trackLeadConversion();
+      trackLeadConversion({ contentName: config.product });
       setStep("done");
     } catch (submitError) {
       setError(

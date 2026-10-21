@@ -30,8 +30,8 @@ export function trackConfirmedLead(params: { eventId: string; leadId: string; se
     service: params.service,
     budget_range: params.budget,
   });
-  // Conversão do Google Ads já configurada no site (SITE.analytics).
-  trackLeadConversion();
+  // Google Ads + Meta Pixel Lead (SITE.analytics).
+  trackLeadConversion({ contentName: params.service });
 }
 
 const STORAGE_KEY = "orbyts_lp_attribution";

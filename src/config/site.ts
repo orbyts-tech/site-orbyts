@@ -77,6 +77,7 @@ export const SITE = {
   analytics: {
     googleAdsId: "AW-18501575118",
     leadConversionLabel: process.env.NEXT_PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL ?? "",
+    metaPixelId: "1768242021097933",
   },
 } as const;
 
