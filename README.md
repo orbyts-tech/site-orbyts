@@ -63,9 +63,21 @@ npm start
 NEXT_PUBLIC_SITE_URL=https://orbyts.com.br
 RESEND_API_KEY=re_xxxxxxxx
 PROPOSAL_NOTIFICATION_EMAIL=comercial@orbytstech.com
-# Opcional (após verificar domínio no Resend):
-# RESEND_FROM="ORBYTS Site <comercial@orbytstech.com>"
+# Obrigatório anti-spam (após verificar orbytstech.com no Resend):
+RESEND_FROM="ORBYTS <noreply@orbytstech.com>"
 ```
+
+### Evitar spam nos e-mails de lead
+
+Sem `RESEND_FROM`, o Resend envia de `onboarding@resend.dev` e o Gmail/Outlook classificam como spam.
+
+1. Em [resend.com/domains](https://resend.com/domains), adicione `orbytstech.com`
+2. Publique os DNS pedidos (SPF + DKIM; DMARC recomendado)
+3. Espere o domínio ficar **Verified**
+4. Defina `RESEND_FROM="ORBYTS <noreply@orbytstech.com>"` no `.env.local` e na Hostinger
+5. Reinicie o app / faça novo deploy
+
+Use `noreply@` (ou `leads@`) como remetente. O destino continua sendo `comercial@orbytstech.com`.
 
 ## Deploy na Hostinger (Node.js)
 

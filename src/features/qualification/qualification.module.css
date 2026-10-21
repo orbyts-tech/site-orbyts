@@ -1,0 +1,379 @@
+.shell {
+  position: relative;
+  min-height: 100dvh;
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.backgroundImage {
+  object-fit: cover;
+  object-position: center 42%;
+  filter: blur(6px);
+  transform: scale(1.05);
+}
+
+/* Mesma densidade visual do hero, invertida para o formato Typeform (texto claro). */
+.backgroundOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    165deg,
+    rgba(9, 20, 16, 0.72) 0%,
+    rgba(9, 20, 16, 0.58) 42%,
+    rgba(15, 23, 20, 0.78) 100%
+  );
+}
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--green, #339a62);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.brand {
+  position: fixed;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: grid;
+  place-items: center;
+}
+
+.brandLogo {
+  height: 28px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.screen {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5.5rem 1.25rem 6.5rem;
+}
+
+.panel {
+  width: min(100%, 40rem);
+  animation: panel-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+}
+
+.welcomeTitle {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(1.85rem, 5vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin: 0 0 1.25rem;
+}
+
+.welcomeIntro,
+.helper,
+.notice,
+.successBody {
+  font-size: clamp(1rem, 2.4vw, 1.125rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0 0 1.25rem;
+}
+
+.helper {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.questionMeta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.questionNumber {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  padding: 0 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 4px;
+  font-size: 0.8125rem;
+}
+
+.questionArrow {
+  color: var(--green, #339a62);
+}
+
+.questionTitle {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(1.35rem, 3.8vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  margin: 0 0 0.85rem;
+}
+
+.requiredMark {
+  color: var(--green-light, #45b075);
+}
+
+.support {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.68);
+  margin: 0 0 1.5rem;
+}
+
+.options {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.option:hover,
+.option:focus-visible {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+
+.optionSelected {
+  border-color: var(--green, #339a62);
+  background: rgba(51, 154, 98, 0.22);
+}
+
+.optionKey {
+  flex-shrink: 0;
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.underlineField {
+  display: grid;
+  gap: 0.45rem;
+  margin-bottom: 1.35rem;
+}
+
+.underlineLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.underlineInput,
+.underlineTextarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 1.125rem;
+  padding: 0.65rem 0;
+  outline: none;
+  resize: none;
+}
+
+.underlineInput::placeholder,
+.underlineTextarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.underlineInput:focus,
+.underlineTextarea:focus {
+  border-bottom-color: #fff;
+}
+
+.underlineInput[aria-invalid="true"],
+.underlineTextarea[aria-invalid="true"] {
+  border-bottom-color: #f87171;
+}
+
+.error {
+  margin: 0.35rem 0 0;
+  color: #fca5a5;
+  font-size: 0.875rem;
+}
+
+.okRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.okButton,
+.startButton {
+  appearance: none;
+  border: none;
+  border-radius: 4px;
+  background: var(--green, #339a62);
+  color: #fff;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.8rem 1.35rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.okButton:hover:not(:disabled),
+.startButton:hover:not(:disabled) {
+  background: var(--green-dark, #2b7d50);
+  transform: translateY(-1px);
+}
+
+.okButton:disabled,
+.startButton:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.enterHint {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.nav {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  display: flex;
+  gap: 0.35rem;
+}
+
+.navButton {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f1714;
+  cursor: pointer;
+}
+
+.navButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.navButtonPrimary {
+  background: var(--green, #339a62);
+  color: #fff;
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.successTitle {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  margin: 0 0 1rem;
+}
+
+.notice {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .screen {
+    padding: 6.5rem 2rem 7rem;
+  }
+
+  .brandLogo {
+    height: 32px;
+  }
+
+  .nav {
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .progressFill,
+  .option,
+  .okButton,
+  .startButton {
+    animation: none;
+    transition: none;
+  }
+}
