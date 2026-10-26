@@ -352,6 +352,16 @@
   font-size: 0.875rem;
 }
 
+.noticeLink {
+  color: var(--green-light, #45b075);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.noticeLink:hover {
+  color: #fff;
+}
+
 @media (min-width: 768px) {
   .screen {
     padding: 6.5rem 2rem 7rem;

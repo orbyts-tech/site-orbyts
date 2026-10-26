@@ -135,5 +135,6 @@ export const FOOTER_LINKS = {
     { href: "/#processo", label: "Processo" },
     { href: "/#faq", label: "FAQ" },
     { href: "/#contato", label: "Contato" },
+    { href: "/politica-de-privacidade", label: "Privacidade" },
   ],
 } as const;

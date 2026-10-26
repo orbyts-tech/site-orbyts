@@ -1,0 +1,80 @@
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  background: #0f1714;
+  color: rgba(255, 255, 255, 0.86);
+  padding: 4rem 1.25rem 5rem;
+}
+
+.content {
+  width: min(100%, 46rem);
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.content h2 {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 2.25rem 0 0.75rem;
+}
+
+.content p {
+  margin: 0 0 1rem;
+}
+
+.content ul {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.content li {
+  margin-bottom: 0.6rem;
+}
+
+.content strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.content a {
+  color: var(--green-light, #45b075);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.content a:hover {
+  color: #fff;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  text-decoration: none !important;
+}
+
+.title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  color: #fff;
+  margin: 0 0 0.5rem;
+}
+
+.updated {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 2rem !important;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 5.5rem 2rem 6rem;
+  }
+}

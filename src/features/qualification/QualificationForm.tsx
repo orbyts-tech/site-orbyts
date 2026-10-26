@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { OrbytsLogo } from "@/components/ui/OrbytsLogo";
-import { trackLeadConversion } from "@/lib/analytics/trackLeadConversion";
+import { trackLeadConversion, trackQualifiedLead } from "@/lib/analytics/trackLeadConversion";
 import { formatBrazilianPhone } from "@/lib/formatters/phone";
 import { newEventId, readAttribution, trackEvent } from "@/features/landing/tracking";
 import {
@@ -50,6 +50,13 @@ const EMPTY: QualificationDraft = {
   email: "",
   website: "",
 };
+
+/** Pré-qualificado: investimento compatível (ou a esclarecer) e quem decide, sozinho ou com outra pessoa. */
+function isPreQualified(draft: QualificationDraft): boolean {
+  const investmentOk = draft.investment === "dentro" || draft.investment === "entender-escopo";
+  const decisionOk = draft.decision === "decido" || draft.decision === "junto";
+  return investmentOk && decisionOk;
+}
 
 function questionNumber(step: StepId): number {
   return QUESTION_STEPS.indexOf(step) + 1;
@@ -219,7 +226,16 @@ export function QualificationForm({ config }: { config: QualificationConfig }) {
         service: config.product,
         form: "qualification",
       });
-      trackLeadConversion({ contentName: config.product });
+      trackLeadConversion({ contentName: config.product, eventId });
+      if (isPreQualified(draft)) {
+        trackEvent("generate_qualified_lead", {
+          event_id: eventId,
+          lead_id: result.leadId ?? "",
+          service: config.product,
+          form: "qualification",
+        });
+        trackQualifiedLead({ contentName: config.product, eventId });
+      }
       setStep("done");
     } catch (submitError) {
       setError(
@@ -520,7 +536,18 @@ export function QualificationForm({ config }: { config: QualificationConfig }) {
               />
             </div>
 
-            <p className={styles.notice}>{config.contactNotice}</p>
+            <p className={styles.notice}>
+              {config.contactNotice} Saiba mais na{" "}
+              <a
+                href="/politica-de-privacidade"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.noticeLink}
+              >
+                Política de Privacidade
+              </a>
+              .
+            </p>
             {error ? <p className={styles.error}>{error}</p> : null}
 
             <div className={styles.okRow}>
